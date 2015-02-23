@@ -19,7 +19,7 @@ public class Unit implements Serializable {
 	@Column(name = "unit_id")
 	private Long id;
 	
-	@Column(name = "description", nullable = false)
+	@Column(name = "description", nullable = false, length = 100)
 	private String description;
 	
 	public Unit() {

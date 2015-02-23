@@ -25,11 +25,17 @@ public class Calculation implements Serializable {
 	@Column(name = "calculation_id")
 	private Long id;
 	
-	@Column(name = "description", nullable = false)
+	@Column(name = "description", nullable = false, length = 100)
 	private String revision;
 	
-	@Column(name = "result", nullable = false)
-	private Double result;
+	@Column(name = "lsc", nullable = false)
+	private Double lsc;
+	
+	@Column(name = "lc", nullable = false)
+	private Double lc;
+	
+	@Column(name = "lic", nullable = false)
+	private Double lic;
 	
 	@Column(name = "calculation_type", nullable = false)
 	@Enumerated(EnumType.ORDINAL)
@@ -47,12 +53,24 @@ public class Calculation implements Serializable {
 		super();
 	}
 
-	public Calculation(String revision, Double result, CalculationType type, Representation representation, List<Value> values) {
+	public Calculation(String revision, Double lsc, Double lc, Double lic, CalculationType type, Representation representation, List<Value> values) {
 		this.revision = revision;
-		this.result = result;
+		this.lsc = lsc;
+		this.lc = lc;
+		this.lic = lic;
 		this.type = type;
 		this.representation = representation;
 		this.values = values;
+	}
+
+
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getRevision() {
@@ -63,12 +81,28 @@ public class Calculation implements Serializable {
 		this.revision = revision;
 	}
 
-	public Double getResult() {
-		return result;
+	public Double getLsc() {
+		return lsc;
 	}
 
-	public void setResult(Double result) {
-		this.result = result;
+	public void setLsc(Double lsc) {
+		this.lsc = lsc;
+	}
+
+	public Double getLc() {
+		return lc;
+	}
+
+	public void setLc(Double lc) {
+		this.lc = lc;
+	}
+
+	public Double getLic() {
+		return lic;
+	}
+
+	public void setLic(Double lic) {
+		this.lic = lic;
 	}
 
 	public CalculationType getType() {
@@ -86,11 +120,11 @@ public class Calculation implements Serializable {
 	public void setRepresentation(Representation representation) {
 		this.representation = representation;
 	}
-	
+
 	public List<Value> getValues() {
 		return values;
 	}
-	
+
 	public void setValues(List<Value> values) {
 		this.values = values;
 	}

@@ -24,10 +24,10 @@ public class Item implements Serializable {
 	@Column(name = "revision", nullable = false)
 	private Integer revision;
 	
-	@Column(name = "process", nullable = false)
+	@Column(name = "process", nullable = false, length = 100)
 	private String process;
 	
-	@Column(name = "activity", nullable = false)
+	@Column(name = "activity", nullable = false, length = 100)
 	private String activity;
 	
 	@ManyToOne

@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,23 +33,23 @@ public class Collect implements Serializable {
 	@Column(name = "amount", nullable = false)
 	private Integer amount;
 	
+	@ManyToOne
+	@JoinColumn(name = "item", nullable = false)
+	private Item item;
+	
 	@OneToMany
 	@JoinColumn(name = "sample")
 	private List<Sample> samples;
-	
-	@OneToMany
-	@JoinColumn(name = "item")
-	private List<Item> items;
 	
 	public Collect() {
 		super();
 	}
 
-	public Collect(Date start_date, Integer amount, List<Sample> samples, List<Item> items) {
+	public Collect(Date start_date, Integer amount, Item item, List<Sample> samples) {
 		this.start_date = start_date;
 		this.amount = amount;
+		this.item = item;
 		this.samples = samples;
-		this.items = items;
 	}
 
 	public Long getId() {
@@ -74,6 +75,14 @@ public class Collect implements Serializable {
 	public void setAmount(Integer amount) {
 		this.amount = amount;
 	}
+	
+	public Item getItem() {
+		return item;
+	}
+	
+	public void setItem(Item item) {
+		this.item = item;
+	}
 
 	public List<Sample> getSamples() {
 		return samples;
@@ -81,14 +90,6 @@ public class Collect implements Serializable {
 
 	public void setSamples(List<Sample> samples) {
 		this.samples = samples;
-	}
-
-	public List<Item> getItems() {
-		return items;
-	}
-
-	public void setItems(List<Item> items) {
-		this.items = items;
 	}
 
 }

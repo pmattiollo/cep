@@ -8,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity(name = "sample")
 public class Sample implements Serializable {
@@ -25,14 +27,15 @@ public class Sample implements Serializable {
 	@Column(name = "value", nullable = false)
 	private Double value;
 	
-	@Column(name = "unit", nullable = false)
-	private String unit;
+	@ManyToOne
+	@JoinColumn(name = "unit", nullable = false)
+	private Unit unit;
 	
 	public Sample() {
 		super();
 	}
 
-	public Sample(Integer number, Double value, String unit) {
+	public Sample(Integer number, Double value, Unit unit) {
 		this.number = number;
 		this.value = value;
 		this.unit = unit;
@@ -62,11 +65,11 @@ public class Sample implements Serializable {
 		this.value = value;
 	}
 
-	public String getUnit() {
+	public Unit getUnit() {
 		return unit;
 	}
 
-	public void setUnit(String unit) {
+	public void setUnit(Unit unit) {
 		this.unit = unit;
 	}
 
