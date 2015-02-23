@@ -6,6 +6,13 @@
 		<non-jta-data-source>java:jboss/datasources/ExampleDS</non-jta-data-source>
 
 		<class>br.com.furb.pmattiollo.tcc.domain.Bookmark</class>
+		<class>br.com.furb.pmattiollo.tcc.domain.Calculation</class>
+		<class>br.com.furb.pmattiollo.tcc.domain.Collect</class>
+		<class>br.com.furb.pmattiollo.tcc.domain.Item</class>
+		<class>br.com.furb.pmattiollo.tcc.domain.ItemType</class>
+		<class>br.com.furb.pmattiollo.tcc.domain.Representation</class>
+		<class>br.com.furb.pmattiollo.tcc.domain.Sample</class>
+		<class>br.com.furb.pmattiollo.tcc.domain.Unit</class>
 
 		<properties>
 	       	<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/cep"/>
