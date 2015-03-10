@@ -1,6 +1,6 @@
-package br.com.furb.pmattiollo.tcc.domain;
+package br.com.furb.pmattiollo.tcc.constant;
 
-public enum CalculationType {
+public enum CalculationEnum {
 	
 	XI(1, "Gráfico X-Barra Individual"),
 	MMEP(2, "Gráfico Média Móvel Exponencial Ponderada"),
@@ -9,7 +9,7 @@ public enum CalculationType {
 	private Integer code;
 	private String description;
 	
-	private CalculationType(Integer code, String description) {
+	private CalculationEnum(Integer code, String description) {
 		this.code = code;
 		this.description = description;
 	}	
@@ -22,14 +22,14 @@ public enum CalculationType {
 		return description;
 	}
 	
-	public static CalculationType getCalculationTypeByCode(Integer code) {
+	public static CalculationEnum getCalculationTypeByCode(Integer code) {
 		switch (code) {
 		case 1:
-			return CalculationType.XI;
+			return CalculationEnum.XI;
 		case 2:
-			return CalculationType.MMEP;
+			return CalculationEnum.MMEP;
 		case 3:
-			return CalculationType.DEF;
+			return CalculationEnum.DEF;
 		default:
 			return null;
 		}

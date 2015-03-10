@@ -5,14 +5,14 @@ import static javax.persistence.GenerationType.SEQUENCE;
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
-@Entity(name = "sample")
-public class Sample implements Serializable {
+@MappedSuperclass
+public abstract class Sample implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -29,13 +29,13 @@ public class Sample implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "unit", nullable = false)
-	private Unit unit;
+	private UnitEntity unit;
 	
 	public Sample() {
 		super();
 	}
 
-	public Sample(Integer number, Double value, Unit unit) {
+	public Sample(Integer number, Double value, UnitEntity unit) {
 		this.number = number;
 		this.value = value;
 		this.unit = unit;
@@ -69,7 +69,7 @@ public class Sample implements Serializable {
 		return unit;
 	}
 
-	public void setUnit(Unit unit) {
+	public void setUnit(UnitEntity unit) {
 		this.unit = unit;
 	}
 

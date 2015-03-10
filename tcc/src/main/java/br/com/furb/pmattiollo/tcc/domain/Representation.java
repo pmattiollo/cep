@@ -5,14 +5,14 @@ import static javax.persistence.GenerationType.SEQUENCE;
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
-@Entity(name = "representation")
-public class Representation implements Serializable {
+@MappedSuperclass
+public abstract class Representation implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -23,13 +23,13 @@ public class Representation implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "item", nullable = false)
-	private Item item;
+	private ItemEntity item;
 	
 	public Representation() {
 		super();
 	}
 	
-	public Representation(Item item) {
+	public Representation(ItemEntity item) {
 		this.item = item;
 	}
 
@@ -41,11 +41,11 @@ public class Representation implements Serializable {
 		this.id = id;
 	}
 
-	public Item getItem() {
+	public ItemEntity getItem() {
 		return item;
 	}
 	
-	public void setItem(Item item) {
+	public void setItem(ItemEntity item) {
 		this.item = item;
 	}
 

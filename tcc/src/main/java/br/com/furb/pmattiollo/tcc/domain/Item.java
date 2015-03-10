@@ -5,14 +5,14 @@ import static javax.persistence.GenerationType.SEQUENCE;
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
-@Entity(name = "item")
-public class Item implements Serializable {
+@MappedSuperclass
+public abstract class Item implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -32,13 +32,13 @@ public class Item implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "item_type", nullable = false)
-	private ItemType itemType;
+	private ItemTypeEntity itemType;
 	
 	public Item() {
 		super();
 	}
 	
-	public Item(Integer revision, String process, String activity, ItemType itemType) {
+	public Item(Integer revision, String process, String activity, ItemTypeEntity itemType) {
 		this.revision = revision;
 		this.process = process;
 		this.activity = activity;
@@ -77,11 +77,11 @@ public class Item implements Serializable {
 		this.activity = activity;
 	}
 
-	public ItemType getItemType() {
+	public ItemTypeEntity getItemType() {
 		return itemType;
 	}
 
-	public void setItemType(ItemType itemType) {
+	public void setItemType(ItemTypeEntity itemType) {
 		this.itemType = itemType;
 	}
 

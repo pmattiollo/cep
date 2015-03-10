@@ -1,47 +1,48 @@
+
 package br.com.furb.pmattiollo.tcc.view;
 
 import javax.inject.Inject;
-
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractEditPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
-
-import br.com.furb.pmattiollo.tcc.business.BookmarkBC;
-import br.com.furb.pmattiollo.tcc.domain.Bookmark;
+import br.com.furb.pmattiollo.tcc.business.*;
+import br.com.furb.pmattiollo.tcc.domain.*;
 
 @ViewController
-@PreviousView("/bookmark_list.xhtml")
-public class BookmarkEditMB extends AbstractEditPageBean<Bookmark, Long> {
+@PreviousView("./user_list.jsf")
+public class UserEditMB extends AbstractEditPageBean<User, Long> {
 
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private BookmarkBC bookmarkBC;
+	private UserBC userBC;
+	
 
+	
 	@Override
 	@Transactional
 	public String delete() {
-		this.bookmarkBC.delete(getId());
+		this.userBC.delete(getId());
 		return getPreviousView();
 	}
-
+	
 	@Override
 	@Transactional
 	public String insert() {
-		this.bookmarkBC.insert(getBean());
+		this.userBC.insert(this.getBean());
 		return getPreviousView();
 	}
-
+	
 	@Override
 	@Transactional
 	public String update() {
-		this.bookmarkBC.update(getBean());
+		this.userBC.update(this.getBean());
 		return getPreviousView();
 	}
-
+	
 	@Override
-	protected Bookmark handleLoad(Long id) {
-		return this.bookmarkBC.load(id);
-	}
+	protected User handleLoad(Long id) {
+		return this.userBC.load(id);
+	}	
 }

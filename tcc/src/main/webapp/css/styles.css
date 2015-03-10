@@ -17,3 +17,18 @@
 .ui-icon-locale-en{
 	background-image: url("../images/locale_en.png");
 }
+
+.rodape {
+	position:absolute;
+	bottom:0;
+	width:100%;
+	align:center;
+}
+
+.semBorda tr, .semBorda td {  
+    border: none !important;  
+}
+
+.ui-datatable td,.ui-datatable th {  
+    white-space: normal !important;
+}

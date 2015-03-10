@@ -5,12 +5,12 @@ import static javax.persistence.GenerationType.SEQUENCE;
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
-@Entity(name = "user")
-public class User implements Serializable {
+@MappedSuperclass
+public abstract class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	

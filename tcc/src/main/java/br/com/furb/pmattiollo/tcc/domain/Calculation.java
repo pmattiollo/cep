@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
@@ -15,10 +14,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 
-@Entity(name = "calculation")
-public class Calculation implements Serializable {
+import br.com.furb.pmattiollo.tcc.constant.CalculationEnum;
+
+@MappedSuperclass
+public abstract class Calculation implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -41,11 +43,11 @@ public class Calculation implements Serializable {
 	
 	@Column(name = "calculation_type", nullable = false)
 	@Enumerated(EnumType.ORDINAL)
-	private CalculationType type;
+	private CalculationEnum type;
 	
 	@ManyToOne
 	@JoinColumn(name = "representation", nullable = false)
-	private Representation representation;
+	private RepresentationEntity representation;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "calculation")
@@ -55,7 +57,7 @@ public class Calculation implements Serializable {
 		super();
 	}
 
-	public Calculation(String revision, Double lsc, Double lc, Double lic, CalculationType type, Representation representation, List<Value> values) {
+	public Calculation(String revision, Double lsc, Double lc, Double lic, CalculationEnum type, RepresentationEntity representation, List<Value> values) {
 		this.revision = revision;
 		this.lsc = lsc;
 		this.lc = lc;
@@ -107,19 +109,19 @@ public class Calculation implements Serializable {
 		this.lic = lic;
 	}
 
-	public CalculationType getType() {
+	public CalculationEnum getType() {
 		return type;
 	}
 
-	public void setType(CalculationType type) {
+	public void setType(CalculationEnum type) {
 		this.type = type;
 	}
 
-	public Representation getRepresentation() {
+	public RepresentationEntity getRepresentation() {
 		return representation;
 	}
 
-	public void setRepresentation(Representation representation) {
+	public void setRepresentation(RepresentationEntity representation) {
 		this.representation = representation;
 	}
 

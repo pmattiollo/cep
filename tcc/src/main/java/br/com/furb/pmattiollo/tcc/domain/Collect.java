@@ -8,18 +8,18 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity(name = "collect")
-public class Collect implements Serializable {
+@MappedSuperclass
+public abstract class Collect implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -37,17 +37,17 @@ public class Collect implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "item", nullable = false)
-	private Item item;
+	private ItemEntity item;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "sample")
-	private List<Sample> samples;
+	private List<SampleEntity> samples;
 	
 	public Collect() {
 		super();
 	}
 
-	public Collect(Date start_date, Integer amount, Item item, List<Sample> samples) {
+	public Collect(Date start_date, Integer amount, ItemEntity item, List<SampleEntity> samples) {
 		this.start_date = start_date;
 		this.amount = amount;
 		this.item = item;
@@ -78,19 +78,19 @@ public class Collect implements Serializable {
 		this.amount = amount;
 	}
 	
-	public Item getItem() {
+	public ItemEntity getItem() {
 		return item;
 	}
 	
-	public void setItem(Item item) {
+	public void setItem(ItemEntity item) {
 		this.item = item;
 	}
 
-	public List<Sample> getSamples() {
+	public List<SampleEntity> getSamples() {
 		return samples;
 	}
 
-	public void setSamples(List<Sample> samples) {
+	public void setSamples(List<SampleEntity> samples) {
 		this.samples = samples;
 	}
 
