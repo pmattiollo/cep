@@ -2,12 +2,18 @@
 package br.com.furb.pmattiollo.tcc.view;
 
 import javax.inject.Inject;
+
+import br.com.furb.pmattiollo.tcc.business.UserBC;
+import br.com.furb.pmattiollo.tcc.domain.User;
+import br.com.furb.pmattiollo.tcc.domain.UserEntity;
+import br.com.furb.pmattiollo.tcc.persistence.UserDAO;
+import br.com.furb.pmattiollo.tcc.security.CatalogoAuthenticator;
+import br.com.furb.pmattiollo.tcc.security.Identity;
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
+import br.gov.frameworkdemoiselle.message.MessageContext;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractEditPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
-import br.com.furb.pmattiollo.tcc.business.*;
-import br.com.furb.pmattiollo.tcc.domain.*;
 
 @ViewController
 @PreviousView("./user_list.jsf")
@@ -18,6 +24,17 @@ public class UserEditMB extends AbstractEditPageBean<User, Long> {
 	@Inject
 	private UserBC userBC;
 	
+    @Inject
+    private CatalogoAuthenticator catalogoAuthenticator;
+
+    @Inject
+    private MessageContext messageContext;
+    
+    @Inject
+    private Identity identity;
+    
+    @Inject
+    private UserDAO userDAO;
 
 	
 	@Override
@@ -44,5 +61,35 @@ public class UserEditMB extends AbstractEditPageBean<User, Long> {
 	@Override
 	protected User handleLoad(Long id) {
 		return this.userBC.load(id);
-	}	
+	}
+	
+	public void login() {
+        try {
+            catalogoAuthenticator.login();
+        } catch (Exception e) {
+            messageContext.add(e.getMessage(), e.getMessage());
+        }
+    }
+
+    public void logout() {
+        try {
+             catalogoAuthenticator.logout();
+        } catch (Exception e) {
+            messageContext.add(e.getMessage(), e.getMessage());
+        }
+    }
+
+	public UserEntity getUserEntity() {
+		if(this.identity.getId() != null && !"".equals(this.identity.getId())){
+			try {
+				return this.userDAO.findById(Long.valueOf(this.identity.getId()));
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return new UserEntity();
+	}
 }

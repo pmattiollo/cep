@@ -12,6 +12,7 @@ import br.com.furb.pmattiollo.tcc.business.ItemBC;
 import br.com.furb.pmattiollo.tcc.domain.Collect;
 import br.com.furb.pmattiollo.tcc.domain.Item;
 import br.com.furb.pmattiollo.tcc.domain.Sample;
+import br.com.furb.pmattiollo.tcc.domain.SampleEntity;
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractEditPageBean;
@@ -29,21 +30,23 @@ public class CollectEditMB extends AbstractEditPageBean<Collect, Long> {
 	@Inject
 	private ItemBC itemBC;
 	
+	private DataModel<SampleEntity> sampleList;
+	
 	public List<Item> getItemList(){
 		return itemBC.findAll();
-	}
-			
-	private DataModel<Sample> sampleList;
+	}			
 	
 	public void addSample() {
-		this.getBean().getSamples().add(new Sample());
+		this.getBean().getSamples().add(new SampleEntity());
 	}
+	
 	public void deleteSample() {
 	   this.getBean().getSamples().remove(getSampleList().getRowData());
 	}
-	public DataModel<Sample> getSampleList() {
+	
+	public DataModel<SampleEntity> getSampleList() {
 	   if (sampleList == null) {
-		   sampleList = new ListDataModel<Sample>(this.getBean().getSamples());
+		   sampleList = new ListDataModel<SampleEntity>(this.getBean().getSamples());
 	   }
 	   return sampleList;
 	} 

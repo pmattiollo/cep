@@ -8,14 +8,13 @@
 				<h:panelGrid columns="3">
 
 					<h:outputLabel value="#{messages['login.usuario']}" for="username" styleClass="text-input" />
-					<p:inputText id="username" value="#{identity.emailUsuario}" size="30"/>
+					<p:inputText id="username" value="#{identity.loginUser}" size="30"/>
 					<p:message for="username" />
 
 					<h:outputLabel value="#{messages['login.senha']}" for="password" styleClass="text-input" />
-					<p:password id="password" value="#{identity.senha}" size="30"/>
+					<p:password id="password" value="#{identity.password}" size="30"/>
 					<p:message for="password" />
 
-					<p:commandButton id="novo_usuario" value="#{messages['button.novo_usuario']}" action="avaliador_edit.jsf" ajax="false" />
 					<p:commandButton id="login_button" value="#{messages['button.login']}" action="#{usuarioEditMB.login()}" ajax="false" />
 				</h:panelGrid>
 			</h:form>

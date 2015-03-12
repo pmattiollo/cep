@@ -5,9 +5,13 @@ import static javax.persistence.GenerationType.SEQUENCE;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+
+import br.com.furb.pmattiollo.tcc.constant.UserEnum;
 
 @MappedSuperclass
 public abstract class User implements Serializable {
@@ -22,24 +26,33 @@ public abstract class User implements Serializable {
 	@Column(name = "name", nullable = false, length = 100)
 	private String name;
 	
-	@Column(name = "login", nullable = false, length = 50)
+	@Column(name = "login", nullable = false, length = 50, unique = true)
 	private String login;
 	
 	@Column(name = "password", nullable = false, length = 50)
 	private String password;
 	
-	@Column(name = "email", nullable = false)
+	@Column(name = "email", nullable = false, length=100)
 	private String email;
+	
+	@Column(name = "active", nullable = false)
+	private Boolean active;
+	
+	@Column(name="paper", nullable=false, length=50)
+	@Enumerated(EnumType.STRING)
+    private UserEnum paper; 
 	
 	public User() {
 		super();
 	}	
 	
-	public User(String name, String login, String password, String email) {
+	public User(String name, String login, String password, String email, Boolean active, UserEnum paper) {
 		this.name = name;
 		this.login = login;
 		this.password = password;
 		this.email = email;
+		this.active = active;
+		this.paper = paper;
 	}
 	
 	public Long getId() {
@@ -80,6 +93,22 @@ public abstract class User implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public Boolean getActive() {
+		return active;
+	}
+	
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+	
+	public UserEnum getPaper() {
+		return paper;
+	}
+	
+	public void setPaper(UserEnum paper) {
+		this.paper = paper;
 	}
 	
 }

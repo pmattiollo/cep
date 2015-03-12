@@ -2,30 +2,25 @@
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
-	<persistence-unit name="cep-ds" transaction-type="RESOURCE_LOCAL">
-		<class>br.com.furb.pmattiollo.tcc.domain.Calculation</class>
-		<class>br.com.furb.pmattiollo.tcc.domain.Collect</class>
-		<class>br.com.furb.pmattiollo.tcc.domain.Item</class>
-		<class>br.com.furb.pmattiollo.tcc.domain.ItemType</class>
-		<class>br.com.furb.pmattiollo.tcc.domain.Representation</class>
-		<class>br.com.furb.pmattiollo.tcc.domain.Sample</class>
-		<class>br.com.furb.pmattiollo.tcc.domain.Unit</class>	
-		<class>br.com.furb.pmattiollo.tcc.domain.User</class>
+	<persistence-unit name="CEPDS" transaction-type="RESOURCE_LOCAL">
+		
+		<non-jta-data-source>java:jboss/datasources/CEPDS</non-jta-data-source>
+		
+		<class>br.com.furb.pmattiollo.tcc.domain.CalculationEntity</class>
+		<class>br.com.furb.pmattiollo.tcc.domain.CollectEntity</class>
+		<class>br.com.furb.pmattiollo.tcc.domain.ItemEntity</class>
+		<class>br.com.furb.pmattiollo.tcc.domain.ItemTypeEntity</class>
+		<class>br.com.furb.pmattiollo.tcc.domain.RepresentationEntity</class>
+		<class>br.com.furb.pmattiollo.tcc.domain.SampleEntity</class>
+		<class>br.com.furb.pmattiollo.tcc.domain.UnitEntity</class>	
+		<class>br.com.furb.pmattiollo.tcc.domain.UserEntity</class>
+		<class>br.com.furb.pmattiollo.tcc.domain.ValueEntity</class>
 		
 		<properties>
-	       	<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/cep"/>
-	        <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-	        <property name="javax.persistence.jdbc.user" value="root"/>
-	        <property name="javax.persistence.jdbc.password" value="admin"/>
-	        
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />	        
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="false" />
-			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
-			
-			<property name="eclipselink.logging.level" value="FINE" />
-			<property name="eclipselink.ddl-generation" value="create-tables" />
-			<property name="eclipselink.ddl-generation.output-mode" value="database" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />			
 		</properties>
 	</persistence-unit>
 	
