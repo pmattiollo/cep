@@ -2,19 +2,21 @@ package br.com.furb.pmattiollo.tcc.view;
 
 import java.util.Iterator;
 import java.util.List;
+
 import javax.inject.Inject;
+
+import br.com.furb.pmattiollo.tcc.business.UserBC;
+import br.com.furb.pmattiollo.tcc.domain.UserEntity;
 import br.gov.frameworkdemoiselle.annotation.NextView;
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractListPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
-import br.com.furb.pmattiollo.tcc.business.UserBC;
-import br.com.furb.pmattiollo.tcc.domain.User;
 
 @ViewController
 @NextView("./user_edit.jsf")
 @PreviousView("./user_list.jsf")
-public class UserListMB extends AbstractListPageBean<User, Long> {
+public class UserListMB extends AbstractListPageBean<UserEntity, Long> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -22,7 +24,7 @@ public class UserListMB extends AbstractListPageBean<User, Long> {
 	private UserBC userBC;
 	
 	@Override
-	protected List<User> handleResultList() {
+	protected List<UserEntity> handleResultList() {
 		return this.userBC.findAll();
 	}
 	

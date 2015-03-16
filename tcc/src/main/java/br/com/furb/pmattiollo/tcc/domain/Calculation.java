@@ -1,7 +1,5 @@
 package br.com.furb.pmattiollo.tcc.domain;
 
-import static javax.persistence.GenerationType.SEQUENCE;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,6 +9,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,7 +24,7 @@ public abstract class Calculation implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "calculation_id")
 	private Long id;
 	
@@ -51,13 +50,13 @@ public abstract class Calculation implements Serializable {
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "calculation")
-	private List<Value> values;
+	private List<ValueEntity> values;
 	
 	public Calculation() {
 		super();
 	}
 
-	public Calculation(String revision, Double lsc, Double lc, Double lic, CalculationEnum type, RepresentationEntity representation, List<Value> values) {
+	public Calculation(String revision, Double lsc, Double lc, Double lic, CalculationEnum type, RepresentationEntity representation, List<ValueEntity> values) {
 		this.revision = revision;
 		this.lsc = lsc;
 		this.lc = lc;
@@ -125,11 +124,11 @@ public abstract class Calculation implements Serializable {
 		this.representation = representation;
 	}
 
-	public List<Value> getValues() {
+	public List<ValueEntity> getValues() {
 		return values;
 	}
 
-	public void setValues(List<Value> values) {
+	public void setValues(List<ValueEntity> values) {
 		this.values = values;
 	}
 

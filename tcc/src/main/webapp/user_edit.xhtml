@@ -7,18 +7,17 @@
 		<h:form prependId="false">
 			<p:toolbar>
 				<p:toolbarGroup align="left">
-					<p:commandButton value="#{messages['button.save']}" action="#{userEditMB.insert}"
-						rendered="#{!userEditMB.updateMode}" ajax="false" />
-					<p:commandButton value="#{messages['button.save']}" action="#{userEditMB.update}"
-						rendered="#{userEditMB.updateMode}" ajax="false" />
-					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()"
-						rendered="#{userEditMB.updateMode}" type="button" immediate="true" ajax="false" />
-					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
-						header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
-						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{userEditMB.delete}" immediate="true"
-							ajax="false" />
+					<p:commandButton value="#{messages['button.save']}" action="#{userEditMB.insert}" rendered="#{!userEditMB.updateMode}" ajax="false" />
+					
+					<p:commandButton value="#{messages['button.save']}" action="#{userEditMB.update}" rendered="#{userEditMB.updateMode}" ajax="false" />
+					
+					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()" rendered="#{userEditMB.updateMode}" type="button" immediate="true" ajax="false" />
+					
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode" header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{userEditMB.delete}" immediate="true" ajax="false" />
 						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
 					</p:confirmDialog>
+					
 				</p:toolbarGroup>
 			</p:toolbar>
 
@@ -26,41 +25,26 @@
 
 			<p:fieldset legend="#{messages['user.label']}" toggleable="true" toggleSpeed="500">
 				<h:panelGrid id="fieldsuser" columns="3">
-				
-					<h:outputLabel value="#{messages['user.label.id']}: " for="id" styleClass="text-input" />
-										
-					<h:outputText id="id" value="#{userEditMB.bean.id}" />
-					
-					<p:message for="id" />
 						
 					<h:outputLabel value="#{messages['user.label.name']}: " for="name" styleClass="text-input" />
 					
-					<h:inputText id="name" value="#{userEditMB.bean.name}"
-						title="#{messages['user.alt.name']}" />
-					
+					<h:inputText id="name" value="#{userEditMB.bean.name}" title="#{messages['user.alt.name']}" />					
 					<p:message for="name" />
 						
 					<h:outputLabel value="#{messages['user.label.login']}: " for="login" styleClass="text-input" />
 					
-					<h:inputText id="login" value="#{userEditMB.bean.login}"
-						title="#{messages['user.alt.login']}" />
-					
+					<h:inputText id="login" value="#{userEditMB.bean.login}" title="#{messages['user.alt.login']}" />					
 					<p:message for="login" />
 						
 					<h:outputLabel value="#{messages['user.label.password']}: " for="password" styleClass="text-input" />
 					
-					<h:inputText id="password" value="#{userEditMB.bean.password}"
-						title="#{messages['user.alt.password']}" />
-					
+					<h:inputText id="password" value="#{userEditMB.bean.password}" title="#{messages['user.alt.password']}" />					
 					<p:message for="password" />
 						
 					<h:outputLabel value="#{messages['user.label.email']}: " for="email" styleClass="text-input" />
 					
-					<h:inputText id="email" value="#{userEditMB.bean.email}"
-						title="#{messages['user.alt.email']}" />
-					
-					<p:message for="email" />
-						
+					<h:inputText id="email" value="#{userEditMB.bean.email}" title="#{messages['user.alt.email']}" />					
+					<p:message for="email" />						
 				</h:panelGrid>
 			</p:fieldset>
 			

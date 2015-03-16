@@ -21,6 +21,10 @@ public class CriptografiaUtil {
 			return null;
 		}
 	}
+    
+    public static void main(String[] args) {
+    	System.out.println(getCodigoMd5("12345"));
+	}
 
 	private static String stringHexa(byte[] bytes) {
 		StringBuilder s = new StringBuilder();

@@ -26,7 +26,7 @@
 	
 	<context-param>
     	<param-name>primefaces.THEME</param-name>
-    	<param-value>south-street</param-value>
+    	<param-value>black-tie</param-value>
   	</context-param>
 
 	<servlet>

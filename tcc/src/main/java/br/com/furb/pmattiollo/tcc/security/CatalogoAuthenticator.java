@@ -35,27 +35,28 @@ public class CatalogoAuthenticator implements Authenticator {
 
     @Override
     public void authenticate() throws Exception {
-        try {
-        	UserEntity user = this.userDAO.findByLogin(identity.getLoginUser());
-
-	        if (user == null) {
-	            throw new AuthenticationException(rb.getString("login.falhou"));
-	        } else {
-	            if (!user.getPassword().equals(CriptografiaUtil.getCodigoMd5(identity.getPassword()))) {
-	                throw new AuthenticationException(rb.getString("login.falhou"));
-	            }
-	        }
-	
-	        this.identity.setAttribute("id", user.getId());
-	        this.identity.setAttribute("login", user.getLogin());
-	        this.identity.setAttribute("name", user.getName());
-	        this.identity.setAttribute("active", user.getActive());
-	        this.identity.setAttribute("resources", defineResources(user.getPaper()));
-	        this.identity.setAttribute("isLogged", true);
+    	UserEntity user = null;
+    	
+    	try {
+        	user = this.userDAO.findByLogin(identity.getLoginUser());
         } catch (Exception ex) {
-            throw new AuthenticationException(rb.getString("login.usuario.nao.existe"), ex);
+            throw new AuthenticationException(rb.getString("login.user.not.exists"), ex);
         }
 
+    	if (user == null) {
+    		throw new AuthenticationException(rb.getString("login.user.not.exists"));
+    	} else {
+    		if (!user.getPassword().equals(CriptografiaUtil.getCodigoMd5(identity.getPassword()))) {
+    			throw new AuthenticationException(rb.getString("login.password.not.match"));
+    		}
+    	}
+    	
+    	this.identity.setAttribute("id", user.getId());
+    	this.identity.setAttribute("login", user.getLogin());
+    	this.identity.setAttribute("name", user.getName());
+    	this.identity.setAttribute("active", user.getActive());
+    	this.identity.setAttribute("resources", defineResources(user.getPaper()));
+    	this.identity.setAttribute("isLogged", true);
     }
 
     private Map<MeansEnum, OperationsEnum> defineResources(UserEnum userEnum) {

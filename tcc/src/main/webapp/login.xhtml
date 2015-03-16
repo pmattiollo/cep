@@ -3,19 +3,19 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/main.xhtml">
 
     <ui:define name="body">
-        <p:fieldset legend="Autentique-se">
+        <p:fieldset legend="Authentication">
 			<h:form id="formLogin">
 				<h:panelGrid columns="3">
 
-					<h:outputLabel value="#{messages['login.usuario']}" for="username" styleClass="text-input" />
+					<h:outputLabel value="#{messages['login.user']}" for="username" styleClass="text-input" />
 					<p:inputText id="username" value="#{identity.loginUser}" size="30"/>
 					<p:message for="username" />
 
-					<h:outputLabel value="#{messages['login.senha']}" for="password" styleClass="text-input" />
+					<h:outputLabel value="#{messages['login.password']}" for="password" styleClass="text-input" />
 					<p:password id="password" value="#{identity.password}" size="30"/>
 					<p:message for="password" />
 
-					<p:commandButton id="login_button" value="#{messages['button.login']}" action="#{usuarioEditMB.login()}" ajax="false" />
+					<p:commandButton id="login_button" value="#{messages['button.login']}" action="#{userEditMB.login()}" ajax="false" />
 				</h:panelGrid>
 			</h:form>
 		</p:fieldset>

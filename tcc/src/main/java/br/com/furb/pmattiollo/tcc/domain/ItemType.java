@@ -1,11 +1,10 @@
 package br.com.furb.pmattiollo.tcc.domain;
 
-import static javax.persistence.GenerationType.SEQUENCE;
-
 import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
@@ -15,7 +14,7 @@ public abstract class ItemType implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "item_type_id")
 	private Long id;
 	

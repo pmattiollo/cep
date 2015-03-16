@@ -23,7 +23,7 @@
 					
 					<!-- Logout -->
 					<div id="divLogin" align="right">
-	                	<p:commandLink id="clSair" value="(sair)" action="#{usuarioEditMB.logout()}" rendered="#{securityContext.loggedIn}" ajax="false"/>
+	                	<p:commandLink id="clSair" value="#{messages['menu.menuitem.quit']}" action="#{userEditMB.logout()}" rendered="#{securityContext.loggedIn}" ajax="false"/>
 	                </div>
 	            </h:form>
 	            

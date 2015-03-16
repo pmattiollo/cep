@@ -13,11 +13,6 @@
 				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/user_list.jsf"></p:menuitem>
 			</p:submenu>
 
-			<p:submenu label="#{messages['menu.bookmark']}">
-				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/bookmark_edit.jsf" />
-				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/bookmark_list.jsf" />
-			</p:submenu>
-
 			<p:menuitem value="#{messages['menu.menuitem.quit']}" url="http://www.frameworkdemoiselle.gov.br/" action="#{securityContext.logout}" />
 		</p:menubar>
 	</h:form>

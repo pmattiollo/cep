@@ -4,11 +4,11 @@ package br.com.furb.pmattiollo.tcc.view;
 import javax.inject.Inject;
 
 import br.com.furb.pmattiollo.tcc.business.UserBC;
-import br.com.furb.pmattiollo.tcc.domain.User;
 import br.com.furb.pmattiollo.tcc.domain.UserEntity;
 import br.com.furb.pmattiollo.tcc.persistence.UserDAO;
 import br.com.furb.pmattiollo.tcc.security.CatalogoAuthenticator;
 import br.com.furb.pmattiollo.tcc.security.Identity;
+import br.gov.frameworkdemoiselle.annotation.NextView;
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.message.MessageContext;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
@@ -16,8 +16,9 @@ import br.gov.frameworkdemoiselle.template.AbstractEditPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
 
 @ViewController
-@PreviousView("./user_list.jsf")
-public class UserEditMB extends AbstractEditPageBean<User, Long> {
+@PreviousView("./login.jsf")
+@NextView("./index.jsf")
+public class UserEditMB extends AbstractEditPageBean<UserEntity, Long> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -59,7 +60,7 @@ public class UserEditMB extends AbstractEditPageBean<User, Long> {
 	}
 	
 	@Override
-	protected User handleLoad(Long id) {
+	protected UserEntity handleLoad(Long id) {
 		return this.userBC.load(id);
 	}
 	

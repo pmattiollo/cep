@@ -28,7 +28,7 @@ public class CatalogoAuthorizer implements Authorizer {
         try {
             return UserEnum.valueOf(role).equals(identity.getAttribute("role"));
         } catch (Exception ex) {
-            throw new AuthenticationException(rb.getString("controle.acesso.tem.papel.excecao"), ex);
+            throw new AuthenticationException(rb.getString("control.acess.has.not.paper"), ex);
         }
     }
 
@@ -52,7 +52,7 @@ public class CatalogoAuthorizer implements Authorizer {
 
             return false;
         } catch (Exception ex) {
-            throw new AuthenticationException(rb.getString("controle.acesso.tem.permissao.excecao"), ex);
+            throw new AuthenticationException(rb.getString("control.acess.has.not.permission"), ex);
         }
     }
 

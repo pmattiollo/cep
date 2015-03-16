@@ -1,12 +1,11 @@
 package br.com.furb.pmattiollo.tcc.persistence;
 
+import br.com.furb.pmattiollo.tcc.domain.UserEntity;
 import br.gov.frameworkdemoiselle.stereotype.PersistenceController;
 import br.gov.frameworkdemoiselle.template.JPACrud;
-import br.com.furb.pmattiollo.tcc.domain.User;
-import br.com.furb.pmattiollo.tcc.domain.UserEntity;
 
 @PersistenceController
-public class UserDAO extends JPACrud<User, Long> {
+public class UserDAO extends JPACrud<UserEntity, Long> {
 
 	private static final long serialVersionUID = 1L;
 	
