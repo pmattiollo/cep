@@ -54,7 +54,7 @@ public class CatalogoAuthenticator implements Authenticator {
     	this.identity.setAttribute("id", user.getId());
     	this.identity.setAttribute("login", user.getLogin());
     	this.identity.setAttribute("name", user.getName());
-    	this.identity.setAttribute("active", user.getActive());
+    	this.identity.setAttribute("active", user.isActive());
     	this.identity.setAttribute("resources", defineResources(user.getPaper()));
     	this.identity.setAttribute("isLogged", true);
     }

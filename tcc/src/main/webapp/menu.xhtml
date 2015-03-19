@@ -3,6 +3,21 @@
 
 	<h:form>
 		<p:menubar>
+			<p:submenu label="#{messages['menu.software']}">
+				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/software_edit.jsf"></p:menuitem>
+				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/software_list.jsf"></p:menuitem>
+			</p:submenu>
+		
+			<p:submenu label="#{messages['menu.itemType']}">
+				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/itemType_edit.jsf"></p:menuitem>
+				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/itemType_list.jsf"></p:menuitem>
+			</p:submenu>
+
+			<p:submenu label="#{messages['menu.item']}">
+				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/item_edit.jsf"></p:menuitem>
+				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/item_list.jsf"></p:menuitem>
+			</p:submenu>
+
 			<p:submenu label="#{messages['menu.collect']}">
 				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/collect_edit.jsf"></p:menuitem>
 				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/collect_list.jsf"></p:menuitem>
@@ -12,8 +27,6 @@
 				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/user_edit.jsf"></p:menuitem>
 				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/user_list.jsf"></p:menuitem>
 			</p:submenu>
-
-			<p:menuitem value="#{messages['menu.menuitem.quit']}" url="http://www.frameworkdemoiselle.gov.br/" action="#{securityContext.logout}" />
 		</p:menubar>
 	</h:form>
 

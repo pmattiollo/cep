@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import br.com.furb.pmattiollo.tcc.business.CollectBC;
-import br.com.furb.pmattiollo.tcc.domain.CollectEntity;
+import br.com.furb.pmattiollo.tcc.business.ItemBC;
+import br.com.furb.pmattiollo.tcc.domain.ItemEntity;
 import br.gov.frameworkdemoiselle.annotation.NextView;
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
@@ -14,18 +14,18 @@ import br.gov.frameworkdemoiselle.template.AbstractListPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
 
 @ViewController
-@NextView("./collect_edit.jsf")
-@PreviousView("./collect_list.jsf")
-public class CollectListMB extends AbstractListPageBean<CollectEntity, Long> {
+@NextView("./item_edit.jsf")
+@PreviousView("./item_list.jsf")
+public class ItemListMB extends AbstractListPageBean<ItemEntity, Long> {
 
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private CollectBC collectBC;
+	private ItemBC itemBC;
 	
 	@Override
-	protected List<CollectEntity> handleResultList() {
-		return this.collectBC.findAll();
+	protected List<ItemEntity> handleResultList() {
+		return this.itemBC.findAll();
 	}
 	
 	@Transactional
@@ -35,7 +35,7 @@ public class CollectListMB extends AbstractListPageBean<CollectEntity, Long> {
 			Long id = iter.next();
 			delete = getSelection().get(id);
 			if (delete) {
-				collectBC.delete(id);
+				itemBC.delete(id);
 				iter.remove();
 			}
 		}

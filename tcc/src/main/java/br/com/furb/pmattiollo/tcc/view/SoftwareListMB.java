@@ -2,30 +2,28 @@ package br.com.furb.pmattiollo.tcc.view;
 
 import java.util.Iterator;
 import java.util.List;
-
 import javax.inject.Inject;
-
-import br.com.furb.pmattiollo.tcc.business.CollectBC;
-import br.com.furb.pmattiollo.tcc.domain.CollectEntity;
 import br.gov.frameworkdemoiselle.annotation.NextView;
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractListPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
+import br.com.furb.pmattiollo.tcc.business.SoftwareBC;
+import br.com.furb.pmattiollo.tcc.domain.SoftwareEntity;
 
 @ViewController
-@NextView("./collect_edit.jsf")
-@PreviousView("./collect_list.jsf")
-public class CollectListMB extends AbstractListPageBean<CollectEntity, Long> {
+@NextView("./software_edit.jsf")
+@PreviousView("./software_list.jsf")
+public class SoftwareListMB extends AbstractListPageBean<SoftwareEntity, Long> {
 
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private CollectBC collectBC;
+	private SoftwareBC softwareBC;
 	
 	@Override
-	protected List<CollectEntity> handleResultList() {
-		return this.collectBC.findAll();
+	protected List<SoftwareEntity> handleResultList() {
+		return this.softwareBC.findAll();
 	}
 	
 	@Transactional
@@ -35,7 +33,7 @@ public class CollectListMB extends AbstractListPageBean<CollectEntity, Long> {
 			Long id = iter.next();
 			delete = getSelection().get(id);
 			if (delete) {
-				collectBC.delete(id);
+				softwareBC.delete(id);
 				iter.remove();
 			}
 		}

@@ -9,9 +9,8 @@ import javax.inject.Inject;
 
 import br.com.furb.pmattiollo.tcc.business.CollectBC;
 import br.com.furb.pmattiollo.tcc.business.ItemBC;
-import br.com.furb.pmattiollo.tcc.domain.Collect;
-import br.com.furb.pmattiollo.tcc.domain.Item;
-import br.com.furb.pmattiollo.tcc.domain.Sample;
+import br.com.furb.pmattiollo.tcc.domain.CollectEntity;
+import br.com.furb.pmattiollo.tcc.domain.ItemEntity;
 import br.com.furb.pmattiollo.tcc.domain.SampleEntity;
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
@@ -20,7 +19,7 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 
 @ViewController
 @PreviousView("./collect_list.jsf")
-public class CollectEditMB extends AbstractEditPageBean<Collect, Long> {
+public class CollectEditMB extends AbstractEditPageBean<CollectEntity, Long> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -32,7 +31,7 @@ public class CollectEditMB extends AbstractEditPageBean<Collect, Long> {
 	
 	private DataModel<SampleEntity> sampleList;
 	
-	public List<Item> getItemList(){
+	public List<ItemEntity> getItemList(){
 		return itemBC.findAll();
 	}			
 	
@@ -73,7 +72,7 @@ public class CollectEditMB extends AbstractEditPageBean<Collect, Long> {
 	}
 	
 	@Override
-	protected Collect handleLoad(Long id) {
+	protected CollectEntity handleLoad(Long id) {
 		return this.collectBC.load(id);
 	}	
 }

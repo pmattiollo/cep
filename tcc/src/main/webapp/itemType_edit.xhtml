@@ -1,0 +1,38 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+			<p:toolbar>
+					<p:commandButton value="#{messages['button.save']}" action="#{itemTypeEditMB.insert}" rendered="#{!itemTypeEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}" action="#{itemTypeEditMB.update}" rendered="#{itemTypeEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()" rendered="#{itemTypeEditMB.updateMode}" type="button" immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode" header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{itemTypeEditMB.delete}" immediate="true" ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="#{messages['itemType.label']}" toggleable="true" toggleSpeed="500">
+				<h:panelGrid id="fieldsitemType" columns="3">
+				
+					<h:outputLabel value="#{messages['itemType.label.id']}: " for="id" styleClass="text-input" />
+										
+					<h:outputText id="id" value="#{itemTypeEditMB.bean.id}" />					
+					<p:message for="id" />
+						
+					<h:outputLabel value="#{messages['itemType.label.description']}: " for="description" styleClass="text-input" />
+					
+					<h:inputText id="description" value="#{itemTypeEditMB.bean.description}" title="#{messages['itemType.alt.description']}" />					
+					<p:message for="description" />						
+				</h:panelGrid>
+			</p:fieldset>
+			
+		</h:form>
+	</ui:define>
+</ui:composition>

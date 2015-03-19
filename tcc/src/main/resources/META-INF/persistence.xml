@@ -15,6 +15,8 @@
 		<class>br.com.furb.pmattiollo.tcc.domain.UnitEntity</class>	
 		<class>br.com.furb.pmattiollo.tcc.domain.UserEntity</class>
 		<class>br.com.furb.pmattiollo.tcc.domain.ValueEntity</class>
+		<class>br.com.furb.pmattiollo.tcc.domain.SoftwareEntity</class>	
+		<class>br.com.furb.pmattiollo.tcc.domain.ItemType</class>
 		
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />	        

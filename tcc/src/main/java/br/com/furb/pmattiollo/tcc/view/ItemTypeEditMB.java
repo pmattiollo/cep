@@ -3,47 +3,47 @@ package br.com.furb.pmattiollo.tcc.view;
 
 import javax.inject.Inject;
 
-import br.com.furb.pmattiollo.tcc.business.UserBC;
-import br.com.furb.pmattiollo.tcc.domain.UserEntity;
+import br.com.furb.pmattiollo.tcc.business.ItemTypeBC;
+import br.com.furb.pmattiollo.tcc.domain.ItemTypeEntity;
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractEditPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
 
+// To remove unused imports press: Ctrl+Shift+o
+
 @ViewController
-@PreviousView("./user_list.jsf")
-public class UserEditMB extends AbstractEditPageBean<UserEntity, Long> {
+@PreviousView("./itemType_list.jsf")
+public class ItemTypeEditMB extends AbstractEditPageBean<ItemTypeEntity, Long> {
 
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private UserBC userBC;
-
+	private ItemTypeBC itemTypeBC;
 	
 	@Override
 	@Transactional
 	public String delete() {
-		this.userBC.delete(getId());
+		this.itemTypeBC.delete(getId());
 		return getPreviousView();
 	}
 	
 	@Override
 	@Transactional
 	public String insert() {
-		this.userBC.insert(this.getBean());
+		this.itemTypeBC.insert(this.getBean());
 		return getPreviousView();
 	}
 	
 	@Override
 	@Transactional
 	public String update() {
-		this.userBC.update(this.getBean());
+		this.itemTypeBC.update(this.getBean());
 		return getPreviousView();
 	}
 	
 	@Override
-	protected UserEntity handleLoad(Long id) {
-		return this.userBC.load(id);
-	}
-
+	protected ItemTypeEntity handleLoad(Long id) {
+		return this.itemTypeBC.load(id);
+	}	
 }

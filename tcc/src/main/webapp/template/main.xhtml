@@ -23,12 +23,12 @@
 					
 					<!-- Logout -->
 					<div id="divLogin" align="right">
-	                	<p:commandLink id="clSair" value="#{messages['menu.menuitem.quit']}" action="#{userEditMB.logout()}" rendered="#{securityContext.loggedIn}" ajax="false"/>
+	                	<p:commandLink id="clSair" value="#{messages['menu.menuitem.quit']}" action="#{loginMB.logout()}" rendered="#{securityContext.loggedIn}" ajax="false"/>
 	                </div>
 	            </h:form>
 	            
                 <!-- Menu e Corpo -->
-			    <div class="content">
+			    <div class="content" >
 			        <p:panel rendered="#{securityContext.loggedIn}">
 			            <div>
 			                <ui:include src="/menu.xhtml"/>

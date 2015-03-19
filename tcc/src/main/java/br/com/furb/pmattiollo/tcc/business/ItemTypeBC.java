@@ -1,13 +1,13 @@
 
 package br.com.furb.pmattiollo.tcc.business;
 
-import br.com.furb.pmattiollo.tcc.domain.ItemEntity;
-import br.com.furb.pmattiollo.tcc.persistence.ItemDAO;
+import br.com.furb.pmattiollo.tcc.domain.ItemTypeEntity;
+import br.com.furb.pmattiollo.tcc.persistence.ItemTypeDAO;
 import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 
 @BusinessController
-public class ItemBC extends DelegateCrud<ItemEntity, Long, ItemDAO> {
+public class ItemTypeBC extends DelegateCrud<ItemTypeEntity, Long, ItemTypeDAO> {
 	private static final long serialVersionUID = 1L;
 	
 	
