@@ -1,6 +1,5 @@
 package br.com.furb.pmattiollo.tcc.security;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -8,7 +7,6 @@ import javax.inject.Inject;
 
 import br.com.furb.pmattiollo.tcc.constant.MeansEnum;
 import br.com.furb.pmattiollo.tcc.constant.OperationsEnum;
-import br.com.furb.pmattiollo.tcc.constant.UserEnum;
 import br.gov.frameworkdemoiselle.security.AuthenticationException;
 import br.gov.frameworkdemoiselle.security.Authorizer;
 import br.gov.frameworkdemoiselle.util.ResourceBundle;
@@ -23,10 +21,13 @@ public class CatalogoAuthorizer implements Authorizer {
     @Inject
     private ResourceBundle rb;
 
-    @Override
-    public boolean hasRole(String role) throws Exception {
+    @SuppressWarnings("unchecked")
+	@Override
+    public boolean hasRole(String resource) throws Exception {
         try {
-            return UserEnum.valueOf(role).equals(identity.getAttribute("role"));
+        	MeansEnum mean = MeansEnum.getMeanByDescription(resource);
+        	
+        	return ((Map<MeansEnum, List<OperationsEnum>>) identity.getAttribute("resources")).containsKey(mean);
         } catch (Exception ex) {
             throw new AuthenticationException(rb.getString("control.acess.has.not.paper"), ex);
         }
@@ -36,16 +37,13 @@ public class CatalogoAuthorizer implements Authorizer {
 	@SuppressWarnings("unchecked")
     public boolean hasPermission(String resource, String operation) throws Exception {
         try {
-        	Map<MeansEnum, OperationsEnum> meanOperations = (Map<MeansEnum, OperationsEnum>) identity.getAttribute("recursos_operacoes");
+        	MeansEnum mean = MeansEnum.getMeanByDescription(resource);
+        	Map<MeansEnum, List<OperationsEnum>> meansOperations = (Map<MeansEnum, List<OperationsEnum>>) identity.getAttribute("resources");
 
-            List<String> operacoes = new ArrayList<String>();
-            operacoes.add(operation);
+            List<OperationsEnum> operations = meansOperations.get(mean);
 
-            MeansEnum meanEnum = MeansEnum.valueOf(resource);
-            OperationsEnum operationEnum = OperationsEnum.valueOf(operation);
-
-            for (Map.Entry<MeansEnum, OperationsEnum> entry : meanOperations.entrySet()) {
-                if (meanEnum.equals(entry.getKey()) && operationEnum.equals(entry.getValue())) {
+            for (OperationsEnum operationEnum : operations) {
+                if (operationEnum.getDescription().equals(operation)) {
                     return true;
                 }
             }

@@ -2,9 +2,8 @@ package br.com.furb.pmattiollo.tcc.constant;
 
 public enum UserEnum {
 	
-	ADM(1, "Administrador"),
-	AVALIADOR(2, "Avaliador"),
-	OPERADOR(3, "Operador");
+	ADM(1, "Administrator"),
+	OPERATOR(2, "Operator");
 	
 	private Integer code;
 	private String description;

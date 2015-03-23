@@ -6,6 +6,7 @@
 	<ui:define name="body">
 		<h:form prependId="false">
 			<p:toolbar>
+				<p:toolbarGroup>
 					<p:commandButton value="#{messages['button.save']}" action="#{itemTypeEditMB.insert}" rendered="#{!itemTypeEditMB.updateMode}" ajax="false" />
 					<p:commandButton value="#{messages['button.save']}" action="#{itemTypeEditMB.update}" rendered="#{itemTypeEditMB.updateMode}" ajax="false" />
 					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()" rendered="#{itemTypeEditMB.updateMode}" type="button" immediate="true" ajax="false" />

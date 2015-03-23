@@ -1,6 +1,9 @@
 
 package br.com.furb.pmattiollo.tcc.view;
 
+import java.util.List;
+
+import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 
 import br.com.furb.pmattiollo.tcc.business.UserBC;
@@ -18,7 +21,11 @@ public class UserEditMB extends AbstractEditPageBean<UserEntity, Long> {
 
 	@Inject
 	private UserBC userBC;
+	
 
+	public List<SelectItem> getPaper() {
+		return userBC.getUserEnum();
+	}
 	
 	@Override
 	@Transactional
@@ -44,6 +51,5 @@ public class UserEditMB extends AbstractEditPageBean<UserEntity, Long> {
 	@Override
 	protected UserEntity handleLoad(Long id) {
 		return this.userBC.load(id);
-	}
-
+	}	
 }

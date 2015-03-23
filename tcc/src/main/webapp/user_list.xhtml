@@ -12,8 +12,7 @@
 					<p:commandButton title="#{messages['button.delete']}" icon="ui-icon-trash" onclick="confirmation.show()" type="button" immediate="true" ajax="false" />
 
 					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode" header="#{messages['label.dialog.alert']}!" severity="alert" widgetVar="confirmation">
-						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{userListMB.deleteSelection}"
-							actionListener="#{userListMB.clear}" />
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{userListMB.deleteSelection}" actionListener="#{userListMB.clear}" />
 						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
 					</p:confirmDialog>
 				</p:toolbarGroup>
@@ -28,6 +27,11 @@
 					<f:facet name="header">#{messages['user.label.id']}</f:facet>
 					<h:outputText value="#{bean.id}" />
 				</p:column>
+				
+				<p:column sortBy="#{bean.paper}">
+					<f:facet name="header">#{messages['user.label.paper']}</f:facet>
+					<h:outputText value="#{bean.paper}" />
+				</p:column>
 						
 				<p:column sortBy="#{bean.name}">
 					<f:facet name="header">#{messages['user.label.name']}</f:facet>
@@ -41,6 +45,14 @@
 					<f:facet name="header">#{messages['user.label.login']}</f:facet>
 					<h:commandLink action="#{userListMB.getNextView}" actionListener="#{userListMB.clear}">
 						<h:outputText value="#{bean.login}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+					
+				<p:column sortBy="#{bean.password}" rendered="#{identity.getAttribute('administrator')}" >
+					<f:facet name="header">#{messages['user.label.password']}</f:facet>
+					<h:commandLink action="#{userListMB.getNextView}" actionListener="#{userListMB.clear}">
+						<h:outputText value="#{bean.password}" />
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>

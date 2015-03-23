@@ -14,15 +14,13 @@
 			<p:layoutUnit id="layoutUnitCorpo" position="center">
 				<h:form prependId="false">
 				
-					<!-- Cabeçalho -->
+					<!-- Cabecalho -->
 	                <div class="welcome">
-						<a href="index.jsf">
-							<img src="images/logo-cep.png" border="0"/>
-						</a>
+						<img src="images/logo-cep.png" border="0"/>
 					</div>
 					
 					<!-- Logout -->
-					<div id="divLogin" align="right">
+					<div id="divLogout" align="right">
 	                	<p:commandLink id="clSair" value="#{messages['menu.menuitem.quit']}" action="#{loginMB.logout()}" rendered="#{securityContext.loggedIn}" ajax="false"/>
 	                </div>
 	            </h:form>
@@ -58,5 +56,6 @@
 			<h:outputScript library="js" name="locale-primefaces.js"/>
 		</p:layout>	
 	</div>
+	<h:outputScript library="js" name="locale-primefaces.js"/>
 </h:body>
 </html>

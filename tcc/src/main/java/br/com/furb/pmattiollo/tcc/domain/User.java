@@ -10,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-import org.hibernate.annotations.Type;
-
 import br.com.furb.pmattiollo.tcc.constant.UserEnum;
 
 @MappedSuperclass
@@ -36,10 +34,6 @@ public abstract class User implements Serializable {
 	@Column(name = "email", nullable = false, length=100)
 	private String email;
 	
-	@Type(type = "true_false")
-	@Column(name = "active", nullable = false)
-	private boolean active;
-	
 	@Column(name="paper", nullable=false, length=50)
 	@Enumerated(EnumType.STRING)
     private UserEnum paper; 
@@ -48,12 +42,11 @@ public abstract class User implements Serializable {
 		super();
 	}	
 	
-	public User(String name, String login, String password, String email, boolean active, UserEnum paper) {
+	public User(String name, String login, String password, String email, UserEnum paper) {
 		this.name = name;
 		this.login = login;
 		this.password = password;
 		this.email = email;
-		this.active = active;
 		this.paper = paper;
 	}
 	
@@ -95,14 +88,6 @@ public abstract class User implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	
-	public boolean isActive() {
-		return active;
-	}
-
-	public void setActive(boolean active) {
-		this.active = active;
 	}
 
 	public UserEnum getPaper() {
