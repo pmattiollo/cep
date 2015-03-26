@@ -8,7 +8,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "calculation")
 @NamedQueries({
-    @NamedQuery(name="CalculationEntity.findById", query="SELECT obj FROM CalculationEntity obj WHERE obj.id = :id"),				
+    @NamedQuery(name="CalculationEntity.findById", query="SELECT obj FROM CalculationEntity obj WHERE obj.id = :id"),			
+    @NamedQuery(name="CalculationEntity.findLastByType", query="SELECT obj FROM CalculationEntity obj WHERE obj.type = :type ORDER BY obj.id DESC"),
 })
 public class CalculationEntity extends Calculation {
 

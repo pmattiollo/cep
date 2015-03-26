@@ -8,5 +8,9 @@ import br.gov.frameworkdemoiselle.template.JPACrud;
 public class CalculationDAO extends JPACrud<CalculationEntity, Long>{
 
 	private static final long serialVersionUID = 1L;
+	
+	public CalculationEntity findById(Long id) throws Exception{
+		return (CalculationEntity) getEntityManager().createNamedQuery("CalculationEntity.findById").setParameter("id", id).getSingleResult();
+	}
 
 }

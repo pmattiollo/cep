@@ -14,7 +14,6 @@
 		<class>br.com.furb.pmattiollo.tcc.domain.SampleEntity</class>
 		<class>br.com.furb.pmattiollo.tcc.domain.UnitEntity</class>	
 		<class>br.com.furb.pmattiollo.tcc.domain.UserEntity</class>
-		<class>br.com.furb.pmattiollo.tcc.domain.ValueEntity</class>
 		<class>br.com.furb.pmattiollo.tcc.domain.SoftwareEntity</class>	
 		<class>br.com.furb.pmattiollo.tcc.domain.ItemType</class>
 		

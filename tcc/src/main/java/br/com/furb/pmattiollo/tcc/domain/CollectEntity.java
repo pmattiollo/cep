@@ -8,7 +8,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "collect")
 @NamedQueries({
-    @NamedQuery(name="CollectEntity.findById", query="SELECT obj FROM CollectEntity obj WHERE obj.id = :id"),				
+    @NamedQuery(name="CollectEntity.findById", query="SELECT obj FROM CollectEntity obj WHERE obj.id = :id"),
+    @NamedQuery(name="CollectEntity.findListByItem", query="SELECT obj FROM CollectEntity obj WHERE obj.item = :item ORDER BY obj.id DESC"),
 })
 public class CollectEntity extends Collect {
 

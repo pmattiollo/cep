@@ -1,20 +1,16 @@
 package br.com.furb.pmattiollo.tcc.domain;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToMany;
 
 import br.com.furb.pmattiollo.tcc.constant.CalculationEnum;
 
@@ -48,25 +44,18 @@ public abstract class Calculation implements Serializable {
 	@JoinColumn(name = "representation", nullable = false)
 	private RepresentationEntity representation;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "calculation")
-	private List<ValueEntity> values;
-	
 	public Calculation() {
 		super();
 	}
 
-	public Calculation(String revision, Double lsc, Double lc, Double lic, CalculationEnum type, RepresentationEntity representation, List<ValueEntity> values) {
+	public Calculation(String revision, Double lsc, Double lc, Double lic, CalculationEnum type, RepresentationEntity representation) {
 		this.revision = revision;
 		this.lsc = lsc;
 		this.lc = lc;
 		this.lic = lic;
 		this.type = type;
 		this.representation = representation;
-		this.values = values;
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -122,14 +111,6 @@ public abstract class Calculation implements Serializable {
 
 	public void setRepresentation(RepresentationEntity representation) {
 		this.representation = representation;
-	}
-
-	public List<ValueEntity> getValues() {
-		return values;
-	}
-
-	public void setValues(List<ValueEntity> values) {
-		this.values = values;
 	}
 
 }

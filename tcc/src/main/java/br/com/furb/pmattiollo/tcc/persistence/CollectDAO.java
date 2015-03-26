@@ -1,6 +1,11 @@
 package br.com.furb.pmattiollo.tcc.persistence;
 
+import java.util.List;
+
+import javax.persistence.Query;
+
 import br.com.furb.pmattiollo.tcc.domain.CollectEntity;
+import br.com.furb.pmattiollo.tcc.domain.ItemEntity;
 import br.gov.frameworkdemoiselle.stereotype.PersistenceController;
 import br.gov.frameworkdemoiselle.template.JPACrud;
 
@@ -9,5 +14,12 @@ public class CollectDAO extends JPACrud<CollectEntity, Long> {
 
 	private static final long serialVersionUID = 1L;
 	
+	@SuppressWarnings("unchecked")
+	public List<CollectEntity> findLastByItem(ItemEntity item) {
+		Query query = getEntityManager().createNamedQuery("CollectEntity.findListByItem");
+		query.setParameter("item", item);
+		
+		return (List<CollectEntity>) query.getResultList();
+	}	
 
 }
