@@ -10,7 +10,7 @@
 					<p:commandButton value="#{messages['button.save']}" action="#{softwareEditMB.insert}" rendered="#{!softwareEditMB.updateMode}" ajax="false" />
 					<p:commandButton value="#{messages['button.save']}" action="#{softwareEditMB.update}" rendered="#{softwareEditMB.updateMode}" ajax="false" />
 					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()" rendered="#{softwareEditMB.updateMode}" type="button" immediate="true" ajax="false" />
-					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"	header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode" header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
 						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{softwareEditMB.delete}" immediate="true" ajax="false" />
 						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
 					</p:confirmDialog>
@@ -22,68 +22,28 @@
 			<p:fieldset legend="#{messages['software.label']}" toggleable="true" toggleSpeed="500">
 				<h:panelGrid id="fieldssoftware" columns="3">
 				
-					<h:outputLabel value="#{messages['software.label.id']}: " for="id" styleClass="text-input" />
-										
+					<h:outputLabel value="#{messages['software.label.id']}: " for="id" styleClass="text-input" />										
 					<h:outputText id="id" value="#{softwareEditMB.bean.id}" />					
 					<p:message for="id" />
 						
-					<h:outputLabel value="#{messages['software.label.description']}: " for="description" styleClass="text-input" />
-					
+					<h:outputLabel value="#{messages['software.label.description']}: " for="description" styleClass="text-input" />					
 					<h:inputText id="description" value="#{softwareEditMB.bean.description}" title="#{messages['software.alt.description']}" />					
 					<p:message for="description" />
-						
-					<h:outputLabel value="#{messages['software.label.stable']}: " for="stable" styleClass="text-input" />
-					
-					<h:inputText id="stable" value="#{softwareEditMB.bean.stable}" title="#{messages['software.alt.stable']}" />					
-					<p:message for="stable" />
-						
-					<h:outputLabel value="#{messages['software.label.able']}: " for="able" styleClass="text-input" />
-					
-					<h:inputText id="able" value="#{softwareEditMB.bean.able}" title="#{messages['software.alt.able']}" />					
-					<p:message for="able" />
 						
 				</h:panelGrid>
 			</p:fieldset>
 			
-		<p:fieldset legend="#{messages['item.label']}" toggleable="true" toggleSpeed="500">
-			<h:panelGrid id="fieldsitem" columns="1"> 
-				<p:commandButton value="#{messages['button.new']}" action="#{softwareEditMB.addItem}" update="listItem"/>
-				<p:dataTable id="listItem" var="item" value="#{softwareEditMB.itemList}" rowIndexVar="index">
-						
-			        <p:column>
-  			           <h:outputLabel value="#{messages['item.label.id']}: " for="id" styleClass="text-input" />						    
-			           <h:outputText id="id" value="#{item.id}" />				             
-					   <p:message for="id" />
-			  	   </p:column>					  
-				
-			        <p:column>
-  			           <h:outputLabel value="#{messages['item.label.revision']}: " for="revision" styleClass="text-input" />
-  			           					    
-			           <h:inputText id="revision" value="#{item.revision}" title="#{messages['item.alt.revision']}" />						                   
-					   <p:message for="revision" />
-			  	   </p:column>					  
-				
-			        <p:column>
-  			           <h:outputLabel value="#{messages['item.label.process']}: " for="process" styleClass="text-input" />
-						    
-			           <h:inputText id="process" value="#{item.process}" title="#{messages['item.alt.process']}" />						                   
-					   <p:message for="process" />
-			  	   </p:column>					  
-				
-			        <p:column>
-  			           <h:outputLabel value="#{messages['item.label.activity']}: " for="activity" styleClass="text-input" />
-						    
-			           <h:inputText id="activity" value="#{item.activity}" title="#{messages['item.alt.activity']}" />						                   
-					   <p:message for="activity" />
-			  	   </p:column>					  
-				
-				   <p:column>
-					   <f:facet name="header">#{messages['label.action']}</f:facet>
-					   <p:commandButton value="#{messages['button.delete']}" action="#{softwareEditMB.deleteItem}" ajax="false"/>
-				   </p:column>
-				</p:dataTable>
-			</h:panelGrid>
-		</p:fieldset>
+			<p:fieldset legend="#{messages['item.label']}" toggleable="true">
+				<p:pickList id="pickListItemEntity" value="#{softwareEditMB.itemEntityList}"
+					var="varItemEntity" effect="bounce" itemValue="#{varItemEntity}"
+					itemLabel="#{varItemEntity.itemType.description}" converter="ConversorItem"
+					showSourceControls="true" showTargetControls="true" showCheckbox="true"
+					showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" immediate="true">
+					<f:facet name="sourceCaption">"#{messages['item.label']}"</f:facet>
+					<f:facet name="targetCaption"> #{messages['item.label']} "of" #{messages['software.label']} </f:facet>
+					<p:ajax  event="transfer" listener="#{softwareEditMB.onTransfer}" update="pickListItemEntity" />
+				</p:pickList>
+			</p:fieldset>						
 						
 		</h:form>
 	</ui:define>

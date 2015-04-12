@@ -4,13 +4,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-
 import org.primefaces.component.picklist.PickList;
 import org.primefaces.model.DualListModel;
-
-import br.com.furb.pmattiollo.tcc.domain.SoftwareEntity;
-import br.com.furb.pmattiollo.tcc.persistence.SoftwareDAO;
 import br.gov.frameworkdemoiselle.util.Beans;
+import br.com.furb.pmattiollo.tcc.persistence.SoftwareDAO;
+import br.com.furb.pmattiollo.tcc.domain.Software;
 
 @FacesConverter(value= "ConversorSoftware")
 public class SoftwareConverter implements Converter {
@@ -26,7 +24,7 @@ public class SoftwareConverter implements Converter {
 				Object dualList = ((PickList) component).getValue();
 				DualListModel<?> dl = (DualListModel<?>) dualList;
 				for (Object o : dl.getSource()) {
-					String id = String.valueOf(((SoftwareEntity) o).getId());
+					String id = String.valueOf(((Software) o).getId());
 					if (value.equals(id)) {
 						ret = o;
 						break;
@@ -34,7 +32,7 @@ public class SoftwareConverter implements Converter {
 				}
 				if (ret == null)
 					for (Object o : dl.getTarget()) {
-						String id = String.valueOf(((SoftwareEntity) o).getId());
+						String id = String.valueOf(((Software) o).getId());
 						if (value.equals(id)) {
 							ret = o;
 							break;
@@ -63,7 +61,7 @@ public class SoftwareConverter implements Converter {
 			if (value == null || value.equals("")) {
 				return "";
 			} else {			        
-				return String.valueOf(((SoftwareEntity) value).getId());
+				return String.valueOf(((Software) value).getId());
 			}
 		}catch (Exception e) {
 			e.printStackTrace();

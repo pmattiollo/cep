@@ -27,6 +27,10 @@
 				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/user_edit.jsf" rendered="#{securityContext.loggedIn and securityContext.hasPermission('user', 'update')}"></p:menuitem>
 				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/user_list.jsf" rendered="#{securityContext.loggedIn and securityContext.hasPermission('user', 'list')}"></p:menuitem>
 			</p:submenu>
+			
+			<p:submenu label="#{messages['menu.report']}" rendered="#{securityContext.hasRole('report')}">
+				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/report_list.jsf" rendered="#{securityContext.loggedIn and securityContext.hasPermission('report', 'list')}"></p:menuitem>
+			</p:submenu>
 		</p:menubar>
 	</h:form>
 

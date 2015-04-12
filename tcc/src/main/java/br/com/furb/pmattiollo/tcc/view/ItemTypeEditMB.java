@@ -1,6 +1,9 @@
 
 package br.com.furb.pmattiollo.tcc.view;
 
+import java.util.List;
+
+import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 
 import br.com.furb.pmattiollo.tcc.business.ItemTypeBC;
@@ -10,8 +13,6 @@ import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractEditPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
 
-// To remove unused imports press: Ctrl+Shift+o
-
 @ViewController
 @PreviousView("./itemType_list.jsf")
 public class ItemTypeEditMB extends AbstractEditPageBean<ItemTypeEntity, Long> {
@@ -19,7 +20,11 @@ public class ItemTypeEditMB extends AbstractEditPageBean<ItemTypeEntity, Long> {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private ItemTypeBC itemTypeBC;
+	private ItemTypeBC itemTypeBC;	
+
+	public List<SelectItem> getType() {
+		return itemTypeBC.getItemTypeEnum();
+	}
 	
 	@Override
 	@Transactional

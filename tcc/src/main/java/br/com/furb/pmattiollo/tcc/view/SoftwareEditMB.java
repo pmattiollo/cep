@@ -1,10 +1,15 @@
 
 package br.com.furb.pmattiollo.tcc.view;
 
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
+import org.primefaces.event.TransferEvent;
+import org.primefaces.model.DualListModel;
+
+import br.com.furb.pmattiollo.tcc.business.ItemBC;
 import br.com.furb.pmattiollo.tcc.business.SoftwareBC;
 import br.com.furb.pmattiollo.tcc.domain.ItemEntity;
 import br.com.furb.pmattiollo.tcc.domain.SoftwareEntity;
@@ -20,21 +25,59 @@ public class SoftwareEditMB extends AbstractEditPageBean<SoftwareEntity, Long> {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private SoftwareBC softwareBC;	
+	private SoftwareBC softwareBC;
 
-	private DataModel<ItemEntity> itemList;
+	private DualListModel<ItemEntity> itemEntityList;
 	
-	public void addItem() {
-		this.getBean().getItems().add(new ItemEntity());
+	@Inject
+	private ItemBC itemBC;
+
+	public void setItemEntityList(DualListModel<ItemEntity> itemEntityList) {
+		this.itemEntityList = itemEntityList;
 	}
-	public void deleteItem() {
-	   this.getBean().getItems().remove(getItemList().getRowData());
+		
+	public void addItemEntityList(List<ItemEntity> itemEntityList) {
+		if(this.getBean().getItems() != null) {			
+			this.getBean().getItems().addAll(itemEntityList);
+		} else {
+			this.getBean().setItems(itemEntityList);
+		}
 	}
-	public DataModel<ItemEntity> getItemList() {
-	   if (itemList == null) {
-		   itemList = new ListDataModel<ItemEntity>(this.getBean().getItems());
-	   }
-	   return itemList;
+
+	public void deleteItemEntityList(List<ItemEntity> itemEntityList) {
+		if(this.getBean().getItems() != null) {			
+			this.getBean().getItems().removeAll(itemEntityList);
+		}
+	}
+	
+	
+	public DualListModel<ItemEntity> getItemEntityList() {
+		if (this.itemEntityList == null) {
+			List<ItemEntity> source = itemBC.findAll();
+			List<ItemEntity> target = this.getBean().getItems();
+
+			if (source == null) {
+				source = new ArrayList<ItemEntity>();
+			}
+			if (target == null) {
+				target = new ArrayList<ItemEntity>();
+			}else{
+				source.removeAll(target);
+			}
+			this.itemEntityList = new DualListModel<ItemEntity>(source, target);
+
+		}
+		return this.itemEntityList;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void onTransfer(TransferEvent event) {
+		if (event.isAdd()){
+			this.addItemEntityList((List<ItemEntity>) event.getItems());
+		}
+		if (event.isRemove()) {
+			this.deleteItemEntityList((List<ItemEntity>) event.getItems());
+		 }
 	} 
 	
 	@Override

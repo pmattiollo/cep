@@ -5,7 +5,12 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>#{messages['main.app.title']}</title>
+	
 	<link type="text/css" rel="stylesheet" href="css/styles.css" />
+	
+	<script src="resources/js/highcharts.js"></script>
+	<script src="resources/js/exporting.js"></script>
+	<script src="resources/js/graphs.js"></script>
 </h:head>
 
 <h:body style="background-color:#f1f1f1">
@@ -52,7 +57,6 @@
 					<h:outputText value="" />
 				</f:facet>
 			</p:ajaxStatus>	
-			<link type="text/css" rel="stylesheet" href="#{request.contextPath}/themes/#{layoutBean.theme}/skin.css" />
 			<h:outputScript library="js" name="locale-primefaces.js"/>
 		</p:layout>	
 	</div>

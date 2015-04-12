@@ -3,17 +3,14 @@ package br.com.furb.pmattiollo.tcc.domain;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToMany;
-
-import org.hibernate.annotations.Type;
 
 @MappedSuperclass
 public abstract class Software implements Serializable {
@@ -28,30 +25,20 @@ public abstract class Software implements Serializable {
 	@Column(name = "description", nullable = false, length = 100)
 	private String description;
 	
-	@Type(type = "true_false")
-	@Column(name = "stable", nullable = false)
-	private boolean stable;
-	
-	@Type(type = "true_false")
-	@Column(name = "able", nullable = false)
-	private boolean able;
-	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "item")
+	@ManyToMany
+	@JoinTable(name = "software_item", 
+			   joinColumns = {@JoinColumn(name = "software_id", nullable = false, updatable = false)}, 
+			   inverseJoinColumns = {@JoinColumn(name = "item_id", nullable = false, updatable = false)})
 	private List<ItemEntity> items;
 	
 	public Software() {
 		super();
 	}
 
-	public Software(String description, boolean stable, boolean able, List<ItemEntity> items) {
+	public Software(String description, List<ItemEntity> items) {
 		this.description = description;
-		this.stable = stable;
-		this.able = able;
 		this.items = items;
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -67,22 +54,6 @@ public abstract class Software implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public boolean isStable() {
-		return stable;
-	}
-
-	public void setStable(boolean stable) {
-		this.stable = stable;
-	}
-
-	public boolean isAble() {
-		return able;
-	}
-
-	public void setAble(boolean able) {
-		this.able = able;
 	}
 
 	public List<ItemEntity> getItems() {

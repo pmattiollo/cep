@@ -8,7 +8,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "software")
 @NamedQueries({
-    @NamedQuery(name="SoftwareEntity.findById", query="SELECT obj FROM SoftwareEntity obj WHERE obj.id = :id"),				
+    @NamedQuery(name="SoftwareEntity.findById", query="SELECT obj FROM SoftwareEntity obj WHERE obj.id = :id"),
+    @NamedQuery(name="SoftwareEntity.findAll", query="SELECT obj FROM SoftwareEntity obj"),	
 })
 public class SoftwareEntity extends Software {
 

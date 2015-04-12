@@ -1,0 +1,41 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+			
+			<p:fieldset legend="#{messages['user.label']}" toggleable="true" toggleSpeed="500">
+				<h:panelGrid id="fieldsuser" columns="3">
+					
+					<h:outputLabel value="#{messages['software.label']}: " for="software_report" styleClass="text-input" />					
+					<p:selectOneMenu id="software_report" effect="fade" value="#{reportListMB.software}" converter="ConversorSoftware" >
+						<p:ajax listener="#{reportListMB.loadItens()}" update="item_report" />
+						<f:selectItem itemLabel="Select One" itemValue="" />
+	            		<f:selectItems value="#{reportListMB.softwares}" var="software" itemLabel="#{software.description}" itemValue="#{software}" />
+					</p:selectOneMenu>								
+					<p:message for="software_report" redisplay="false" />
+					
+					<h:outputLabel value="#{messages['item.label']}: " for="item_report" styleClass="text-input" />					
+					<p:selectOneMenu id="item_report" effect="fade" value="#{reportListMB.item}" converter="ConversorItem" disabled="#{empty reportListMB.software}">
+						<f:selectItem itemLabel="Select One" itemValue="" />
+	            		<f:selectItems value="#{reportListMB.items}" var="item" itemLabel="#{item.itemType.description}" itemValue="#{item}" />
+					</p:selectOneMenu>								
+					<p:message for="item_report" redisplay="false" />
+					
+					<p:commandButton id="button_graphs" value="#{messages['report.graph.submit']}" action="#{reportListMB.submit()}" update="graphs" ajax="false" />
+								
+				</h:panelGrid>
+			</p:fieldset>
+			
+			<p:panelGrid columns="1" id="graphs">
+				<div id="graph_xi" onload="drawXI()" style="min-width: 100%; height: 500px; margin: 0 auto"></div>
+				<div id="graph_mmep" style="min-width: 100%; height: 500px; margin: 0 auto"></div>
+				<div id="graph_defects" style="min-width: 100%; height: 500px; margin: 0 auto"></div>
+			</p:panelGrid>			
+		
+		</h:form>
+	</ui:define>
+	
+</ui:composition>

@@ -2,14 +2,16 @@ package br.com.furb.pmattiollo.tcc.view;
 
 import java.util.Iterator;
 import java.util.List;
+
 import javax.inject.Inject;
+
+import br.com.furb.pmattiollo.tcc.business.SoftwareBC;
+import br.com.furb.pmattiollo.tcc.domain.SoftwareEntity;
 import br.gov.frameworkdemoiselle.annotation.NextView;
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractListPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
-import br.com.furb.pmattiollo.tcc.business.SoftwareBC;
-import br.com.furb.pmattiollo.tcc.domain.SoftwareEntity;
 
 @ViewController
 @NextView("./software_edit.jsf")
