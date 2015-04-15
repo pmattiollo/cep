@@ -71,6 +71,9 @@ public class CatalogoAuthenticator implements Authenticator {
 		case OPERATOR:
 			for (MeansEnum mean : MeansEnum.values()) {
 				switch (mean) {
+				case SAMPLE:
+					mapMeansOperations.put(mean, Arrays.asList(OperationsEnum.values()));
+					break;
 				case CALCULATION:					
 					mapMeansOperations.put(mean, Arrays.asList(OperationsEnum.LIST));
 					break;

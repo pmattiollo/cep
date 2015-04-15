@@ -29,7 +29,7 @@ public class CalculationXI implements Calculation {
 	@Override
 	public Double getLscResult() {		
 		CollectDAO collectDao = new CollectDAO();
-		List<CollectEntity> collectList = collectDao.findLastByItem(item);
+		List<CollectEntity> collectList = collectDao.findFinishedByItem(item);
 		
 		Double sumAverage = 0.0;
 		
@@ -67,7 +67,7 @@ public class CalculationXI implements Calculation {
 	@Override
 	public Double getLcResult() {
 		CollectDAO collectDao = new CollectDAO();
-		List<CollectEntity> collectList = collectDao.findLastByItem(item);
+		List<CollectEntity> collectList = collectDao.findFinishedByItem(item);
 		
 		Double sumAverage = 0.0;
 		
@@ -86,7 +86,7 @@ public class CalculationXI implements Calculation {
 	@Override
 	public Double getLicResult() {
 		CollectDAO collectDao = new CollectDAO();
-		List<CollectEntity> collectList = collectDao.findLastByItem(item);
+		List<CollectEntity> collectList = collectDao.findFinishedByItem(item);
 		
 		Double sumAverage = 0.0;
 		

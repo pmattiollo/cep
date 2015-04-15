@@ -24,9 +24,6 @@ public abstract class Calculation implements Serializable {
 	@Column(name = "calculation_id")
 	private Long id;
 	
-	@Column(name = "description", nullable = false, length = 100)
-	private String revision;
-	
 	@Column(name = "lsc", nullable = false)
 	private Double lsc;
 	
@@ -41,20 +38,19 @@ public abstract class Calculation implements Serializable {
 	private CalculationEnum type;
 	
 	@ManyToOne
-	@JoinColumn(name = "representation", nullable = false)
-	private RepresentationEntity representation;
+	@JoinColumn(name = "item", nullable = false)
+	private ItemEntity item;
 	
 	public Calculation() {
 		super();
 	}
 
-	public Calculation(String revision, Double lsc, Double lc, Double lic, CalculationEnum type, RepresentationEntity representation) {
-		this.revision = revision;
+	public Calculation(Double lsc, Double lc, Double lic, CalculationEnum type, ItemEntity item) {
 		this.lsc = lsc;
 		this.lc = lc;
 		this.lic = lic;
 		this.type = type;
-		this.representation = representation;
+		this.item = item;
 	}
 
 	public Long getId() {
@@ -63,14 +59,6 @@ public abstract class Calculation implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getRevision() {
-		return revision;
-	}
-
-	public void setRevision(String revision) {
-		this.revision = revision;
 	}
 
 	public Double getLsc() {
@@ -105,12 +93,12 @@ public abstract class Calculation implements Serializable {
 		this.type = type;
 	}
 
-	public RepresentationEntity getRepresentation() {
-		return representation;
+	public ItemEntity getItem() {
+		return item;
 	}
-
-	public void setRepresentation(RepresentationEntity representation) {
-		this.representation = representation;
+	
+	public void setItem(ItemEntity item) {
+		this.item = item;
 	}
 
 }

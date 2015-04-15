@@ -30,14 +30,19 @@ public abstract class Sample implements Serializable {
 	@JoinColumn(name = "unit", nullable = false)
 	private UnitEntity unit;
 	
+	@ManyToOne
+	@JoinColumn(name = "collect", nullable = false)
+	private CollectEntity collect;
+	
 	public Sample() {
 		super();
 	}
 
-	public Sample(Integer number, Double value, UnitEntity unit) {
+	public Sample(Integer number, Double value, UnitEntity unit, CollectEntity collect) {
 		this.number = number;
 		this.value = value;
 		this.unit = unit;
+		this.collect = collect;
 	}
 
 	public Long getId() {
@@ -70,6 +75,14 @@ public abstract class Sample implements Serializable {
 
 	public void setUnit(UnitEntity unit) {
 		this.unit = unit;
+	}
+	
+	public CollectEntity getCollect() {
+		return collect;
+	}
+	
+	public void setCollect(CollectEntity collect) {
+		this.collect = collect;
 	}
 
 }

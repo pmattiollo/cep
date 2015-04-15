@@ -7,16 +7,11 @@
 		<h:form prependId="false">
 			<p:toolbar>
 				<p:toolbarGroup align="left">
-					<p:commandButton value="#{messages['button.save']}" action="#{collectEditMB.insert}"
-						rendered="#{!collectEditMB.updateMode}" ajax="false" />
-					<p:commandButton value="#{messages['button.save']}" action="#{collectEditMB.update}"
-						rendered="#{collectEditMB.updateMode}" ajax="false" />
-					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()"
-						rendered="#{collectEditMB.updateMode}" type="button" immediate="true" ajax="false" />
-					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
-						header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
-						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{collectEditMB.delete}" immediate="true"
-							ajax="false" />
+					<p:commandButton value="#{messages['button.save']}" action="#{collectEditMB.insert}" rendered="#{!collectEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}" action="#{collectEditMB.update}" rendered="#{collectEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()" rendered="#{collectEditMB.updateMode}" type="button" immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode" header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{collectEditMB.delete}" immediate="true" ajax="false" />
 						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
 					</p:confirmDialog>
 				</p:toolbarGroup>
@@ -27,25 +22,16 @@
 			<p:fieldset legend="#{messages['collect.label']}" toggleable="true" toggleSpeed="500">
 				<h:panelGrid id="fieldscollect" columns="3">
 				
-					<h:outputLabel value="#{messages['collect.label.id']}: " for="id" styleClass="text-input" />
-										
-					<h:outputText id="id" value="#{collectEditMB.bean.id}" />
-					
+					<h:outputLabel value="#{messages['collect.label.id']}: " for="id" styleClass="text-input" />										
+					<h:outputText id="id" value="#{collectEditMB.bean.id}" />					
 					<p:message for="id" />
 						
-					<h:outputLabel value="#{messages['collect.label.start_date']}: " for="start_date" styleClass="text-input" />
-					
-					<p:calendar id="start_date" value="#{collectEditMB.bean.start_date}"
-					   pattern="#{messages['label.date.pattern']}" navigator="true" showButtonPanel="true"
-					   locale="#{locales.currentLocale}" title="#{messages['collect.alt.start_date']}" />
-							 
+					<h:outputLabel value="#{messages['collect.label.start_date']}: " for="start_date" styleClass="text-input" />					
+					<p:calendar id="start_date" value="#{collectEditMB.bean.start_date}"  pattern="#{messages['label.date.pattern']}" navigator="true" showButtonPanel="true" locale="#{locales.currentLocale}" title="#{messages['collect.alt.start_date']}" />							 
 					<p:message for="start_date" />
 						
-					<h:outputLabel value="#{messages['collect.label.amount']}: " for="amount" styleClass="text-input" />
-					
-					<h:inputText id="amount" value="#{collectEditMB.bean.amount}"
-						title="#{messages['collect.alt.amount']}" />
-					
+					<h:outputLabel value="#{messages['collect.label.amount']}: " for="amount" styleClass="text-input" />					
+					<h:inputText id="amount" value="#{collectEditMB.bean.amount}" title="#{messages['collect.alt.amount']}" />					
 					<p:message for="amount" />
 						
 					<h:outputLabel value="#{messages['item.label']}: " for="item" styleClass="text-input" />
@@ -57,45 +43,6 @@
 								 
 				</h:panelGrid>
 			</p:fieldset>
-			
-		<p:fieldset legend="#{messages['sample.label']}" toggleable="true" toggleSpeed="500">
-			<h:panelGrid id="fieldssample" columns="1"> 
-				<p:commandButton value="#{messages['button.new']}" action="#{collectEditMB.addSample}" update="listSample"/>
-				<p:dataTable id="listSample" var="sample" value="#{collectEditMB.sampleList}" rowIndexVar="index">
-						
-			        <p:column>
-  			           <h:outputLabel value="#{messages['sample.label.id']}: " for="id" styleClass="text-input" />
-						    
-			           <h:outputText id="id" value="#{sample.id}" />
-				             
-					   <p:message for="id" />
-			  	   </p:column>					  
-				
-			        <p:column>
-  			           <h:outputLabel value="#{messages['sample.label.number']}: " for="number" styleClass="text-input" />
-						    
-			           <h:inputText id="number" value="#{sample.number}"
-				          title="#{messages['sample.alt.number']}" />
-						                   
-					   <p:message for="number" />
-			  	   </p:column>					  
-				
-			        <p:column>
-  			           <h:outputLabel value="#{messages['sample.label.value']}: " for="value" styleClass="text-input" />
-						    
-			           <h:inputText id="value" value="#{sample.value}"
-				          title="#{messages['sample.alt.value']}" />
-						                   
-					   <p:message for="value" />
-			  	   </p:column>					  
-				
-				   <p:column>
-					   <f:facet name="header">#{messages['label.action']}</f:facet>
-					   <p:commandButton value="#{messages['button.delete']}" action="#{collectEditMB.deleteSample}" ajax="false"/>
-				   </p:column>
-				</p:dataTable>
-			</h:panelGrid>
-		</p:fieldset>
 						
 		</h:form>
 	</ui:define>

@@ -7,17 +7,10 @@
 		<h:form>
 			<p:toolbar>
 				<p:toolbarGroup align="left">
-					<p:commandButton title="#{messages['button.new']}" icon="ui-icon-document" action="#{collectListMB.getNextView}"
-						actionListener="#{collectListMB.clear}" ajax="false" />
-
-					<p:commandButton title="#{messages['button.delete']}" icon="ui-icon-trash" onclick="confirmation.show()"
-						type="button" immediate="true" ajax="false" />
-
-					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
-						header="#{messages['label.dialog.alert']}!" severity="alert" widgetVar="confirmation">
-
-						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{collectListMB.deleteSelection}"
-							actionListener="#{collectListMB.clear}" />
+					<p:commandButton title="#{messages['button.new']}" icon="ui-icon-document" action="#{collectListMB.getNextView}" actionListener="#{collectListMB.clear}" ajax="false" />
+					<p:commandButton title="#{messages['button.delete']}" icon="ui-icon-trash" onclick="confirmation.show()" type="button" immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode" header="#{messages['label.dialog.alert']}!" severity="alert" widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{collectListMB.deleteSelection}" actionListener="#{collectListMB.clear}" />
 						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
 					</p:confirmDialog>
 				</p:toolbarGroup>
@@ -47,6 +40,11 @@
 						<h:outputText value="#{bean.amount}" />
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
+				</p:column>
+				
+				<p:column sortBy="#{bean.finished}">
+					<f:facet name="header">#{messages['collect.label.finished']}</f:facet>
+					<h:outputText value="#{bean.finished}" />
 				</p:column>
 					
 			</p:dataTable>

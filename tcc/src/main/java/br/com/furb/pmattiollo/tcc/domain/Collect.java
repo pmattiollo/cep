@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Type;
+
 @MappedSuperclass
 public abstract class Collect implements Serializable {
 
@@ -33,6 +35,10 @@ public abstract class Collect implements Serializable {
 	
 	@Column(name = "amount", nullable = false)
 	private Integer amount;
+	
+	@Type(type="true_false")
+	@Column(name = "finished", nullable = false)
+	private boolean finished;
 	
 	@ManyToOne
 	@JoinColumn(name = "item", nullable = false)
@@ -75,6 +81,14 @@ public abstract class Collect implements Serializable {
 
 	public void setAmount(Integer amount) {
 		this.amount = amount;
+	}
+	
+	public boolean isFinished() {
+		return finished;
+	}
+	
+	public void setFinished(boolean finished) {
+		this.finished = finished;
 	}
 	
 	public ItemEntity getItem() {

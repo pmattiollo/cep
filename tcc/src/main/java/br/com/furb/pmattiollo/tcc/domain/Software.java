@@ -3,7 +3,9 @@ package br.com.furb.pmattiollo.tcc.domain;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +27,7 @@ public abstract class Software implements Serializable {
 	@Column(name = "description", nullable = false, length = 100)
 	private String description;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "software_item", 
 			   joinColumns = {@JoinColumn(name = "software_id", nullable = false, updatable = false)}, 
 			   inverseJoinColumns = {@JoinColumn(name = "item_id", nullable = false, updatable = false)})

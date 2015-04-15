@@ -2,7 +2,27 @@
 	xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<h:form>
-		<p:menubar>
+		<p:menubar>		
+			<p:submenu label="#{messages['menu.user']}" rendered="#{securityContext.hasRole('user')}">
+				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/user_edit.jsf" rendered="#{securityContext.loggedIn and securityContext.hasPermission('user', 'update')}"></p:menuitem>
+				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/user_list.jsf" rendered="#{securityContext.loggedIn and securityContext.hasPermission('user', 'list')}"></p:menuitem>
+			</p:submenu>
+			
+			<p:submenu label="#{messages['menu.unit']}" rendered="#{securityContext.hasRole('unit')}">
+				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/unit_edit.jsf" rendered="#{securityContext.loggedIn and securityContext.hasPermission('unit', 'update')}"></p:menuitem>
+				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/unit_list.jsf" rendered="#{securityContext.loggedIn and securityContext.hasPermission('unit', 'list')}"></p:menuitem>
+			</p:submenu>
+
+			<p:submenu label="#{messages['menu.sample']}" rendered="#{securityContext.hasRole('sample')}">
+				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/sample_edit.jsf" rendered="#{securityContext.loggedIn and securityContext.hasPermission('sample', 'update')}"></p:menuitem>
+				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/sample_list.jsf" rendered="#{securityContext.loggedIn and securityContext.hasPermission('sample', 'list')}"></p:menuitem>
+			</p:submenu>
+			
+			<p:submenu label="#{messages['menu.collect']}" rendered="#{securityContext.hasRole('collect')}">
+				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/collect_edit.jsf" rendered="#{securityContext.loggedIn and securityContext.hasPermission('collect', 'update')}"></p:menuitem>
+				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/collect_list.jsf" rendered="#{securityContext.loggedIn and securityContext.hasPermission('collect', 'list')}"></p:menuitem>
+			</p:submenu>
+
 			<p:submenu label="#{messages['menu.software']}" rendered="#{securityContext.hasRole('software')}">
 				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/software_edit.jsf" rendered="#{securityContext.loggedIn and securityContext.hasPermission('software', 'update')}"></p:menuitem>
 				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/software_list.jsf" rendered="#{securityContext.loggedIn and securityContext.hasPermission('software', 'list')}"></p:menuitem>
@@ -16,16 +36,6 @@
 			<p:submenu label="#{messages['menu.item']}" rendered="#{securityContext.hasRole('item')}">
 				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/item_edit.jsf" rendered="#{securityContext.loggedIn and securityContext.hasPermission('item', 'update')}"></p:menuitem>
 				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/item_list.jsf" rendered="#{securityContext.loggedIn and securityContext.hasPermission('item', 'list')}"></p:menuitem>
-			</p:submenu>
-
-			<p:submenu label="#{messages['menu.collect']}" rendered="#{securityContext.hasRole('collect')}">
-				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/collect_edit.jsf" rendered="#{securityContext.loggedIn and securityContext.hasPermission('collect', 'update')}"></p:menuitem>
-				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/collect_list.jsf" rendered="#{securityContext.loggedIn and securityContext.hasPermission('collect', 'list')}"></p:menuitem>
-			</p:submenu>
-
-			<p:submenu label="#{messages['menu.user']}" rendered="#{securityContext.hasRole('user')}">
-				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/user_edit.jsf" rendered="#{securityContext.loggedIn and securityContext.hasPermission('user', 'update')}"></p:menuitem>
-				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/user_list.jsf" rendered="#{securityContext.loggedIn and securityContext.hasPermission('user', 'list')}"></p:menuitem>
 			</p:submenu>
 			
 			<p:submenu label="#{messages['menu.report']}" rendered="#{securityContext.hasRole('report')}">

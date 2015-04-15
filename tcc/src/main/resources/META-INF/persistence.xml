@@ -10,13 +10,11 @@
 		<class>br.com.furb.pmattiollo.tcc.domain.CollectEntity</class>
 		<class>br.com.furb.pmattiollo.tcc.domain.ItemEntity</class>
 		<class>br.com.furb.pmattiollo.tcc.domain.ItemTypeEntity</class>
-		<class>br.com.furb.pmattiollo.tcc.domain.RepresentationEntity</class>
 		<class>br.com.furb.pmattiollo.tcc.domain.SampleEntity</class>
 		<class>br.com.furb.pmattiollo.tcc.domain.SoftwareEntity</class>
 		<class>br.com.furb.pmattiollo.tcc.domain.UnitEntity</class>	
-		<class>br.com.furb.pmattiollo.tcc.domain.UserEntity</class>
-
-		<properties>
+		<class>br.com.furb.pmattiollo.tcc.domain.UserEntity</class>	
+	<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />	        
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="false" />
