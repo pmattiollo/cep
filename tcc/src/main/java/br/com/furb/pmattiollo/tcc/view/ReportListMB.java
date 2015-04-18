@@ -7,13 +7,19 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 
+import br.com.furb.pmattiollo.tcc.business.ReportBC;
+import br.com.furb.pmattiollo.tcc.constant.CalculationEnum;
 import br.com.furb.pmattiollo.tcc.domain.ItemEntity;
 import br.com.furb.pmattiollo.tcc.domain.SoftwareEntity;
 import br.com.furb.pmattiollo.tcc.persistence.SoftwareDAO;
 
 @ManagedBean
 public class ReportListMB {
+	
+	@Inject
+	private ReportBC reportBC;
 	
 	private SoftwareEntity software;
 	private List<SoftwareEntity> softwares;
@@ -36,7 +42,7 @@ public class ReportListMB {
 		}
 	}
 	
-	public void submit() {
+	public String submit(Integer code) {
 		if(software == null || item == null) {
 			if(software == null) {
 				FacesContext.getCurrentInstance().addMessage("software_report", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Software is required"));
@@ -45,8 +51,10 @@ public class ReportListMB {
 			if(item == null) {
 				FacesContext.getCurrentInstance().addMessage("item_report", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Item is required"));
 			}
-		} else {
 			
+			return null;
+		} else {
+			return reportBC.generateGraph(CalculationEnum.getCalculationTypeByCode(code), item);
 		}
 		
 	}

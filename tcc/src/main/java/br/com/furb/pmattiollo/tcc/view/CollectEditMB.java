@@ -24,30 +24,30 @@ public class CollectEditMB extends AbstractEditPageBean<CollectEntity, Long> {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private CollectBC collectBC;	
-
+	private CollectBC collectBC;
+	
 	@Inject
-	private ItemBC itemBC;
+	private ItemBC itemEntityBC;
 	
-	private DataModel<SampleEntity> sampleList;
+	private DataModel<SampleEntity> sampleEntityList;
 	
-	public List<ItemEntity> getItemList(){
-		return itemBC.findAll();
+	public List<ItemEntity> getItemEntityList(){
+		return itemEntityBC.findAll();
 	}			
 	
-	public void addSample() {
+	public void addSampleEntity() {
 		this.getBean().getSamples().add(new SampleEntity());
 	}
 	
-	public void deleteSample() {
-	   this.getBean().getSamples().remove(getSampleList().getRowData());
+	public void deleteSampleEntity() {
+	   this.getBean().getSamples().remove(getSampleEntityList().getRowData());
 	}
 	
-	public DataModel<SampleEntity> getSampleList() {
-	   if (sampleList == null) {
-		   sampleList = new ListDataModel<SampleEntity>(this.getBean().getSamples());
+	public DataModel<SampleEntity> getSampleEntityList() {
+	   if (sampleEntityList == null) {
+		   sampleEntityList = new ListDataModel<SampleEntity>(this.getBean().getSamples());
 	   }
-	   return sampleList;
+	   return sampleEntityList;
 	} 
 	
 	@Override

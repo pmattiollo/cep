@@ -12,6 +12,7 @@ public class ChartDefinition {
 	private List<List<BigDecimal>> valuesSeries;
 	
 	private String title;
+	private String subtitle;
 	private ChartType typeEnum;
 	private String type;
 	
@@ -25,17 +26,6 @@ public class ChartDefinition {
 
 	public ChartDefinition() {
 	}
-			
-//	public ChartDefinition(List<String> categories, List<String> namesSeries, List<List<BigDecimal>> valuesSeries, ChartType typeEnum, String title) {
-//		this.categories = categories;
-//		this.namesSeries = namesSeries;
-//		this.valuesSeries = valuesSeries;
-//		this.typeEnum = typeEnum;
-//		this.type = typeEnum.getType();
-//		this.stacked = typeEnum.isStacked();
-//		this.title = title;
-//		this.showToolTip = true;
-//	}
 	
 	public String getTitle() {
 		return title;
@@ -43,6 +33,14 @@ public class ChartDefinition {
 	
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	public String getSubtitle() {
+		return subtitle;
+	}
+	
+	public void setSubtitle(String subtitle) {
+		this.subtitle = subtitle;
 	}
 	
 	public String getyAxisTitle() {

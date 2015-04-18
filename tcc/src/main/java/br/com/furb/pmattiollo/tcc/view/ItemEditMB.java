@@ -1,14 +1,10 @@
 
 package br.com.furb.pmattiollo.tcc.view;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import br.com.furb.pmattiollo.tcc.business.ItemBC;
-import br.com.furb.pmattiollo.tcc.business.ItemTypeBC;
 import br.com.furb.pmattiollo.tcc.domain.ItemEntity;
-import br.com.furb.pmattiollo.tcc.domain.ItemTypeEntity;
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractEditPageBean;
@@ -22,15 +18,6 @@ public class ItemEditMB extends AbstractEditPageBean<ItemEntity, Long> {
 
 	@Inject
 	private ItemBC itemBC;
-	
-
-	@Inject
-	private ItemTypeBC itemEntityBC;
-	
-	public List<ItemTypeEntity> getItemTypeList(){
-		return itemEntityBC.findAll();
-	}
-			
 	
 	@Override
 	@Transactional

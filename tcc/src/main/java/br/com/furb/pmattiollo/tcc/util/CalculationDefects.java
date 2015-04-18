@@ -1,19 +1,20 @@
 package br.com.furb.pmattiollo.tcc.util;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import br.com.furb.pmattiollo.tcc.constant.CalculationEnum;
 import br.com.furb.pmattiollo.tcc.domain.CollectEntity;
-import br.com.furb.pmattiollo.tcc.domain.ItemEntity;
 import br.com.furb.pmattiollo.tcc.domain.SampleEntity;
-import br.com.furb.pmattiollo.tcc.persistence.CollectDAO;
 
 public class CalculationDefects implements Calculation {
 	
-	private ItemEntity item;
+	private static final int SIZE = 5;
 	
-	public CalculationDefects(ItemEntity item) {
-		this.item = item;
+	private List<CollectEntity> collectList;
+	
+	public CalculationDefects(List<CollectEntity> collectList) {
+		this.collectList = collectList;
 	}
 	
 	@SuppressWarnings("unused")
@@ -26,63 +27,51 @@ public class CalculationDefects implements Calculation {
 	}
 
 	@Override
-	public Double getLscResult() {
-		CollectDAO collectDao = new CollectDAO();
-		List<CollectEntity> collectList = collectDao.findFinishedByItem(item);
-		
+	public BigDecimal getLscResult() {		
 		int collectNumber = collectList.size();
-		int sampleSize = item.getItemType().getType().getNum();
-		Double sumDefects = 0.0;
-		Double average = 0.0;
+		BigDecimal sumDefects = new BigDecimal(0.0);
+		BigDecimal average = new BigDecimal(0.0);
 		
 		for(CollectEntity collect : collectList) {
 			for(SampleEntity sample : collect.getSamples()) {
-				sumDefects += sample.getValue();
+				sumDefects.add(sample.getValue());
 			}
 		}
 		
-		average = (sumDefects / (collectNumber * sampleSize));
+		average = (sumDefects.divide(new BigDecimal(collectNumber * SIZE)));
 		
-		return average + (3 * Math.sqrt(average / sampleSize));
+		return average.add(new BigDecimal(3 * Math.sqrt(average.divide(new BigDecimal(SIZE)).doubleValue())));
 	}
 
 	@Override
-	public Double getLcResult() {
-		CollectDAO collectDao = new CollectDAO();
-		List<CollectEntity> collectList = collectDao.findFinishedByItem(item);
-		
+	public BigDecimal getLcResult() {		
 		int collectNumber = collectList.size();
-		int sampleSize = item.getItemType().getType().getNum();
-		Double sumDefects = 0.0;
+		BigDecimal sumDefects = new BigDecimal(0.0);
 		
 		for(CollectEntity collect : collectList) {
 			for(SampleEntity sample : collect.getSamples()) {
-				sumDefects += sample.getValue();
+				sumDefects.add(sample.getValue());
 			}
 		}
 		
-		return (sumDefects / (collectNumber * sampleSize));		
+		return (sumDefects.divide(new BigDecimal(collectNumber * SIZE)));		
 	}
 
 	@Override
-	public Double getLicResult() {
-		CollectDAO collectDao = new CollectDAO();
-		List<CollectEntity> collectList = collectDao.findFinishedByItem(item);
-		
+	public BigDecimal getLicResult() {		
 		int collectNumber = collectList.size();
-		int sampleSize = item.getItemType().getType().getNum();
-		Double sumDefects = 0.0;
-		Double average = 0.0;
+		BigDecimal sumDefects = new BigDecimal(0.0);
+		BigDecimal average = new BigDecimal(0.0);
 		
 		for(CollectEntity collect : collectList) {
 			for(SampleEntity sample : collect.getSamples()) {
-				sumDefects += sample.getValue();
+				sumDefects.add(sample.getValue());
 			}
 		}
 		
-		average = (sumDefects / (collectNumber * sampleSize));
+		average = (sumDefects.divide(new BigDecimal(collectNumber * SIZE)));
 		
-		return average - (3 * Math.sqrt(average / sampleSize));
+		return average.subtract(new BigDecimal(3 * Math.sqrt(average.divide(new BigDecimal(SIZE)).doubleValue())));
 	}
 
 }

@@ -20,17 +20,17 @@
 					<h:outputLabel value="#{messages['item.label']}: " for="item_report" styleClass="text-input" />					
 					<p:selectOneMenu id="item_report" effect="fade" value="#{reportListMB.item}" converter="ConversorItem" disabled="#{empty reportListMB.software}">
 						<f:selectItem itemLabel="Select One" itemValue="" />
-	            		<f:selectItems value="#{reportListMB.items}" var="item" itemLabel="#{item.itemType.description}" itemValue="#{item}" />
+	            		<f:selectItems value="#{reportListMB.items}" var="item" itemLabel="#{item.description}" itemValue="#{item}" />
 					</p:selectOneMenu>								
 					<p:message for="item_report" redisplay="false" />
 					
-					<p:commandButton id="button_graphs" value="#{messages['report.graph.submit']}" action="#{reportListMB.submit()}" update="graphs" ajax="false" />
+					<p:commandButton id="button_graphs" value="#{messages['report.graph.submit']}" actionListener="montarGrafico(#{reportListMB.submit(1)}, null, 'graph_xi'),montarGrafico(#{reportListMB.submit(2)}, null, 'graph_mmep'),montarGrafico(#{reportListMB.submit(3)}, null, 'graph_defects')" update="graphs" />
 								
 				</h:panelGrid>
 			</p:fieldset>
 			
 			<p:panelGrid columns="1" id="graphs">
-				<div id="graph_xi" onload="drawXI()" style="min-width: 100%; height: 500px; margin: 0 auto"></div>
+				<div id="graph_xi" style="min-width: 100%; height: 500px; margin: 0 auto"></div>
 				<div id="graph_mmep" style="min-width: 100%; height: 500px; margin: 0 auto"></div>
 				<div id="graph_defects" style="min-width: 100%; height: 500px; margin: 0 auto"></div>
 			</p:panelGrid>			

@@ -33,9 +33,6 @@ public abstract class Collect implements Serializable {
 	@Column(name = "start_date", nullable = false)
 	private Date start_date;
 	
-	@Column(name = "amount", nullable = false)
-	private Integer amount;
-	
 	@Type(type="true_false")
 	@Column(name = "finished", nullable = false)
 	private boolean finished;
@@ -54,7 +51,6 @@ public abstract class Collect implements Serializable {
 
 	public Collect(Date start_date, Integer amount, ItemEntity item, List<SampleEntity> samples) {
 		this.start_date = start_date;
-		this.amount = amount;
 		this.item = item;
 		this.samples = samples;
 	}
@@ -73,14 +69,6 @@ public abstract class Collect implements Serializable {
 
 	public void setStart_date(Date start_date) {
 		this.start_date = start_date;
-	}
-
-	public Integer getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Integer amount) {
-		this.amount = amount;
 	}
 	
 	public boolean isFinished() {

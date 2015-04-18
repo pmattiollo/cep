@@ -22,6 +22,7 @@ function montarGrafico(data, theme, containerName) {
 function montarGraficoGenerico(obj, containerName) {
 
 	var graphTitle = obj.title;
+	var graphSubTitle = obj.subtitle;
 	var graphType = obj.type;
 	var xAxisTitle = obj.xAxisTitle === undefined ? '' : obj.xAxisTitle;
 	var yAxisTitle = obj.yAxisTitle === undefined ? '' : obj.yAxisTitle;
@@ -42,6 +43,7 @@ function montarGraficoGenerico(obj, containerName) {
             events: {
                 load:  function(event) {
                 	graphTitle = obj.title;
+                	graphSubTitle = obj.subtitle;
                 	var chart = this;
                 	
                 	var namesSeries = obj.namesSeries;
@@ -76,6 +78,10 @@ function montarGraficoGenerico(obj, containerName) {
         
         title: {
         	text: graphTitle
+        },
+        
+        subtitle: {
+            text: graphSubTitle,
         },
         
         credits: {

@@ -7,13 +7,17 @@
 		<h:form>
 			<p:toolbar>
 				<p:toolbarGroup align="left">
-					<p:commandButton title="#{messages['button.new']}" icon="ui-icon-document" action="#{itemListMB.getNextView}" actionListener="#{itemListMB.clear}" ajax="false" />
+					<p:commandButton title="#{messages['button.new']}" icon="ui-icon-document" action="#{itemListMB.getNextView}"
+						actionListener="#{itemListMB.clear}" ajax="false" />
 
-					<p:commandButton title="#{messages['button.delete']}" icon="ui-icon-trash" onclick="confirmation.show()" type="button" immediate="true" ajax="false" />
+					<p:commandButton title="#{messages['button.delete']}" icon="ui-icon-trash" onclick="confirmation.show()"
+						type="button" immediate="true" ajax="false" />
 
-					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode" header="#{messages['label.dialog.alert']}!" severity="alert" widgetVar="confirmation">
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.alert']}!" severity="alert" widgetVar="confirmation">
 
-						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{itemListMB.deleteSelection}" actionListener="#{itemListMB.clear}" />
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{itemListMB.deleteSelection}"
+							actionListener="#{itemListMB.clear}" />
 						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
 					</p:confirmDialog>
 				</p:toolbarGroup>
@@ -29,10 +33,10 @@
 					<h:outputText value="#{bean.id}" />
 				</p:column>
 						
-				<p:column sortBy="#{bean.revision}">
-					<f:facet name="header">#{messages['item.label.revision']}</f:facet>
+				<p:column sortBy="#{bean.description}">
+					<f:facet name="header">#{messages['item.label.description']}</f:facet>
 					<h:commandLink action="#{itemListMB.getNextView}" actionListener="#{itemListMB.clear}">
-						<h:outputText value="#{bean.revision}" />
+						<h:outputText value="#{bean.description}" />
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
@@ -41,14 +45,6 @@
 					<f:facet name="header">#{messages['item.label.process']}</f:facet>
 					<h:commandLink action="#{itemListMB.getNextView}" actionListener="#{itemListMB.clear}">
 						<h:outputText value="#{bean.process}" />
-						<f:param name="id" value="#{bean.id}" />
-					</h:commandLink>
-				</p:column>
-					
-				<p:column sortBy="#{bean.activity}">
-					<f:facet name="header">#{messages['item.label.activity']}</f:facet>
-					<h:commandLink action="#{itemListMB.getNextView}" actionListener="#{itemListMB.clear}">
-						<h:outputText value="#{bean.activity}" />
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>

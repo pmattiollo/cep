@@ -27,27 +27,13 @@
 					<p:message for="id" />
 						
 					<h:outputLabel value="#{messages['sample.label.number']}: " for="number" styleClass="text-input" />					
-					<h:inputText id="number" value="#{sampleEditMB.bean.number}" title="#{messages['sample.alt.number']}" />					
+					<h:inputText id="number" value="#{sampleEditMB.bean.number}" title="#{messages['sample.alt.number']}" />				
 					<p:message for="number" />
 						
 					<h:outputLabel value="#{messages['sample.label.value']}: " for="value" styleClass="text-input" />					
 					<h:inputText id="value" value="#{sampleEditMB.bean.value}" title="#{messages['sample.alt.value']}" />					
 					<p:message for="value" />
 						
-					<h:outputLabel value="#{messages['unit.label']}: " for="unit" styleClass="text-input" />
-				    <p:selectOneMenu id="unit" value="#{sampleEditMB.bean.unit}" effect="fade" converter="ConversorUnit">
-						<f:selectItem itemLabel="Selecione" itemValue="" />
-						<f:selectItems value="#{sampleEditMB.unitEntityList}" var="varUnitEntity" itemLabel="#{varUnitEntity.id}"  itemValue="#{varUnitEntity}" />						
-					</p:selectOneMenu>
-					<p:message for="unit" />
-					
-					<h:outputLabel value="#{messages['collect.label']}: " for="collect" styleClass="text-input" />
-				    <p:selectOneMenu id="collect" value="#{sampleEditMB.bean.collect}" effect="fade" converter="ConversorCollect">
-						<f:selectItem itemLabel="Selecione" itemValue="" />
-						<f:selectItems value="#{sampleEditMB.collectEntityList}" var="varCollectEntity" itemLabel="#{varCollectEntity.id}"  itemValue="#{varCollectEntity}" />						
-					</p:selectOneMenu>
-					<p:message for="collect" />					  
-								 
 				</h:panelGrid>
 			</p:fieldset>
 			

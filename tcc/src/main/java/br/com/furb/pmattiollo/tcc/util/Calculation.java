@@ -1,15 +1,17 @@
 package br.com.furb.pmattiollo.tcc.util;
 
+import java.math.BigDecimal;
+
 import br.com.furb.pmattiollo.tcc.constant.CalculationEnum;
 
 public interface Calculation {
 	
 	public CalculationEnum getType();
 	
-	public Double getLscResult();
+	public BigDecimal getLscResult();
 	
-	public Double getLcResult();
+	public BigDecimal getLcResult();
 	
-	public Double getLicResult();
+	public BigDecimal getLicResult();
 
 }

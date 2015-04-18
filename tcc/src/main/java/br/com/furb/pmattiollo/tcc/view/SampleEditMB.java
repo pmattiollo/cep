@@ -1,16 +1,10 @@
 
 package br.com.furb.pmattiollo.tcc.view;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import br.com.furb.pmattiollo.tcc.business.SampleBC;
-import br.com.furb.pmattiollo.tcc.business.UnitBC;
-import br.com.furb.pmattiollo.tcc.domain.CollectEntity;
 import br.com.furb.pmattiollo.tcc.domain.SampleEntity;
-import br.com.furb.pmattiollo.tcc.domain.UnitEntity;
-import br.com.furb.pmattiollo.tcc.persistence.CollectDAO;
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractEditPageBean;
@@ -23,21 +17,9 @@ public class SampleEditMB extends AbstractEditPageBean<SampleEntity, Long> {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private SampleBC sampleBC;	
+	private SampleBC sampleBC;
+	
 
-	@Inject
-	private UnitBC unitEntityBC;
-			
-	@Inject
-	private CollectDAO collectDao;
-	
-	public List<UnitEntity> getUnitEntityList(){
-		return unitEntityBC.findAll();
-	}
-	
-	public List<CollectEntity> getCollectEntityList(){
-		return collectDao.findNotFinished();
-	}			
 	
 	@Override
 	@Transactional

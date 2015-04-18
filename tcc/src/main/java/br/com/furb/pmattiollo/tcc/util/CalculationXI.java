@@ -1,20 +1,19 @@
 package br.com.furb.pmattiollo.tcc.util;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import br.com.furb.pmattiollo.tcc.constant.CalculationEnum;
 import br.com.furb.pmattiollo.tcc.domain.CollectEntity;
-import br.com.furb.pmattiollo.tcc.domain.ItemEntity;
 import br.com.furb.pmattiollo.tcc.domain.SampleEntity;
-import br.com.furb.pmattiollo.tcc.persistence.CollectDAO;
 
 public class CalculationXI implements Calculation {
 	
 	private static final double D2 = 1.128;
-	private ItemEntity item;
+	private List<CollectEntity> collectList;
 	
-	public CalculationXI(ItemEntity item) {
-		this.item = item;
+	public CalculationXI(List<CollectEntity> collectList) {
+		this.collectList = collectList;
 	}
 	
 	@SuppressWarnings("unused")
@@ -27,98 +26,89 @@ public class CalculationXI implements Calculation {
 	}
 
 	@Override
-	public Double getLscResult() {		
-		CollectDAO collectDao = new CollectDAO();
-		List<CollectEntity> collectList = collectDao.findFinishedByItem(item);
+	public BigDecimal getLscResult() {		
+		BigDecimal sumAverage = new BigDecimal(0.0);
 		
-		Double sumAverage = 0.0;
-		
-		Double previousAverage = 0.0;
-		Double currentAverage = 0.0;
-		Double sumMobileAverage = 0.0;
+		BigDecimal previousAverage = new BigDecimal(0.0);
+		BigDecimal currentAverage = new BigDecimal(0.0);
+		BigDecimal sumMobileAverage = new BigDecimal(0.0);
 		int count = 0;
 		
 		for(CollectEntity collect : collectList) {
 			for(SampleEntity sample : collect.getSamples()) {
-				sumAverage += sample.getValue();
-				currentAverage += sample.getValue();
+				sumAverage.add(sample.getValue());
+				currentAverage.add(sample.getValue());
 			}
 			
 			// Caso haja mais de uma amostra tira a média sempre
-			sumAverage = sumAverage / collect.getSamples().size();
-			currentAverage = currentAverage / collect.getSamples().size();
+			sumAverage = sumAverage.divide(new BigDecimal(collect.getSamples().size()));
+			currentAverage = currentAverage.divide(new BigDecimal(collect.getSamples().size()));
 			
 			if(count == 0) {
 				previousAverage = currentAverage;
 			} else {
-				previousAverage = (previousAverage + currentAverage) / 2;
+				previousAverage = (previousAverage.add(currentAverage).divide(new BigDecimal(2)));
 			}
 			
-			sumMobileAverage += previousAverage;
+			sumMobileAverage.add(previousAverage);
 			count ++;
 		}
 		
-		Double valuesAverage = sumAverage / collectList.size();
-		Double mobileRangeAverage = sumMobileAverage / collectList.size();		
+		BigDecimal valuesAverage = sumAverage.divide(new BigDecimal(collectList.size()));
+		BigDecimal mobileRangeAverage = sumMobileAverage.divide(new BigDecimal(collectList.size()));		
 		
-		return valuesAverage + (3 * (mobileRangeAverage / D2));
+		return valuesAverage.add(mobileRangeAverage.divide(new BigDecimal(D2)).multiply(new BigDecimal(3)));
 	}
 
 	@Override
-	public Double getLcResult() {
-		CollectDAO collectDao = new CollectDAO();
-		List<CollectEntity> collectList = collectDao.findFinishedByItem(item);
-		
-		Double sumAverage = 0.0;
+	public BigDecimal getLcResult() {		
+		BigDecimal sumAverage = new BigDecimal(0.0);
 		
 		for(CollectEntity collect : collectList) {
 			for(SampleEntity sample : collect.getSamples()) {
-				sumAverage += sample.getValue();
+				sumAverage.add(sample.getValue());
 			}
 			
 			// Caso haja mais de uma amostra tira a média sempre
-			sumAverage = sumAverage / collect.getSamples().size();
+			sumAverage = sumAverage.divide(new BigDecimal(collect.getSamples().size()));
 		}
 		
-		return sumAverage / collectList.size();
+		return sumAverage.divide(new BigDecimal(collectList.size()));
 	}
 
 	@Override
-	public Double getLicResult() {
-		CollectDAO collectDao = new CollectDAO();
-		List<CollectEntity> collectList = collectDao.findFinishedByItem(item);
+	public BigDecimal getLicResult() {		
+		BigDecimal sumAverage = new BigDecimal(0.0);
 		
-		Double sumAverage = 0.0;
-		
-		Double previousAverage = 0.0;
-		Double currentAverage = 0.0;
-		Double sumMobileAverage = 0.0;
+		BigDecimal previousAverage = new BigDecimal(0.0);
+		BigDecimal currentAverage = new BigDecimal(0.0);
+		BigDecimal sumMobileAverage = new BigDecimal(0.0);
 		int count = 0;
 		
 		for(CollectEntity collect : collectList) {
 			for(SampleEntity sample : collect.getSamples()) {
-				sumAverage += sample.getValue();
-				currentAverage += sample.getValue();
+				sumAverage.add(sample.getValue());
+				currentAverage.add(sample.getValue());
 			}
 			
 			// Caso haja mais de uma amostra tira a média sempre
-			sumAverage = sumAverage / collect.getSamples().size();
-			currentAverage = currentAverage / collect.getSamples().size();
+			sumAverage = sumAverage.divide(new BigDecimal(collect.getSamples().size()));
+			currentAverage = currentAverage.divide(new BigDecimal(collect.getSamples().size()));
 			
 			if(count == 0) {
 				previousAverage = currentAverage;
 			} else {
-				previousAverage = (previousAverage + currentAverage) / 2;
+				previousAverage = (previousAverage.add(currentAverage).divide(new BigDecimal(2)));
 			}
 			
-			sumMobileAverage += previousAverage;
+			sumMobileAverage.add(previousAverage);
 			count ++;
 		}
 		
-		Double valuesAverage = sumAverage / collectList.size();
-		Double mobileRangeAverage = sumMobileAverage / collectList.size();		
+		BigDecimal valuesAverage = sumAverage.divide(new BigDecimal(collectList.size()));
+		BigDecimal mobileRangeAverage = sumMobileAverage.divide(new BigDecimal(collectList.size()));		
 		
-		return valuesAverage - (3 * (mobileRangeAverage / D2));
+		return valuesAverage.subtract(mobileRangeAverage.divide(new BigDecimal(D2)).multiply(new BigDecimal(3)));
 	}
 
 }

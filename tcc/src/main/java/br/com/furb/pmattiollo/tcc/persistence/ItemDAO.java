@@ -9,4 +9,5 @@ public class ItemDAO extends JPACrud<ItemEntity, Long> {
 
 	private static final long serialVersionUID = 1L;
 	
+
 }

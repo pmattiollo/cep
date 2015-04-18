@@ -1,13 +1,12 @@
 package br.com.furb.pmattiollo.tcc.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
@@ -20,29 +19,15 @@ public abstract class Sample implements Serializable {
 	@Column(name = "sample_id")
 	private Long id;
 	
-	@Column(name = "number", nullable = false)
-	private Integer number;
-	
 	@Column(name = "value", nullable = false)
-	private Double value;
-	
-	@ManyToOne
-	@JoinColumn(name = "unit", nullable = false)
-	private UnitEntity unit;
-	
-	@ManyToOne
-	@JoinColumn(name = "collect", nullable = false)
-	private CollectEntity collect;
+	private BigDecimal value;
 	
 	public Sample() {
 		super();
 	}
 
-	public Sample(Integer number, Double value, UnitEntity unit, CollectEntity collect) {
-		this.number = number;
+	public Sample(BigDecimal value) {
 		this.value = value;
-		this.unit = unit;
-		this.collect = collect;
 	}
 
 	public Long getId() {
@@ -53,36 +38,12 @@ public abstract class Sample implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getNumber() {
-		return number;
-	}
-
-	public void setNumber(Integer number) {
-		this.number = number;
-	}
-
-	public Double getValue() {
+	public BigDecimal getValue() {
 		return value;
 	}
 
-	public void setValue(Double value) {
+	public void setValue(BigDecimal value) {
 		this.value = value;
-	}
-
-	public Unit getUnit() {
-		return unit;
-	}
-
-	public void setUnit(UnitEntity unit) {
-		this.unit = unit;
-	}
-	
-	public CollectEntity getCollect() {
-		return collect;
-	}
-	
-	public void setCollect(CollectEntity collect) {
-		this.collect = collect;
 	}
 
 }

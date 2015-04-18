@@ -1,6 +1,7 @@
 package br.com.furb.pmattiollo.tcc.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.EnumType;
@@ -25,13 +26,13 @@ public abstract class Calculation implements Serializable {
 	private Long id;
 	
 	@Column(name = "lsc", nullable = false)
-	private Double lsc;
+	private BigDecimal lsc;
 	
 	@Column(name = "lc", nullable = false)
-	private Double lc;
+	private BigDecimal lc;
 	
 	@Column(name = "lic", nullable = false)
-	private Double lic;
+	private BigDecimal lic;
 	
 	@Column(name = "calculation_type", nullable = false)
 	@Enumerated(EnumType.ORDINAL)
@@ -45,7 +46,7 @@ public abstract class Calculation implements Serializable {
 		super();
 	}
 
-	public Calculation(Double lsc, Double lc, Double lic, CalculationEnum type, ItemEntity item) {
+	public Calculation(BigDecimal lsc, BigDecimal lc, BigDecimal lic, CalculationEnum type, ItemEntity item) {
 		this.lsc = lsc;
 		this.lc = lc;
 		this.lic = lic;
@@ -61,27 +62,27 @@ public abstract class Calculation implements Serializable {
 		this.id = id;
 	}
 
-	public Double getLsc() {
+	public BigDecimal getLsc() {
 		return lsc;
 	}
 
-	public void setLsc(Double lsc) {
+	public void setLsc(BigDecimal lsc) {
 		this.lsc = lsc;
 	}
 
-	public Double getLc() {
+	public BigDecimal getLc() {
 		return lc;
 	}
 
-	public void setLc(Double lc) {
+	public void setLc(BigDecimal lc) {
 		this.lc = lc;
 	}
 
-	public Double getLic() {
+	public BigDecimal getLic() {
 		return lic;
 	}
 
-	public void setLic(Double lic) {
+	public void setLic(BigDecimal lic) {
 		this.lic = lic;
 	}
 

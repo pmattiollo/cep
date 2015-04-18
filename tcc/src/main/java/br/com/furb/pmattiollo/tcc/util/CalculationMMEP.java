@@ -1,26 +1,25 @@
 package br.com.furb.pmattiollo.tcc.util;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.furb.pmattiollo.tcc.constant.CalculationEnum;
 import br.com.furb.pmattiollo.tcc.domain.CollectEntity;
-import br.com.furb.pmattiollo.tcc.domain.ItemEntity;
 import br.com.furb.pmattiollo.tcc.domain.SampleEntity;
-import br.com.furb.pmattiollo.tcc.persistence.CollectDAO;
 
 public class CalculationMMEP implements Calculation {
 	
 	private static final double L = 2.7;
 	private static final double Y = 0.1;
-	private ItemEntity item;
+	private List<CollectEntity> collectList;
 	
 	@SuppressWarnings("unused")
 	private CalculationMMEP() {
 	}
 	
-	public CalculationMMEP(ItemEntity item) {
-		this.item = item;
+	public CalculationMMEP(List<CollectEntity> collectList) {
+		this.collectList = collectList;
 	}
 	
 	@Override
@@ -29,76 +28,70 @@ public class CalculationMMEP implements Calculation {
 	}
 
 	@Override
-	public Double getLscResult() {		
-		CollectDAO collectDao = new CollectDAO();
-		List<CollectEntity> collectList = collectDao.findFinishedByItem(item);
+	public BigDecimal getLscResult() {
 		List<SampleEntity> samples = new ArrayList<SampleEntity>();
 		
 		for(CollectEntity collect : collectList) {
 			samples.addAll(collect.getSamples());
 		}
+		 
+		BigDecimal u0 = getSum(samples).divide(new BigDecimal(samples.size()));
+		BigDecimal staDev = new BigDecimal(getStandardDeviation(samples));
 		
-		double u0 = getSum(samples) / samples.size();
-		double staDev = getStandardDeviation(samples);
-		
-		return u0 + (L * staDev * Math.sqrt(Y / (2 / Y)));
+		return u0.add(new BigDecimal(L).multiply(staDev.multiply(new BigDecimal(Math.sqrt(Y / (2 / Y))))));
 	}
 
 	@Override
-	public Double getLcResult() {
-		CollectDAO collectDao = new CollectDAO();
-		List<CollectEntity> collectList = collectDao.findFinishedByItem(item);
+	public BigDecimal getLcResult() {
 		List<SampleEntity> samples = new ArrayList<SampleEntity>();
 		
 		for(CollectEntity collect : collectList) {
 			samples.addAll(collect.getSamples());
 		}
 		
-		return getSum(samples) / samples.size();
+		return getSum(samples).divide(new BigDecimal(samples.size()));
 	}
 
 	@Override
-	public Double getLicResult() {
-		CollectDAO collectDao = new CollectDAO();
-		List<CollectEntity> collectList = collectDao.findFinishedByItem(item);
+	public BigDecimal getLicResult() {
 		List<SampleEntity> samples = new ArrayList<SampleEntity>();
 		
 		for(CollectEntity collect : collectList) {
 			samples.addAll(collect.getSamples());
 		}
+		 
+		BigDecimal u0 = getSum(samples).divide(new BigDecimal(samples.size()));
+		BigDecimal staDev = new BigDecimal(getStandardDeviation(samples));
 		
-		double u0 = getSum(samples) / samples.size();
-		double staDev = getStandardDeviation(samples);
-		
-		return u0 - (L * staDev * Math.sqrt(Y / (2 / Y)));
+		return u0.subtract(new BigDecimal(L).multiply(staDev.multiply(new BigDecimal(Math.sqrt(Y / (2 / Y))))));
 	}
 	
 	private double getStandardDeviation(List<SampleEntity> samples) {
-		return Math.sqrt(getVariancy(samples));
+		return Math.sqrt(getVariancy(samples).doubleValue());
 	}
 	
-	public double getVariancy(List<SampleEntity> samples) {		
-		double p1 = 1 / Double.valueOf(samples.size() - 1);		
-		double p2 = getSumOfSquared(samples) - (Math.pow(getSum(samples), 2) / Double.valueOf(samples.size()));
+	public BigDecimal getVariancy(List<SampleEntity> samples) {		
+		BigDecimal p1 = new BigDecimal(1 / Double.valueOf(samples.size() - 1));		
+		BigDecimal p2 = getSumOfSquared(samples).subtract(getSum(samples).pow(2).divide(new BigDecimal(samples.size())));
 		
-		return p1 * p2;		
+		return p1.multiply(p2);		
 	}
 	
-	private double getSumOfSquared(List<SampleEntity> samples) {
-		double total = 0.0;
+	private BigDecimal getSumOfSquared(List<SampleEntity> samples) {
+		BigDecimal total = new BigDecimal(0.0);
 		
 		for(SampleEntity sample : samples) {			
-			total += Math.pow(sample.getValue(), 2);
+			total.add(sample.getValue().pow(2));
 		}
 		
 		return total;
 	}
 
-	private double getSum(List<SampleEntity> samples) {
-		double total = 0.0;
+	private BigDecimal getSum(List<SampleEntity> samples) {
+		BigDecimal total = new BigDecimal(0.0);
 		
 		for(SampleEntity sample : samples) {			
-			total += sample.getValue();
+			total.add(sample.getValue());
 		}
 		
 		return total;

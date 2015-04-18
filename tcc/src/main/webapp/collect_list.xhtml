@@ -34,17 +34,12 @@
 					</h:commandLink>
 				</p:column>
 					
-				<p:column sortBy="#{bean.amount}">
-					<f:facet name="header">#{messages['collect.label.amount']}</f:facet>
-					<h:commandLink action="#{collectListMB.getNextView}" actionListener="#{collectListMB.clear}">
-						<h:outputText value="#{bean.amount}" />
-						<f:param name="id" value="#{bean.id}" />
-					</h:commandLink>
-				</p:column>
-				
 				<p:column sortBy="#{bean.finished}">
 					<f:facet name="header">#{messages['collect.label.finished']}</f:facet>
-					<h:outputText value="#{bean.finished}" />
+					<h:commandLink action="#{collectListMB.getNextView}" actionListener="#{collectListMB.clear}">
+						<h:outputText value="#{bean.finished}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
 				</p:column>
 					
 			</p:dataTable>
