@@ -7,18 +7,9 @@
 		<h:form prependId="false">
 			<p:toolbar>
 				<p:toolbarGroup align="left">
-					<p:commandButton value="#{messages['button.save']}" action="#{itemEditMB.insert}"
-						rendered="#{!itemEditMB.updateMode}" ajax="false" />
-					<p:commandButton value="#{messages['button.save']}" action="#{itemEditMB.update}"
-						rendered="#{itemEditMB.updateMode}" ajax="false" />
-					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()"
-						rendered="#{itemEditMB.updateMode}" type="button" immediate="true" ajax="false" />
-					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
-						header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
-						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{itemEditMB.delete}" immediate="true"
-							ajax="false" />
-						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
-					</p:confirmDialog>
+					<p:commandButton value="#{messages['button.save']}" action="#{itemEditMB.insert}" rendered="#{!itemEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}" action="#{itemEditMB.update}" rendered="#{itemEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}" action="#{itemEditMB.delete}" rendered="#{itemEditMB.updateMode}" ajax="false" />
 				</p:toolbarGroup>
 			</p:toolbar>
 
@@ -27,24 +18,16 @@
 			<p:fieldset legend="#{messages['item.label']}" toggleable="true" toggleSpeed="500">
 				<h:panelGrid id="fieldsitem" columns="3">
 				
-					<h:outputLabel value="#{messages['item.label.id']}: " for="id" styleClass="text-input" />
-										
-					<h:outputText id="id" value="#{itemEditMB.bean.id}" />
-					
+					<h:outputLabel value="#{messages['item.label.id']}: " for="id" styleClass="text-input" />										
+					<h:outputText id="id" value="#{itemEditMB.bean.id}" />					
 					<p:message for="id" />
 						
-					<h:outputLabel value="#{messages['item.label.description']}: " for="description" styleClass="text-input" />
-					
-					<h:inputText id="description" value="#{itemEditMB.bean.description}"
-						title="#{messages['item.alt.description']}" />
-					
+					<h:outputLabel value="#{messages['item.label.description']}: " for="description" styleClass="text-input" />					
+					<h:inputText id="description" value="#{itemEditMB.bean.description}" title="#{messages['item.alt.description']}" />					
 					<p:message for="description" />
 						
-					<h:outputLabel value="#{messages['item.label.process']}: " for="process" styleClass="text-input" />
-					
-					<h:inputText id="process" value="#{itemEditMB.bean.process}"
-						title="#{messages['item.alt.process']}" />
-					
+					<h:outputLabel value="#{messages['item.label.process']}: " for="process" styleClass="text-input" />					
+					<h:inputText id="process" value="#{itemEditMB.bean.process}" title="#{messages['item.alt.process']}" />					
 					<p:message for="process" />
 						
 				</h:panelGrid>

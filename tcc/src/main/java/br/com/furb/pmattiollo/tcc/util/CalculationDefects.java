@@ -34,13 +34,13 @@ public class CalculationDefects implements Calculation {
 		
 		for(CollectEntity collect : collectList) {
 			for(SampleEntity sample : collect.getSamples()) {
-				sumDefects.add(sample.getValue());
+				sumDefects = sumDefects.add(sample.getValue());
 			}
 		}
 		
-		average = (sumDefects.divide(new BigDecimal(collectNumber * SIZE)));
+		average = sumDefects.divide(new BigDecimal(collectNumber * SIZE), SCALE, ROUND);
 		
-		return average.add(new BigDecimal(3 * Math.sqrt(average.divide(new BigDecimal(SIZE)).doubleValue())));
+		return average.add(new BigDecimal(3 * Math.sqrt(average.divide(new BigDecimal(SIZE), SCALE, ROUND).doubleValue())));
 	}
 
 	@Override
@@ -50,11 +50,11 @@ public class CalculationDefects implements Calculation {
 		
 		for(CollectEntity collect : collectList) {
 			for(SampleEntity sample : collect.getSamples()) {
-				sumDefects.add(sample.getValue());
+				sumDefects = sumDefects.add(sample.getValue());
 			}
 		}
 		
-		return (sumDefects.divide(new BigDecimal(collectNumber * SIZE)));		
+		return sumDefects.divide(new BigDecimal(collectNumber * SIZE), SCALE, ROUND);	
 	}
 
 	@Override
@@ -65,13 +65,13 @@ public class CalculationDefects implements Calculation {
 		
 		for(CollectEntity collect : collectList) {
 			for(SampleEntity sample : collect.getSamples()) {
-				sumDefects.add(sample.getValue());
+				sumDefects = sumDefects.add(sample.getValue());
 			}
 		}
 		
-		average = (sumDefects.divide(new BigDecimal(collectNumber * SIZE)));
+		average = sumDefects.divide(new BigDecimal(collectNumber * SIZE), SCALE, ROUND);
 		
-		return average.subtract(new BigDecimal(3 * Math.sqrt(average.divide(new BigDecimal(SIZE)).doubleValue())));
+		return average.subtract(new BigDecimal(3 * Math.sqrt(average.divide(new BigDecimal(SIZE), SCALE, ROUND).doubleValue())));
 	}
 
 }

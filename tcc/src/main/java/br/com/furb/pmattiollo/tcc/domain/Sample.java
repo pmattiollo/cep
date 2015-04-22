@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
@@ -22,12 +24,17 @@ public abstract class Sample implements Serializable {
 	@Column(name = "value", nullable = false)
 	private BigDecimal value;
 	
+	@ManyToOne
+	@JoinColumn(name = "collect", nullable = false)
+	private CollectEntity collect;
+	
 	public Sample() {
 		super();
 	}
 
-	public Sample(BigDecimal value) {
+	public Sample(BigDecimal value, CollectEntity collect) {
 		this.value = value;
+		this.collect = collect;
 	}
 
 	public Long getId() {
@@ -44,6 +51,14 @@ public abstract class Sample implements Serializable {
 
 	public void setValue(BigDecimal value) {
 		this.value = value;
+	}
+	
+	public CollectEntity getCollect() {
+		return collect;
+	}
+	
+	public void setCollect(CollectEntity collect) {
+		this.collect = collect;
 	}
 
 }

@@ -36,28 +36,28 @@ public class CalculationXI implements Calculation {
 		
 		for(CollectEntity collect : collectList) {
 			for(SampleEntity sample : collect.getSamples()) {
-				sumAverage.add(sample.getValue());
-				currentAverage.add(sample.getValue());
+				sumAverage = sumAverage.add(sample.getValue());
+				currentAverage = currentAverage.add(sample.getValue());
 			}
 			
 			// Caso haja mais de uma amostra tira a média sempre
-			sumAverage = sumAverage.divide(new BigDecimal(collect.getSamples().size()));
-			currentAverage = currentAverage.divide(new BigDecimal(collect.getSamples().size()));
+			sumAverage = sumAverage.divide(new BigDecimal(collect.getSamples().size()), SCALE, ROUND);
+			currentAverage = currentAverage.divide(new BigDecimal(collect.getSamples().size()), SCALE, ROUND);
 			
 			if(count == 0) {
 				previousAverage = currentAverage;
 			} else {
-				previousAverage = (previousAverage.add(currentAverage).divide(new BigDecimal(2)));
+				previousAverage = previousAverage.add(currentAverage).divide(new BigDecimal(2), SCALE, ROUND);
 			}
 			
-			sumMobileAverage.add(previousAverage);
+			sumMobileAverage = sumMobileAverage.add(previousAverage);
 			count ++;
 		}
 		
-		BigDecimal valuesAverage = sumAverage.divide(new BigDecimal(collectList.size()));
-		BigDecimal mobileRangeAverage = sumMobileAverage.divide(new BigDecimal(collectList.size()));		
+		BigDecimal valuesAverage = sumAverage.divide(new BigDecimal(collectList.size()), SCALE, ROUND);
+		BigDecimal mobileRangeAverage = sumMobileAverage.divide(new BigDecimal(collectList.size()), SCALE, ROUND);	
 		
-		return valuesAverage.add(mobileRangeAverage.divide(new BigDecimal(D2)).multiply(new BigDecimal(3)));
+		return valuesAverage.add(mobileRangeAverage.divide(new BigDecimal(D2), SCALE, ROUND).multiply(new BigDecimal(3)));
 	}
 
 	@Override
@@ -66,14 +66,14 @@ public class CalculationXI implements Calculation {
 		
 		for(CollectEntity collect : collectList) {
 			for(SampleEntity sample : collect.getSamples()) {
-				sumAverage.add(sample.getValue());
+				sumAverage = sumAverage.add(sample.getValue());
 			}
 			
 			// Caso haja mais de uma amostra tira a média sempre
-			sumAverage = sumAverage.divide(new BigDecimal(collect.getSamples().size()));
+			sumAverage = sumAverage.divide(new BigDecimal(collect.getSamples().size()), SCALE, ROUND);
 		}
 		
-		return sumAverage.divide(new BigDecimal(collectList.size()));
+		return sumAverage.divide(new BigDecimal(collectList.size()), SCALE, ROUND);
 	}
 
 	@Override
@@ -87,28 +87,28 @@ public class CalculationXI implements Calculation {
 		
 		for(CollectEntity collect : collectList) {
 			for(SampleEntity sample : collect.getSamples()) {
-				sumAverage.add(sample.getValue());
-				currentAverage.add(sample.getValue());
+				sumAverage = sumAverage.add(sample.getValue());
+				currentAverage = currentAverage.add(sample.getValue());
 			}
 			
 			// Caso haja mais de uma amostra tira a média sempre
-			sumAverage = sumAverage.divide(new BigDecimal(collect.getSamples().size()));
-			currentAverage = currentAverage.divide(new BigDecimal(collect.getSamples().size()));
+			sumAverage = sumAverage.divide(new BigDecimal(collect.getSamples().size()), SCALE, ROUND);
+			currentAverage = currentAverage.divide(new BigDecimal(collect.getSamples().size()), SCALE, ROUND);
 			
 			if(count == 0) {
 				previousAverage = currentAverage;
 			} else {
-				previousAverage = (previousAverage.add(currentAverage).divide(new BigDecimal(2)));
+				previousAverage = previousAverage.add(currentAverage).divide(new BigDecimal(2), SCALE, ROUND);
 			}
 			
-			sumMobileAverage.add(previousAverage);
+			sumMobileAverage = sumMobileAverage.add(previousAverage);
 			count ++;
 		}
 		
-		BigDecimal valuesAverage = sumAverage.divide(new BigDecimal(collectList.size()));
-		BigDecimal mobileRangeAverage = sumMobileAverage.divide(new BigDecimal(collectList.size()));		
+		BigDecimal valuesAverage = sumAverage.divide(new BigDecimal(collectList.size()), SCALE, ROUND);
+		BigDecimal mobileRangeAverage = sumMobileAverage.divide(new BigDecimal(collectList.size()), SCALE, ROUND);	
 		
-		return valuesAverage.subtract(mobileRangeAverage.divide(new BigDecimal(D2)).multiply(new BigDecimal(3)));
+		return valuesAverage.subtract(mobileRangeAverage.divide(new BigDecimal(D2), SCALE, ROUND).multiply(new BigDecimal(3)));
 	}
-
+	
 }

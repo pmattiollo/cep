@@ -33,14 +33,6 @@ public class CollectEditMB extends AbstractEditPageBean<CollectEntity, Long> {
 	
 	public List<ItemEntity> getItemEntityList(){
 		return itemEntityBC.findAll();
-	}			
-	
-	public void addSampleEntity() {
-		this.getBean().getSamples().add(new SampleEntity());
-	}
-	
-	public void deleteSampleEntity() {
-	   this.getBean().getSamples().remove(getSampleEntityList().getRowData());
 	}
 	
 	public DataModel<SampleEntity> getSampleEntityList() {
@@ -67,6 +59,12 @@ public class CollectEditMB extends AbstractEditPageBean<CollectEntity, Long> {
 	@Override
 	@Transactional
 	public String update() {
+		this.collectBC.update(this.getBean());
+		return getPreviousView();
+	}
+	
+	public String toFinalize() {
+		this.getBean().setFinished(true);
 		this.collectBC.update(this.getBean());
 		return getPreviousView();
 	}

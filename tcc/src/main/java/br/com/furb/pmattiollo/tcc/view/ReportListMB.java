@@ -1,78 +1,45 @@
 package br.com.furb.pmattiollo.tcc.view;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
+import javax.faces.bean.RequestScoped;
 import javax.inject.Inject;
 
 import br.com.furb.pmattiollo.tcc.business.ReportBC;
 import br.com.furb.pmattiollo.tcc.constant.CalculationEnum;
 import br.com.furb.pmattiollo.tcc.domain.ItemEntity;
-import br.com.furb.pmattiollo.tcc.domain.SoftwareEntity;
-import br.com.furb.pmattiollo.tcc.persistence.SoftwareDAO;
+import br.com.furb.pmattiollo.tcc.persistence.ItemDAO;
 
+@RequestScoped
 @ManagedBean
 public class ReportListMB {
 	
 	@Inject
 	private ReportBC reportBC;
 	
-	private SoftwareEntity software;
-	private List<SoftwareEntity> softwares;
-	
 	private ItemEntity item;
 	private List<ItemEntity> items;
 	
 	@PostConstruct
 	public void init() {
-		softwares = new ArrayList<SoftwareEntity>();
-		items = new ArrayList<ItemEntity>();
-		
-		SoftwareDAO dao = new SoftwareDAO();
-		softwares.addAll(dao.findAll());
+		ItemDAO dao = new ItemDAO();
+		items = dao.findAll();
 	}
 	
-	public void loadItens() {
-		if(software != null) {
-			items.addAll(software.getItems());
+	public void calc() {
+		if(item != null) {
+			reportBC.generateCalcs(item);
 		}
 	}
 	
 	public String submit(Integer code) {
-		if(software == null || item == null) {
-			if(software == null) {
-				FacesContext.getCurrentInstance().addMessage("software_report", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Software is required"));
-			}
-			
-			if(item == null) {
-				FacesContext.getCurrentInstance().addMessage("item_report", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Item is required"));
-			}
-			
-			return null;
-		} else {
-			return reportBC.generateGraph(CalculationEnum.getCalculationTypeByCode(code), item);
+		if(item != null) {			
+			return reportBC.generateGraph(CalculationEnum.getCalculationTypeByCode(code), item);		
 		}
 		
-	}
-	
-	public SoftwareEntity getSoftware() {
-		return software;
-	}
-	
-	public void setSoftware(SoftwareEntity software) {
-		this.software = software;
-	}
-	
-	public List<SoftwareEntity> getSoftwares() {
-		return softwares;
-	}
-	
-	public void setSoftwares(List<SoftwareEntity> softwares) {
-		this.softwares = softwares;
+		return null;
 	}
 	
 	public ItemEntity getItem() {

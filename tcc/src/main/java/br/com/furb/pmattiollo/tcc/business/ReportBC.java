@@ -14,6 +14,7 @@ import br.com.furb.pmattiollo.tcc.domain.CalculationEntity;
 import br.com.furb.pmattiollo.tcc.domain.CollectEntity;
 import br.com.furb.pmattiollo.tcc.domain.ItemEntity;
 import br.com.furb.pmattiollo.tcc.domain.SampleEntity;
+import br.com.furb.pmattiollo.tcc.persistence.CalculationDAO;
 import br.com.furb.pmattiollo.tcc.persistence.CollectDAO;
 import br.com.furb.pmattiollo.tcc.util.Calculation;
 import br.com.furb.pmattiollo.tcc.util.CalculationFactory;
@@ -27,21 +28,37 @@ public class ReportBC {
 	@Inject
 	private CalculationBC calculationBC;
 	
+	public void generateCalcs(ItemEntity item) {
+		CollectDAO collectDao = new CollectDAO();
+		List<CollectEntity> collectList = collectDao.findFinishedByItem(item);
+		
+		Calculation calcXI = CalculationFactory.getCalculation(CalculationEnum.XI, collectList);
+		insertCalculationEntity(calcXI, item);
+		
+		Calculation calcMMEP = CalculationFactory.getCalculation(CalculationEnum.MMEP, collectList);
+		insertCalculationEntity(calcMMEP, item);
+		
+		Calculation calcDEF = CalculationFactory.getCalculation(CalculationEnum.DEF, collectList);
+		insertCalculationEntity(calcDEF, item);
+	}
+	
 	public String generateGraph(CalculationEnum type, ItemEntity item) {		
 		CollectDAO collectDao = new CollectDAO();
 		List<CollectEntity> collectList = collectDao.findFinishedByItem(item);
 		
-		Calculation calc = CalculationFactory.getCalculation(type, collectList);
-		insertCalculationEntity(calc, item);
+		CalculationDAO calculationDao = new CalculationDAO();
+		CalculationEntity calc = calculationDao.findLastByItem(item);
 		
 		ChartDefinition chart = new ChartDefinition();
 		chart.setCategories(getCategories(collectList));
 		chart.setNamesSeries(getNamesSeries(collectList, item));
-		chart.setValuesSeries(getValuesSeries(collectList));
+		chart.setValuesSeries(getValuesSeries(collectList, calc));
 		chart.setTypeEnum(ChartType.LINE);
 		chart.setType(ChartType.LINE.getType());
 		chart.setShowToolTip(true);
 		chart.setStacked(ChartType.LINE.isStacked());
+		chart.setxAxisTitle("Collects/Samples List");
+		chart.setyAxisTitle("Collected Values");
 		
 		switch(type) {
 		case DEF:
@@ -79,9 +96,8 @@ public class ReportBC {
 		for(CollectEntity collect : collectList) {
 			String desc = "C" + collectCount;
 			
-			for(int i=1;i<=collect.getSamples().size();i++) {				
-				desc += " - S" + i;
-				categories.add(desc);
+			for(int i=1;i<=collect.getSamples().size();i++) {
+				categories.add(desc + " - S" + i);
 			}
 			
 			collectCount ++;
@@ -92,14 +108,21 @@ public class ReportBC {
 	
 	private List<String> getNamesSeries(List<CollectEntity> collectList, ItemEntity item) {
 		List<String> namesSeries = new ArrayList<String>();
-		namesSeries.add("Collects for item " + item.getDescription());
+		namesSeries.add("Collects for item \"" + item.getDescription() + "\"");		
+		namesSeries.add("UCL (Upper Control Limit)");
+		namesSeries.add("CL (Control Limit)");
+		namesSeries.add("LCL (Lower Control Limit)");
 		
 		return namesSeries;
 	}
 	
-	private List<List<BigDecimal>> getValuesSeries(List<CollectEntity> collectList) {
+	private List<List<BigDecimal>> getValuesSeries(List<CollectEntity> collectList, CalculationEntity calc) {
 		List<List<BigDecimal>> valuesSeries = new ArrayList<List<BigDecimal>>();
+		
 		List<BigDecimal> valuesSamples = new ArrayList<BigDecimal>();
+		List<BigDecimal> valuesUCL = new ArrayList<BigDecimal>();
+		List<BigDecimal> valuesCL = new ArrayList<BigDecimal>();
+		List<BigDecimal> valuesLCL = new ArrayList<BigDecimal>();
 		
 		for(CollectEntity collect : collectList) {			
 			List<SampleEntity> samples = collect.getSamples();
@@ -107,10 +130,17 @@ public class ReportBC {
 			
 			for(SampleEntity sample : samples) {
 				valuesSamples.add(sample.getValue());
+				
+				valuesUCL.add(calc.getLsc());
+				valuesCL.add(calc.getLc());
+				valuesLCL.add(calc.getLic());
 			}
 		}
 		
 		valuesSeries.add(valuesSamples);
+		valuesSeries.add(valuesUCL);
+		valuesSeries.add(valuesCL);
+		valuesSeries.add(valuesLCL);
 		
 		return valuesSeries;
 	}

@@ -21,22 +21,15 @@
 	</parent>
 
 	<dependencies>		
-		<dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces-mobile</artifactId>
-			<version>0.9.4</version>
-		</dependency>
-		
+		<dependency>  
+		    <groupId>org.primefaces</groupId>  
+		    <artifactId>primefaces</artifactId>  
+		    <version>5.2</version>  
+		</dependency>		
 		
 		<dependency>
 			<groupId>br.gov.frameworkdemoiselle</groupId>
 			<artifactId>demoiselle-jpa</artifactId>
-			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces</artifactId>
 			<scope>compile</scope>
 		</dependency>
 
@@ -109,6 +102,12 @@
 		<repository>
 			<id>snapshot.sourceforge.net-release</id>
 			<url>http://demoiselle.sourceforge.net/repository/snapshot</url>
+		</repository>
+		<repository>  
+		    <id>prime-repo</id>  
+		    <name>PrimeFaces Maven Repository</name>  
+		    <url>http://repository.primefaces.org</url>  
+		    <layout>default</layout>  
 		</repository>
 	</repositories>
 

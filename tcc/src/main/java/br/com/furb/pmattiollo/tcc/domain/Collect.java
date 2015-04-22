@@ -42,7 +42,7 @@ public abstract class Collect implements Serializable {
 	private ItemEntity item;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "sample")
+	@JoinColumn(name = "collect")
 	private List<SampleEntity> samples;
 	
 	public Collect() {

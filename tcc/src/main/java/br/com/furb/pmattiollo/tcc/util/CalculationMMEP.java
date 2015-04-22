@@ -35,7 +35,7 @@ public class CalculationMMEP implements Calculation {
 			samples.addAll(collect.getSamples());
 		}
 		 
-		BigDecimal u0 = getSum(samples).divide(new BigDecimal(samples.size()));
+		BigDecimal u0 = getSum(samples).divide(new BigDecimal(samples.size()), SCALE, ROUND);
 		BigDecimal staDev = new BigDecimal(getStandardDeviation(samples));
 		
 		return u0.add(new BigDecimal(L).multiply(staDev.multiply(new BigDecimal(Math.sqrt(Y / (2 / Y))))));
@@ -49,7 +49,7 @@ public class CalculationMMEP implements Calculation {
 			samples.addAll(collect.getSamples());
 		}
 		
-		return getSum(samples).divide(new BigDecimal(samples.size()));
+		return getSum(samples).divide(new BigDecimal(samples.size()), SCALE, ROUND);
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class CalculationMMEP implements Calculation {
 			samples.addAll(collect.getSamples());
 		}
 		 
-		BigDecimal u0 = getSum(samples).divide(new BigDecimal(samples.size()));
+		BigDecimal u0 = getSum(samples).divide(new BigDecimal(samples.size()), SCALE, ROUND);
 		BigDecimal staDev = new BigDecimal(getStandardDeviation(samples));
 		
 		return u0.subtract(new BigDecimal(L).multiply(staDev.multiply(new BigDecimal(Math.sqrt(Y / (2 / Y))))));
@@ -72,7 +72,7 @@ public class CalculationMMEP implements Calculation {
 	
 	public BigDecimal getVariancy(List<SampleEntity> samples) {		
 		BigDecimal p1 = new BigDecimal(1 / Double.valueOf(samples.size() - 1));		
-		BigDecimal p2 = getSumOfSquared(samples).subtract(getSum(samples).pow(2).divide(new BigDecimal(samples.size())));
+		BigDecimal p2 = getSumOfSquared(samples).subtract(getSum(samples).pow(2).divide(new BigDecimal(samples.size()), SCALE, ROUND));
 		
 		return p1.multiply(p2);		
 	}
@@ -81,7 +81,7 @@ public class CalculationMMEP implements Calculation {
 		BigDecimal total = new BigDecimal(0.0);
 		
 		for(SampleEntity sample : samples) {			
-			total.add(sample.getValue().pow(2));
+			total = total.add(sample.getValue().pow(2));
 		}
 		
 		return total;
@@ -91,11 +91,10 @@ public class CalculationMMEP implements Calculation {
 		BigDecimal total = new BigDecimal(0.0);
 		
 		for(SampleEntity sample : samples) {			
-			total.add(sample.getValue());
+			total = total.add(sample.getValue());
 		}
 		
 		return total;
 	}
-
 
 }

@@ -27,7 +27,7 @@ public abstract class Software implements Serializable {
 	@Column(name = "description", nullable = false, length = 100)
 	private String description;
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	@JoinTable(name = "software_item", 
 			   joinColumns = {@JoinColumn(name = "software_id", nullable = false, updatable = false)}, 
 			   inverseJoinColumns = {@JoinColumn(name = "item_id", nullable = false, updatable = false)})

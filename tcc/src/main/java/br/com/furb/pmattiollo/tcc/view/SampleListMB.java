@@ -14,8 +14,8 @@ import br.gov.frameworkdemoiselle.template.AbstractListPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
 
 @ViewController
-@NextView("./sample_edit.jsf")
-@PreviousView("./sample_list.jsf")
+@NextView("./collect_edit.jsf")
+@PreviousView("./collect_list.jsf")
 public class SampleListMB extends AbstractListPageBean<SampleEntity, Long> {
 
 	private static final long serialVersionUID = 1L;

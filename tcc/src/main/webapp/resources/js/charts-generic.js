@@ -1,4 +1,4 @@
-function montarGrafico(data, theme, containerName) {	
+function montarGrafico(obj, theme, containerName) {	
 	try {
 		Highcharts.theme = JSON.parse(theme);
 	} catch(e) {
@@ -6,11 +6,6 @@ function montarGrafico(data, theme, containerName) {
 	}
 	
 	Highcharts.setOptions(Highcharts.theme);
-	try {
-		var obj = JSON.parse(data);
-	} catch(e) {
-		return;
-	}
 	
 	if (obj.categories.length == 0) {
 		obj.categories = ['-'];
@@ -154,18 +149,4 @@ function montarGraficoGenerico(obj, containerName) {
         	enabled: true
         }
     });
-}
-
-function reloadHighcharts() {
-	jQuery.ajax({
-		  url: contextPath+'/javascript/highcharts.js',
-		  dataType: "script",
-		  async: false
-	});
-	
-	jQuery.ajax({
-		  url: contextPath+'/javascript/exporting.js',
-		  dataType: "script",
-		  async: false
-	});
 }

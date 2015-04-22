@@ -5,44 +5,86 @@
 
 	<ui:define name="body">
 		<h:form>
-			<p:toolbar>
-				<p:toolbarGroup align="left">
-					<p:commandButton title="#{messages['button.new']}" icon="ui-icon-document" action="#{collectListMB.getNextView}" actionListener="#{collectListMB.clear}" ajax="false" />
-					<p:commandButton title="#{messages['button.delete']}" icon="ui-icon-trash" onclick="confirmation.show()" type="button" immediate="true" ajax="false" />
-					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode" header="#{messages['label.dialog.alert']}!" severity="alert" widgetVar="confirmation">
-						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{collectListMB.deleteSelection}" actionListener="#{collectListMB.clear}" />
-						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
-					</p:confirmDialog>
-				</p:toolbarGroup>
-			</p:toolbar>
-			<p:dataTable id="list" var="bean" value="#{collectListMB.resultList}">
-				<f:facet name="header">#{messages['collect.list.table.title']}</f:facet>
-				<p:column style="width:2%;">
-					<h:selectBooleanCheckbox value="#{collectListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
-				</p:column>
-				
-				<p:column style="width:5%;" sortBy="#{bean.id}">
-					<f:facet name="header">#{messages['collect.label.id']}</f:facet>
-					<h:outputText value="#{bean.id}" />
-				</p:column>
+			<p:fieldset legend="#{messages['collect.label']}" toggleable="true" toggleSpeed="500" collapsed="true">
+				<p:toolbar>
+					<p:toolbarGroup align="left">
+						<p:commandButton title="#{messages['button.new']}" icon="ui-icon-document" action="#{collectListMB.getNextView}" actionListener="#{collectListMB.clear}" ajax="false" />
+						<p:commandButton title="#{messages['button.delete']}" icon="ui-icon-trash" onclick="confirmation.show()" type="button" immediate="true" ajax="false" />
+						<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode" header="#{messages['label.dialog.alert']}!" severity="alert" widgetVar="confirmation">
+							<h:commandButton value="#{messages['button.dialog.yes']}" action="#{collectListMB.deleteSelection}" actionListener="#{collectListMB.clear}" />
+							<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+						</p:confirmDialog>
+					</p:toolbarGroup>
+				</p:toolbar>
+				<p:dataTable id="collect_list" var="bean" value="#{collectListMB.resultList}">
+					<f:facet name="header">#{messages['collect.list.table.title']}</f:facet>
+					<p:column style="width:2%;">
+						<h:selectBooleanCheckbox value="#{collectListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
+					</p:column>
+					
+					<p:column style="width:5%;" sortBy="#{bean.id}">
+						<f:facet name="header">#{messages['collect.label.id']}</f:facet>
+						<h:outputText value="#{bean.id}" />
+					</p:column>
+							
+					<p:column sortBy="#{bean.start_date}">
+						<f:facet name="header">#{messages['collect.label.start_date']}</f:facet>
+						<h:commandLink action="#{collectListMB.getNextView}" actionListener="#{collectListMB.clear}">
+							<h:outputText value="#{bean.start_date}" />
+							<f:param name="id" value="#{bean.id}" />
+						</h:commandLink>
+					</p:column>
 						
-				<p:column sortBy="#{bean.start_date}">
-					<f:facet name="header">#{messages['collect.label.start_date']}</f:facet>
-					<h:commandLink action="#{collectListMB.getNextView}" actionListener="#{collectListMB.clear}">
-						<h:outputText value="#{bean.start_date}" />
-						<f:param name="id" value="#{bean.id}" />
-					</h:commandLink>
-				</p:column>
+					<p:column sortBy="#{bean.finished}">
+						<f:facet name="header">#{messages['collect.label.finished']}</f:facet>
+						<h:commandLink action="#{collectListMB.getNextView}" actionListener="#{collectListMB.clear}">
+							<h:outputText value="#{bean.finished}" />
+							<f:param name="id" value="#{bean.id}" />
+						</h:commandLink>
+					</p:column>						
+				</p:dataTable>
+			</p:fieldset>
+			
+			<p:fieldset legend="#{messages['sample.label']}" toggleable="true" toggleSpeed="500" collapsed="true">
+				<p:toolbar>
+					<p:toolbarGroup align="left">
+						<p:commandButton title="#{messages['button.new']}" icon="ui-icon-document" action="#{sampleListMB.getNextView}" actionListener="#{sampleListMB.clear}" ajax="false" />
+						<p:commandButton title="#{messages['button.delete']}" icon="ui-icon-trash" onclick="confirmation.show()" type="button" immediate="true" ajax="false" />
+						<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode" header="#{messages['label.dialog.alert']}!" severity="alert" widgetVar="confirmation">
+							<h:commandButton value="#{messages['button.dialog.yes']}" action="#{sampleListMB.deleteSelection}" actionListener="#{sampleListMB.clear}" />
+							<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+						</p:confirmDialog>
+					</p:toolbarGroup>
+				</p:toolbar>
+				<p:dataTable id="samplelist" var="bean" value="#{sampleListMB.resultList}">
+					<f:facet name="header">#{messages['sample.list.table.title']}</f:facet>
+					<p:column style="width:2%;">
+						<h:selectBooleanCheckbox value="#{sampleListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
+					</p:column>
 					
-				<p:column sortBy="#{bean.finished}">
-					<f:facet name="header">#{messages['collect.label.finished']}</f:facet>
-					<h:commandLink action="#{collectListMB.getNextView}" actionListener="#{collectListMB.clear}">
-						<h:outputText value="#{bean.finished}" />
-						<f:param name="id" value="#{bean.id}" />
-					</h:commandLink>
-				</p:column>
+					<p:column style="width:5%;" sortBy="#{bean.id}">
+						<f:facet name="header">#{messages['sample.label.id']}</f:facet>
+						<h:outputText value="#{bean.id}" />
+					</p:column>
+						
+					<p:column sortBy="#{bean.value}">
+						<f:facet name="header">#{messages['sample.label.value']}</f:facet>
+						<h:commandLink action="#{sampleListMB.getNextView}" actionListener="#{sampleListMB.clear}">
+							<h:outputText value="#{bean.value}" />
+							<f:param name="id" value="#{bean.id}" />
+						</h:commandLink>
+					</p:column>
 					
-			</p:dataTable>
+					<p:column sortBy="#{bean.collect}">
+						<f:facet name="header">#{messages['collect.label']}</f:facet>
+						<h:commandLink action="#{sampleListMB.getNextView}" actionListener="#{sampleListMB.clear}">
+							<h:outputText value="#{bean.collect.id}" />
+							<f:param name="id" value="#{bean.id}" />
+						</h:commandLink>
+					</p:column>
+						
+				</p:dataTable>
+			</p:fieldset>
 		</h:form>
 
 	</ui:define>
