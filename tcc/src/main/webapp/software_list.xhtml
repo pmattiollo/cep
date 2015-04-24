@@ -40,12 +40,12 @@
 			
 		    <h:commandLink>
 		        <img src="images/excel.png" border="0"/>
-		        <p:dataExporter type="xls" target="softare_tb" fileName="softwares" />
+		        <p:dataExporter type="xls" target="softare_tb" fileName="softwares" preProcessor="#{softwareListMB.preProcessXLS()}" postProcessor="#{softwareListMB.postProcessXLS()}" />
 		    </h:commandLink>
 		 
 		    <h:commandLink>
 		        <img src="images/pdf.png" border="0"/>
-		        <p:dataExporter type="pdf" target="softare_tb" fileName="softwares" />
+		        <p:dataExporter type="pdf" target="softare_tb" fileName="softwares" preProcessor="#{softwareListMB.preProcessPDF()}" />
 		    </h:commandLink>
 	    </h:form>
 
