@@ -9,15 +9,18 @@
 				<p:toolbarGroup align="left">
 					<p:commandButton value="#{messages['button.save']}" action="#{itemEditMB.insert}" rendered="#{!itemEditMB.updateMode}" ajax="false" />
 					<p:commandButton value="#{messages['button.save']}" action="#{itemEditMB.update}" rendered="#{itemEditMB.updateMode}" ajax="false" />
-					<p:commandButton value="#{messages['button.delete']}" action="#{itemEditMB.delete}" rendered="#{itemEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()" rendered="#{itemEditMB.updateMode}" type="button" immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode" header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{itemEditMB.delete}" immediate="true" ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
 				</p:toolbarGroup>
 			</p:toolbar>
 
 			<br />
 
 			<p:fieldset legend="#{messages['item.label']}" toggleable="true" toggleSpeed="500">
-				<h:panelGrid id="fieldsitem" columns="3">
-				
+				<h:panelGrid id="fieldsitem" columns="3">				
 					<h:outputLabel value="#{messages['item.label.id']}: " for="id" styleClass="text-input" />										
 					<h:outputText id="id" value="#{itemEditMB.bean.id}" />					
 					<p:message for="id" />
@@ -30,6 +33,13 @@
 					<h:inputText id="process" value="#{itemEditMB.bean.process}" title="#{messages['item.alt.process']}" />					
 					<p:message for="process" />
 						
+					<h:outputLabel value="#{messages['item.label.usl']}: " for="usl" styleClass="text-input" />					
+					<h:inputText id="usl" value="#{itemEditMB.bean.usl}" title="#{messages['item.alt.usl']}" />					
+					<p:message for="usl" />
+						
+					<h:outputLabel value="#{messages['item.label.lsl']}: " for="lsl" styleClass="text-input" />		
+					<h:inputText id="lsl" value="#{itemEditMB.bean.lsl}" title="#{messages['item.alt.lsl']}" />					
+					<p:message for="lsl" />						
 				</h:panelGrid>
 			</p:fieldset>
 			

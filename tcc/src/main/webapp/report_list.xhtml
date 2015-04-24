@@ -3,12 +3,6 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/main.xhtml">
 	
-	<ui:define name="head">
-		<script src="${pageContext.request.contextPath}/cep/resources/js/highcharts.js"></script>
-		<script src="${pageContext.request.contextPath}/cep/resources/js/exporting.js"></script>
-		<script src="${pageContext.request.contextPath}/cep/resources/js/charts-generic.js"></script>
-	</ui:define>
-	
 	<ui:define name="body">
 		<h:form prependId="false">			
 			<p:fieldset legend="#{messages['item.label']}" toggleable="true" toggleSpeed="500">
@@ -20,15 +14,13 @@
 					</p:selectOneMenu>								
 					<p:message for="item_report" />
 												
-					<p:commandButton value="#{messages['report.graph.submit']}" update="graphs" actionListener="#{reportListMB.calc()}" oncomplete="montarGrafico(#{reportListMB.submit(1)}, '', 'graph_xi');montarGrafico(#{reportListMB.submit(2)}, '', 'graph_mmep');montarGrafico(#{reportListMB.submit(3)}, '', 'graph_defects')" />
+					<p:commandButton value="#{messages['report.graph.submit']}" actionListener="#{reportListMB.submit()}" ajax="false" update="graph_xi,graph_mmep,graph_def" />
 				</h:panelGrid>
 			</p:fieldset>
 			
-			<p:panelGrid columns="1" id="graphs" rendered="#{not empty reportListMB.item}">
-				<div id="graph_xi" style="min-width: 100%; height: 500px; margin: 0 auto"></div>
-				<div id="graph_mmep" style="min-width: 100%; height: 500px; margin: 0 auto"></div>
-				<div id="graph_defects" style="min-width: 100%; height: 500px; margin: 0 auto"></div>
-			</p:panelGrid>			
+			<p:chart id="graph_xi" type="line" model="#{reportListMB.lineModelXI}" style="min-width: 500px; height: 500px; margin: 0 auto" rendered="#{not empty reportListMB.item}" />			
+			<p:chart id="graph_mmep" type="line" model="#{reportListMB.lineModelMMEP}" style="min-width: 500px; height: 500px; margin: 0 auto" rendered="#{not empty reportListMB.item}" />
+			<p:chart id="graph_def" type="line" model="#{reportListMB.lineModelDefects}" style="min-width: 500px; height: 500px; margin: 0 auto" rendered="#{not empty reportListMB.item}" />		
 		
 		</h:form>
 	</ui:define>

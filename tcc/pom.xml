@@ -25,7 +25,13 @@
 		    <groupId>org.primefaces</groupId>  
 		    <artifactId>primefaces</artifactId>  
 		    <version>5.2</version>  
-		</dependency>		
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>  
+		    <version>3.12-beta1</version>
+		</dependency>	
 		
 		<dependency>
 			<groupId>br.gov.frameworkdemoiselle</groupId>

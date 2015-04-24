@@ -8,13 +8,7 @@
 			<p:toolbar>
 				<p:toolbarGroup align="left">
 					<p:commandButton title="#{messages['button.new']}" icon="ui-icon-document" action="#{userListMB.getNextView}" actionListener="#{userListMB.clear}" ajax="false" />
-
-					<p:commandButton title="#{messages['button.delete']}" icon="ui-icon-trash" onclick="confirmation.show()" type="button" immediate="true" ajax="false" />
-
-					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode" header="#{messages['label.dialog.alert']}!" severity="alert" widgetVar="confirmation">
-						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{userListMB.deleteSelection}" actionListener="#{userListMB.clear}" />
-						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
-					</p:confirmDialog>
+					<p:commandButton title="#{messages['button.delete']}" icon="ui-icon-trash" action="#{userListMB.deleteSelection}" actionListener="#{userListMB.clear}" ajax="false" />
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:dataTable id="list" var="bean" value="#{userListMB.resultList}">

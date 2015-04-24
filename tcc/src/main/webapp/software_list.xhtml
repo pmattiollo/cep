@@ -8,34 +8,46 @@
 			<p:toolbar>
 				<p:toolbarGroup align="left">
 					<p:commandButton title="#{messages['button.new']}" icon="ui-icon-document" action="#{softwareListMB.getNextView}" actionListener="#{softwareListMB.clear}" ajax="false" />
-					<p:commandButton title="#{messages['button.delete']}" icon="ui-icon-trash" onclick="confirmation.show()" type="button" immediate="true" ajax="false" />
-					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode" header="#{messages['label.dialog.alert']}!" severity="alert" widgetVar="confirmation">
-						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{softwareListMB.deleteSelection}" actionListener="#{softwareListMB.clear}" />
-						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
-					</p:confirmDialog>
+					<p:commandButton title="#{messages['button.delete']}" icon="ui-icon-trash" action="#{softwareListMB.deleteSelection}" actionListener="#{softwareListMB.clear}" ajax="false" />
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:dataTable id="list" var="bean" value="#{softwareListMB.resultList}">
+			<p:dataTable id="softare_tb" var="bean" value="#{softwareListMB.resultList}" paginatorPosition="top" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" paginator="true">				
 				<f:facet name="header">#{messages['software.list.table.title']}</f:facet>
-				<p:column style="width:2%;">
+				<p:column style="width:2%;" exportable="false">
 					<h:selectBooleanCheckbox value="#{softwareListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
 				</p:column>
 				
 				<p:column style="width:5%;" sortBy="#{bean.id}">
-					<f:facet name="header">#{messages['software.label.id']}</f:facet>
+					<f:facet name="header">
+						<h:outputText value="#{messages['software.label.id']}" />
+					</f:facet>
 					<h:outputText value="#{bean.id}" />
 				</p:column>
 						
 				<p:column sortBy="#{bean.description}">
-					<f:facet name="header">#{messages['software.label.description']}</f:facet>
+					<f:facet name="header">
+						<h:outputText value="#{messages['software.label.description']}" />
+					</f:facet>
+					<h:outputText value="#{bean.description}" />
 					<h:commandLink action="#{softwareListMB.getNextView}" actionListener="#{softwareListMB.clear}">
-						<h:outputText value="#{bean.description}" />
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
 					
 			</p:dataTable>
-		</h:form>
+			
+			<br />
+			
+		    <h:commandLink>
+		        <img src="images/excel.png" border="0"/>
+		        <p:dataExporter type="xls" target="softare_tb" fileName="softwares" />
+		    </h:commandLink>
+		 
+		    <h:commandLink>
+		        <img src="images/pdf.png" border="0"/>
+		        <p:dataExporter type="pdf" target="softare_tb" fileName="softwares" />
+		    </h:commandLink>
+	    </h:form>
 
 	</ui:define>
 </ui:composition>

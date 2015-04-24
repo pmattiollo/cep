@@ -1,14 +1,19 @@
 package br.com.furb.pmattiollo.tcc.domain;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import org.hibernate.annotations.Type;
+
 @MappedSuperclass
+@Entity
 public abstract class Item implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -24,15 +29,33 @@ public abstract class Item implements Serializable {
 	@Column(name = "process", nullable = false, length = 100)
 	private String process;
 	
+	@Column(name = "usl", nullable = false)
+	private BigInteger usl;
+	
+	@Column(name = "lsl", nullable = false)
+	private BigInteger lsl;
+	
+	@Type(type="true_false")
+	@Column(name = "stable", nullable = false)
+	private boolean stable;
+	
+	@Type(type="true_false")
+	@Column(name = "able", nullable = false)
+	private boolean able;
+	
 	public Item() {
 		super();
 	}
-	
-	public Item(String description, String process) {
+
+	public Item(String description, String process, BigInteger usl, BigInteger lsl, boolean stable, boolean able) {
 		this.description = description;
 		this.process = process;
-	}	
-
+		this.usl = usl;
+		this.lsl = lsl;
+		this.stable = stable;
+		this.able = able;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -55,6 +78,38 @@ public abstract class Item implements Serializable {
 
 	public void setProcess(String process) {
 		this.process = process;
+	}
+	
+	public BigInteger getUsl() {
+		return usl;
+	}
+	
+	public void setUsl(BigInteger usl) {
+		this.usl = usl;
+	}
+	
+	public BigInteger getLsl() {
+		return lsl;
+	}
+	
+	public void setLsl(BigInteger lsl) {
+		this.lsl = lsl;
+	}
+
+	public boolean isStable() {
+		return stable;
+	}
+
+	public void setStable(boolean stable) {
+		this.stable = stable;
+	}
+
+	public boolean isAble() {
+		return able;
+	}
+
+	public void setAble(boolean able) {
+		this.able = able;
 	}
 
 }
