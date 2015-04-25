@@ -3,7 +3,8 @@ package br.com.furb.pmattiollo.tcc.constant;
 public enum OperationsEnum {
 
 	LIST("list"),
-	UPDATE("update");
+	UPDATE("update"),
+	CLASSIFICATION("classification");
 	
 	private String description;
 	

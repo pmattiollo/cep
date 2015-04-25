@@ -1,8 +1,6 @@
 package br.com.furb.pmattiollo.tcc.view;
 
 import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -16,21 +14,20 @@ import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LegendPlacement;
 import org.primefaces.model.chart.LineChartModel;
 
-import br.com.furb.pmattiollo.tcc.business.ReportBC;
+import br.com.furb.pmattiollo.tcc.business.GraphBC;
 import br.com.furb.pmattiollo.tcc.constant.CalculationEnum;
 import br.com.furb.pmattiollo.tcc.domain.CalculationEntity;
 import br.com.furb.pmattiollo.tcc.domain.CollectEntity;
 import br.com.furb.pmattiollo.tcc.domain.ItemEntity;
-import br.com.furb.pmattiollo.tcc.domain.SampleEntity;
 import br.com.furb.pmattiollo.tcc.persistence.CalculationDAO;
 import br.com.furb.pmattiollo.tcc.persistence.CollectDAO;
 import br.com.furb.pmattiollo.tcc.persistence.ItemDAO;
 
 @ManagedBean
-public class ReportListMB {	
+public class GraphMB {	
     
     @Inject
-	private ReportBC reportBC;
+	private GraphBC reportBC;
 	
 	private ItemEntity item;
 	private List<ItemEntity> items;
@@ -54,7 +51,7 @@ public class ReportListMB {
     
     private void generateGraphs() {		
 		CollectDAO collectDao = new CollectDAO();
-		List<CollectEntity> collectList = collectDao.findFinishedByItem(item);
+		List<CollectEntity> collectList = collectDao.findAllByItem(item);
 		
 		CalculationDAO calculationDao = new CalculationDAO();
 		CalculationEntity calcXI = calculationDao.findLastByItemAndType(item, CalculationEnum.XI);		
@@ -100,9 +97,7 @@ public class ReportListMB {
     	BigDecimal maxValue = new BigDecimal(Integer.MIN_VALUE);
     	
         for(CollectEntity collect : collectList) {			
-			for(SampleEntity sample : collect.getSamples()) {
-				maxValue = maxValue.max(sample.getValue()).max(calc.getLsc());
-			}
+        	maxValue = maxValue.max(collect.getValue()).max(calc.getUcl());
 		}
         
         return maxValue.add(new BigDecimal(1));
@@ -112,30 +107,11 @@ public class ReportListMB {
     	BigDecimal minValue = new BigDecimal(Integer.MAX_VALUE);
     	
         for(CollectEntity collect : collectList) {			
-			for(SampleEntity sample : collect.getSamples()) {
-				minValue = minValue.min(sample.getValue()).min(calc.getLic());
-			}
+        	minValue = minValue.min(collect.getValue()).min(calc.getLcl());
 		}
         
         return minValue.subtract(new BigDecimal(1));
     }
-	
-	private class SampleComparator implements Comparator<SampleEntity> {
-
-		@Override
-		public int compare(SampleEntity o1, SampleEntity o2) {
-			if(o1.getId() < o2.getId()) {
-				return -1;
-			}
-			
-			if(o1.getId() > o2.getId()) {
-				return 1;
-			}
-			
-			return 0;
-		}
-		
-	}
      
     private LineChartModel initCategoryModel(List<CollectEntity> collectList, CalculationEntity calc) {
         LineChartModel model = new LineChartModel();
@@ -154,19 +130,11 @@ public class ReportListMB {
         
         for(CollectEntity collect : collectList) {			
         	String desc = "C" + collectCount;
-			List<SampleEntity> samples = collect.getSamples();
-			Collections.sort(samples, new SampleComparator());
-			
-			int sampleCount = 1;
-			
-			for(SampleEntity sample : samples) {
-				collectsItem.set(desc + " - S" + sampleCount, sample.getValue());
-				ucl.set(desc + " - S" + sampleCount, calc.getLsc());
-				cl.set(desc + " - S" + sampleCount, calc.getLc());
-				lcl.set(desc + " - S" + sampleCount, calc.getLic());
-				
-				sampleCount ++;
-			}
+        	
+        	collectsItem.set(desc, collect.getValue());
+			ucl.set(desc, calc.getUcl());
+			cl.set(desc, calc.getCl());
+			lcl.set(desc, calc.getLcl());
 			
 			collectCount ++;
 		}

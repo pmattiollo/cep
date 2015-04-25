@@ -38,12 +38,12 @@
 			
 			<br />
 			
-		    <h:commandLink>
+		    <h:commandLink rendered="#{securityContext.loggedIn and securityContext.hasPermission('report', 'list')}">
 		        <img src="images/excel.png" border="0"/>
 		        <p:dataExporter type="xls" target="softare_tb" fileName="softwares" preProcessor="#{softwareListMB.preProcessXLS()}" postProcessor="#{softwareListMB.postProcessXLS()}" />
 		    </h:commandLink>
 		 
-		    <h:commandLink>
+		    <h:commandLink rendered="#{securityContext.loggedIn and securityContext.hasPermission('report', 'list')}">
 		        <img src="images/pdf.png" border="0"/>
 		        <p:dataExporter type="pdf" target="softare_tb" fileName="softwares" preProcessor="#{softwareListMB.preProcessPDF()}" />
 		    </h:commandLink>

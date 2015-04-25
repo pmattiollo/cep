@@ -25,14 +25,14 @@ public abstract class Calculation implements Serializable {
 	@Column(name = "calculation_id")
 	private Long id;
 	
-	@Column(name = "lsc", nullable = false)
-	private BigDecimal lsc;
+	@Column(name = "ucl", nullable = false)
+	private BigDecimal ucl;
 	
-	@Column(name = "lc", nullable = false)
-	private BigDecimal lc;
+	@Column(name = "cl", nullable = false)
+	private BigDecimal cl;
 	
-	@Column(name = "lic", nullable = false)
-	private BigDecimal lic;
+	@Column(name = "lcl", nullable = false)
+	private BigDecimal lcl;
 	
 	@Column(name = "calculation_type", nullable = false)
 	@Enumerated(EnumType.ORDINAL)
@@ -46,10 +46,10 @@ public abstract class Calculation implements Serializable {
 		super();
 	}
 
-	public Calculation(BigDecimal lsc, BigDecimal lc, BigDecimal lic, CalculationEnum type, ItemEntity item) {
-		this.lsc = lsc;
-		this.lc = lc;
-		this.lic = lic;
+	public Calculation(BigDecimal ucl, BigDecimal cl, BigDecimal lcl, CalculationEnum type, ItemEntity item) {
+		this.ucl = ucl;
+		this.cl = cl;
+		this.lcl = lcl;
 		this.type = type;
 		this.item = item;
 	}
@@ -62,28 +62,28 @@ public abstract class Calculation implements Serializable {
 		this.id = id;
 	}
 
-	public BigDecimal getLsc() {
-		return lsc;
+	public BigDecimal getUcl() {
+		return ucl;
 	}
 
-	public void setLsc(BigDecimal lsc) {
-		this.lsc = lsc;
+	public void setUcl(BigDecimal ucl) {
+		this.ucl = ucl;
 	}
 
-	public BigDecimal getLc() {
-		return lc;
+	public BigDecimal getCl() {
+		return cl;
 	}
 
-	public void setLc(BigDecimal lc) {
-		this.lc = lc;
+	public void setCl(BigDecimal cl) {
+		this.cl = cl;
 	}
 
-	public BigDecimal getLic() {
-		return lic;
+	public BigDecimal getLcl() {
+		return lcl;
 	}
 
-	public void setLic(BigDecimal lic) {
-		this.lic = lic;
+	public void setLcl(BigDecimal lcl) {
+		this.lcl = lcl;
 	}
 
 	public CalculationEnum getType() {

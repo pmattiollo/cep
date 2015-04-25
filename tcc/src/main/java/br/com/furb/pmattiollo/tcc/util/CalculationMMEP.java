@@ -1,12 +1,10 @@
 package br.com.furb.pmattiollo.tcc.util;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 import br.com.furb.pmattiollo.tcc.constant.CalculationEnum;
 import br.com.furb.pmattiollo.tcc.domain.CollectEntity;
-import br.com.furb.pmattiollo.tcc.domain.SampleEntity;
 
 public class CalculationMMEP implements Calculation {
 	
@@ -28,70 +26,52 @@ public class CalculationMMEP implements Calculation {
 	}
 
 	@Override
-	public BigDecimal getLscResult() {
-		List<SampleEntity> samples = new ArrayList<SampleEntity>();
-		
-		for(CollectEntity collect : collectList) {
-			samples.addAll(collect.getSamples());
-		}
-		 
-		BigDecimal u0 = getSum(samples).divide(new BigDecimal(samples.size()), SCALE, ROUND);
-		BigDecimal staDev = new BigDecimal(getStandardDeviation(samples));
+	public BigDecimal getUclResult() {		 
+		BigDecimal u0 = getSum(collectList).divide(new BigDecimal(collectList.size()), SCALE, ROUND);
+		BigDecimal staDev = new BigDecimal(getStandardDeviation(collectList));
 		
 		return u0.add(new BigDecimal(L).multiply(staDev.multiply(new BigDecimal(Math.sqrt(Y / (2 / Y))))));
 	}
 
 	@Override
-	public BigDecimal getLcResult() {
-		List<SampleEntity> samples = new ArrayList<SampleEntity>();
-		
-		for(CollectEntity collect : collectList) {
-			samples.addAll(collect.getSamples());
-		}
-		
-		return getSum(samples).divide(new BigDecimal(samples.size()), SCALE, ROUND);
+	public BigDecimal getClResult() {		
+		return getSum(collectList).divide(new BigDecimal(collectList.size()), SCALE, ROUND);
 	}
 
 	@Override
-	public BigDecimal getLicResult() {
-		List<SampleEntity> samples = new ArrayList<SampleEntity>();
-		
-		for(CollectEntity collect : collectList) {
-			samples.addAll(collect.getSamples());
-		}
-		 
-		BigDecimal u0 = getSum(samples).divide(new BigDecimal(samples.size()), SCALE, ROUND);
-		BigDecimal staDev = new BigDecimal(getStandardDeviation(samples));
+	public BigDecimal getLclResult() {		 
+		BigDecimal u0 = getSum(collectList).divide(new BigDecimal(collectList.size()), SCALE, ROUND);
+		BigDecimal staDev = new BigDecimal(getStandardDeviation(collectList));
 		
 		return u0.subtract(new BigDecimal(L).multiply(staDev.multiply(new BigDecimal(Math.sqrt(Y / (2 / Y))))));
 	}
 	
-	private double getStandardDeviation(List<SampleEntity> samples) {
-		return Math.sqrt(getVariancy(samples).doubleValue());
+	private double getStandardDeviation(List<CollectEntity> collects) {
+		return Math.sqrt(getVariancy(collects).doubleValue());
 	}
 	
-	public BigDecimal getVariancy(List<SampleEntity> samples) {		
-		BigDecimal p1 = new BigDecimal(1 / Double.valueOf(samples.size() - 1));		
-		BigDecimal p2 = getSumOfSquared(samples).subtract(getSum(samples).pow(2).divide(new BigDecimal(samples.size()), SCALE, ROUND));
+	public BigDecimal getVariancy(List<CollectEntity> collects) {		
+		BigDecimal p1 = new BigDecimal(1 / Double.valueOf(collects.size() - 1));		
+		BigDecimal p2 = getSumOfSquared(collects).subtract(getSum(collects).pow(2).divide(new BigDecimal(collects.size()), SCALE, ROUND));
 		
 		return p1.multiply(p2);		
 	}
 	
-	private BigDecimal getSumOfSquared(List<SampleEntity> samples) {
+	private BigDecimal getSumOfSquared(List<CollectEntity> collects) {
 		BigDecimal total = new BigDecimal(0.0);
 		
-		for(SampleEntity sample : samples) {			
-			total = total.add(sample.getValue().pow(2));
+		for(CollectEntity collect : collects) {			
+			total = total.add(collect.getValue().pow(2));
 		}
 		
 		return total;
 	}
 
-	private BigDecimal getSum(List<SampleEntity> samples) {
+	private BigDecimal getSum(List<CollectEntity> collects) {
 		BigDecimal total = new BigDecimal(0.0);
 		
-		for(SampleEntity sample : samples) {			
-			total = total.add(sample.getValue());
+		for(CollectEntity collect : collects) {			
+			total = total.add(collect.getValue());
 		}
 		
 		return total;

@@ -5,27 +5,26 @@
 
 	<ui:define name="body">
 		<h:form prependId="false">
-			<p:fieldset legend="#{messages['collect.label']}" toggleable="true" toggleSpeed="500" collapsed="true">
-				<p:toolbar>
-					<p:toolbarGroup align="left">
-						<p:commandButton value="#{messages['button.save']}" action="#{collectEditMB.insert}" rendered="#{!collectEditMB.updateMode}" ajax="false" />
-						<p:commandButton value="#{messages['button.save']}" action="#{collectEditMB.update}" rendered="#{collectEditMB.updateMode}" ajax="false" />
-						<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()" rendered="#{collectEditMB.updateMode}" type="button" immediate="true" ajax="false" />
-						<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode" header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
-							<h:commandButton value="#{messages['button.dialog.yes']}" action="#{collectEditMB.delete}" immediate="true" ajax="false" />
-							<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
-						</p:confirmDialog>
-						<p:commandButton value="#{messages['button.finalize']}" action="#{collectEditMB.toFinalize()}" rendered="#{collectEditMB.updateMode}" ajax="false" />
-					</p:toolbarGroup>
-				</p:toolbar>
-	
-				<br />
-	
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}" action="#{collectEditMB.insert}" rendered="#{!collectEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}" action="#{collectEditMB.update}" rendered="#{collectEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()" rendered="#{collectEditMB.updateMode}" type="button" immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode" header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{collectEditMB.delete}" immediate="true" ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="#{messages['collect.label']}" toggleable="true" toggleSpeed="500">
 				<h:panelGrid id="fieldscollect" columns="3">
 				
-					<h:outputLabel value="#{messages['collect.label.id']}: " for="collect_id" styleClass="text-input" />										
-					<h:outputText id="collect_id" value="#{collectEditMB.bean.id}" />					
-					<p:message for="collect_id" />
+					<h:outputLabel value="#{messages['collect.label.id']}: " for="id" styleClass="text-input" />										
+					<h:outputText id="id" value="#{collectEditMB.bean.id}" />					
+					<p:message for="id" />
 						
 					<h:outputLabel value="#{messages['collect.label.start_date']}: " for="start_date" styleClass="text-input" />					
 					<p:calendar id="start_date" value="#{collectEditMB.bean.start_date}"
@@ -40,45 +39,13 @@
 					</p:selectOneMenu>
 					<p:message for="item" />								  
 								 
+					<h:outputLabel value="#{messages['collect.label.value']}: " for="value" styleClass="text-input" />					
+					<h:inputText id="value" value="#{collectEditMB.bean.value}" title="#{messages['collect.alt.value']}" />					
+					<p:message for="value" />
+						
 				</h:panelGrid>
 			</p:fieldset>
 			
-			
-		<p:fieldset legend="#{messages['sample.label']}" toggleable="true" toggleSpeed="500" collapsed="true">
-			<p:toolbar>
-				<p:toolbarGroup align="left">
-					<p:commandButton value="#{messages['button.save']}" action="#{sampleEditMB.insert}" rendered="#{!sampleEditMB.updateMode}" ajax="false" />
-					<p:commandButton value="#{messages['button.save']}" action="#{sampleEditMB.update}" rendered="#{sampleEditMB.updateMode}" ajax="false" />
-					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()" rendered="#{sampleEditMB.updateMode}" type="button" immediate="true" ajax="false" />
-					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode" header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
-						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{sampleEditMB.delete}" immediate="true" ajax="false" />
-						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
-					</p:confirmDialog>
-				</p:toolbarGroup>
-			</p:toolbar>
-
-			<br />
-
-			<h:panelGrid id="fieldssample" columns="3">
-			
-				<h:outputLabel value="#{messages['sample.label.id']}: " for="sample_id" styleClass="text-input" />										
-				<h:outputText id="sample_id" value="#{sampleEditMB.bean.id}" />					
-				<p:message for="sample_id" />
-					
-				<h:outputLabel value="#{messages['sample.label.value']}: " for="value" styleClass="text-input" />					
-				<h:inputText id="value" value="#{sampleEditMB.bean.value}" title="#{messages['sample.alt.value']}" />					
-				<p:message for="value" />
-				
-				<h:outputLabel value="#{messages['collect.label']}: " for="collect" styleClass="text-input" />
-			    <p:selectOneMenu id="collect" value="#{sampleEditMB.bean.collect}" effect="fade" converter="ConversorCollect">
-					<f:selectItem itemLabel="Selecione" itemValue="" />
-					<f:selectItems value="#{sampleEditMB.collectEntityList}" var="varCollectEntity" itemLabel="#{varCollectEntity.id}"  itemValue="#{varCollectEntity}" />						
-				</p:selectOneMenu>
-				<p:message for="collect" />
-					
-			</h:panelGrid>
-		</p:fieldset>
-						
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -13,10 +13,10 @@ public interface Calculation {
 	
 	public CalculationEnum getType();
 	
-	public BigDecimal getLscResult();
+	public BigDecimal getUclResult();
 	
-	public BigDecimal getLcResult();
+	public BigDecimal getClResult();
 	
-	public BigDecimal getLicResult();
+	public BigDecimal getLclResult();
 
 }

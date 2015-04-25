@@ -1,0 +1,65 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			<p:dataTable id="item_tb" var="bean" value="#{itemListMB.resultList}">
+				<f:facet name="header">
+					<h:outputText value="#{messages['item.list.classification.table.title']}" />
+				</f:facet>
+				
+				<p:column style="width:5%;" sortBy="#{bean.id}">
+					<f:facet name="header">
+						<h:outputText value="#{messages['item.label.id']}" />
+					</f:facet>
+					<h:outputText value="#{bean.id}" />
+				</p:column>
+						
+				<p:column sortBy="#{bean.description}">
+					<f:facet name="header">
+						<h:outputText value="#{messages['item.label.description']}" />
+					</f:facet>
+					<h:outputText value="#{bean.description}" />
+				</p:column>
+					
+				<p:column sortBy="#{bean.process}">
+					<f:facet name="header">
+						<h:outputText value="#{messages['item.label.process']}" />
+					</f:facet>
+					<h:outputText value="#{bean.process}" />
+				</p:column>
+					
+				<p:column sortBy="#{bean.stable}">
+					<f:facet name="header">
+						<h:outputText value="#{messages['item.label.stable']}" />
+					</f:facet>
+					<h:outputText value="#{bean.stable}" />
+				</p:column>
+					
+				<p:column sortBy="#{bean.able}">
+					<f:facet name="header">
+						<h:outputText value="#{messages['item.label.able']}" />
+					</f:facet>
+					<h:outputText value="#{bean.able}" />
+				</p:column>
+								
+			</p:dataTable>
+			
+			<br />
+			
+		    <h:commandLink rendered="#{securityContext.loggedIn and securityContext.hasPermission('report', 'list')}">
+		        <img src="images/excel.png" border="0"/>
+		        <p:dataExporter type="xls" target="item_tb" fileName="classification" />
+		    </h:commandLink>
+		 
+		    <h:commandLink rendered="#{securityContext.loggedIn and securityContext.hasPermission('report', 'list')}">
+		        <img src="images/pdf.png" border="0"/>
+		        <p:dataExporter type="pdf" target="item_tb" fileName="classification" />
+		    </h:commandLink>
+		    
+		</h:form>
+
+	</ui:define>
+</ui:composition>

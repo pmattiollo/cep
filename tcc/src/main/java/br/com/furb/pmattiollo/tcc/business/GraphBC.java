@@ -12,17 +12,21 @@ import br.com.furb.pmattiollo.tcc.domain.ItemEntity;
 import br.com.furb.pmattiollo.tcc.persistence.CollectDAO;
 import br.com.furb.pmattiollo.tcc.util.Calculation;
 import br.com.furb.pmattiollo.tcc.util.CalculationFactory;
+import br.com.furb.pmattiollo.tcc.util.Classification;
 import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 
 @BusinessController
-public class ReportBC {
+public class GraphBC {
 	
 	@Inject
 	private CalculationBC calculationBC;
 	
+	@Inject
+	private ItemBC itemBC;
+	
 	public void generateCalcs(ItemEntity item) {
 		CollectDAO collectDao = new CollectDAO();
-		List<CollectEntity> collectList = collectDao.findFinishedByItem(item);
+		List<CollectEntity> collectList = collectDao.findAllByItem(item);
 		
 		Calculation calcXI = CalculationFactory.getCalculation(CalculationEnum.XI, collectList);
 		insertCalculationEntity(calcXI, item);
@@ -32,13 +36,19 @@ public class ReportBC {
 		
 		Calculation calcDEF = CalculationFactory.getCalculation(CalculationEnum.DEF, collectList);
 		insertCalculationEntity(calcDEF, item);
+		
+		Classification classification = new Classification(item, collectList, calcXI, calcMMEP, calcDEF);
+		item.setStable(classification.isStable());
+		item.setAble(classification.isAble());
+		
+		itemBC.update(item);
 	}
 	
 	private void insertCalculationEntity(Calculation calc, ItemEntity item) {
 		CalculationEntity calcEntity = new CalculationEntity();
-		calcEntity.setLc(calc.getLcResult());
-		calcEntity.setLic(calc.getLicResult());
-		calcEntity.setLsc(calc.getLscResult());
+		calcEntity.setCl(calc.getClResult());
+		calcEntity.setLcl(calc.getLclResult());
+		calcEntity.setUcl(calc.getUclResult());
 		calcEntity.setType(calc.getType());
 		calcEntity.setItem(item);
 		

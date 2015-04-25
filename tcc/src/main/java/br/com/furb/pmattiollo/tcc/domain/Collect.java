@@ -1,23 +1,18 @@
 package br.com.furb.pmattiollo.tcc.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.Type;
 
 @MappedSuperclass
 public abstract class Collect implements Serializable {
@@ -33,26 +28,21 @@ public abstract class Collect implements Serializable {
 	@Column(name = "start_date", nullable = false)
 	private Date start_date;
 	
-	@Type(type="true_false")
-	@Column(name = "finished", nullable = false)
-	private boolean finished;
-	
 	@ManyToOne
 	@JoinColumn(name = "item", nullable = false)
 	private ItemEntity item;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "collect")
-	private List<SampleEntity> samples;
+	@Column(name = "value", nullable = false)
+	private BigDecimal value;
 	
 	public Collect() {
 		super();
 	}
 
-	public Collect(Date start_date, Integer amount, ItemEntity item, List<SampleEntity> samples) {
+	public Collect(Date start_date, Integer amount, ItemEntity item, BigDecimal value) {
 		this.start_date = start_date;
 		this.item = item;
-		this.samples = samples;
+		this.value = value;
 	}
 
 	public Long getId() {
@@ -71,14 +61,6 @@ public abstract class Collect implements Serializable {
 		this.start_date = start_date;
 	}
 	
-	public boolean isFinished() {
-		return finished;
-	}
-	
-	public void setFinished(boolean finished) {
-		this.finished = finished;
-	}
-	
 	public ItemEntity getItem() {
 		return item;
 	}
@@ -87,12 +69,12 @@ public abstract class Collect implements Serializable {
 		this.item = item;
 	}
 
-	public List<SampleEntity> getSamples() {
-		return samples;
+	public BigDecimal getValue() {
+		return value;
 	}
-
-	public void setSamples(List<SampleEntity> samples) {
-		this.samples = samples;
+	
+	public void setValue(BigDecimal value) {
+		this.value = value;
 	}
 
 }

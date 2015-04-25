@@ -5,11 +5,12 @@ import java.util.List;
 
 import br.com.furb.pmattiollo.tcc.constant.CalculationEnum;
 import br.com.furb.pmattiollo.tcc.domain.CollectEntity;
-import br.com.furb.pmattiollo.tcc.domain.SampleEntity;
 
 public class CalculationXI implements Calculation {
 	
 	private static final double D2 = 1.128;
+	private static final int SIGMA = 3;
+	
 	private List<CollectEntity> collectList;
 	
 	public CalculationXI(List<CollectEntity> collectList) {
@@ -26,89 +27,46 @@ public class CalculationXI implements Calculation {
 	}
 
 	@Override
-	public BigDecimal getLscResult() {		
+	public BigDecimal getUclResult() {		
 		BigDecimal sumAverage = new BigDecimal(0.0);
-		
-		BigDecimal previousAverage = new BigDecimal(0.0);
-		BigDecimal currentAverage = new BigDecimal(0.0);
 		BigDecimal sumMobileAverage = new BigDecimal(0.0);
-		int count = 0;
 		
 		for(CollectEntity collect : collectList) {
-			for(SampleEntity sample : collect.getSamples()) {
-				sumAverage = sumAverage.add(sample.getValue());
-				currentAverage = currentAverage.add(sample.getValue());
-			}
-			
-			// Caso haja mais de uma amostra tira a média sempre
-			sumAverage = sumAverage.divide(new BigDecimal(collect.getSamples().size()), SCALE, ROUND);
-			currentAverage = currentAverage.divide(new BigDecimal(collect.getSamples().size()), SCALE, ROUND);
-			
-			if(count == 0) {
-				previousAverage = currentAverage;
-			} else {
-				previousAverage = previousAverage.add(currentAverage).divide(new BigDecimal(2), SCALE, ROUND);
-			}
-			
-			sumMobileAverage = sumMobileAverage.add(previousAverage);
-			count ++;
+			sumAverage = sumAverage.add(collect.getValue());			
+			sumMobileAverage = sumMobileAverage.add(sumAverage);
 		}
 		
-		BigDecimal valuesAverage = sumAverage.divide(new BigDecimal(collectList.size()), SCALE, ROUND);
-		BigDecimal mobileRangeAverage = sumMobileAverage.divide(new BigDecimal(collectList.size()), SCALE, ROUND);	
+		sumAverage = sumAverage.divide(new BigDecimal(collectList.size()), SCALE, ROUND);
+		sumMobileAverage = sumMobileAverage.divide(new BigDecimal(collectList.size()), SCALE, ROUND);
 		
-		return valuesAverage.add(mobileRangeAverage.divide(new BigDecimal(D2), SCALE, ROUND).multiply(new BigDecimal(3)));
+		return sumAverage.add(sumMobileAverage.divide(new BigDecimal(D2), SCALE, ROUND).multiply(new BigDecimal(SIGMA)));
 	}
 
 	@Override
-	public BigDecimal getLcResult() {		
+	public BigDecimal getClResult() {		
 		BigDecimal sumAverage = new BigDecimal(0.0);
 		
 		for(CollectEntity collect : collectList) {
-			for(SampleEntity sample : collect.getSamples()) {
-				sumAverage = sumAverage.add(sample.getValue());
-			}
-			
-			// Caso haja mais de uma amostra tira a média sempre
-			sumAverage = sumAverage.divide(new BigDecimal(collect.getSamples().size()), SCALE, ROUND);
+			sumAverage = sumAverage.add(collect.getValue());
 		}
 		
 		return sumAverage.divide(new BigDecimal(collectList.size()), SCALE, ROUND);
 	}
 
 	@Override
-	public BigDecimal getLicResult() {		
+	public BigDecimal getLclResult() {		
 		BigDecimal sumAverage = new BigDecimal(0.0);
-		
-		BigDecimal previousAverage = new BigDecimal(0.0);
-		BigDecimal currentAverage = new BigDecimal(0.0);
 		BigDecimal sumMobileAverage = new BigDecimal(0.0);
-		int count = 0;
 		
 		for(CollectEntity collect : collectList) {
-			for(SampleEntity sample : collect.getSamples()) {
-				sumAverage = sumAverage.add(sample.getValue());
-				currentAverage = currentAverage.add(sample.getValue());
-			}
-			
-			// Caso haja mais de uma amostra tira a média sempre
-			sumAverage = sumAverage.divide(new BigDecimal(collect.getSamples().size()), SCALE, ROUND);
-			currentAverage = currentAverage.divide(new BigDecimal(collect.getSamples().size()), SCALE, ROUND);
-			
-			if(count == 0) {
-				previousAverage = currentAverage;
-			} else {
-				previousAverage = previousAverage.add(currentAverage).divide(new BigDecimal(2), SCALE, ROUND);
-			}
-			
-			sumMobileAverage = sumMobileAverage.add(previousAverage);
-			count ++;
+			sumAverage = sumAverage.add(collect.getValue());
+			sumMobileAverage = sumMobileAverage.add(sumAverage);
 		}
 		
-		BigDecimal valuesAverage = sumAverage.divide(new BigDecimal(collectList.size()), SCALE, ROUND);
-		BigDecimal mobileRangeAverage = sumMobileAverage.divide(new BigDecimal(collectList.size()), SCALE, ROUND);	
+		sumAverage = sumAverage.divide(new BigDecimal(collectList.size()), SCALE, ROUND);
+		sumMobileAverage = sumMobileAverage.divide(new BigDecimal(collectList.size()), SCALE, ROUND);	
 		
-		return valuesAverage.subtract(mobileRangeAverage.divide(new BigDecimal(D2), SCALE, ROUND).multiply(new BigDecimal(3)));
+		return sumAverage.subtract(sumMobileAverage.divide(new BigDecimal(D2), SCALE, ROUND).multiply(new BigDecimal(SIGMA)));
 	}
 	
 }

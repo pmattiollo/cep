@@ -64,36 +64,16 @@
 					</h:commandLink>
 				</p:column>
 					
-				<p:column sortBy="#{bean.stable}">
-					<f:facet name="header">
-						<h:outputText value="#{messages['item.label.stable']}" />
-					</f:facet>
-					<h:commandLink action="#{itemListMB.getNextView}" actionListener="#{itemListMB.clear}">
-						<h:outputText value="#{bean.stable}" />
-						<f:param name="id" value="#{bean.id}" />
-					</h:commandLink>
-				</p:column>
-					
-				<p:column sortBy="#{bean.able}">
-					<f:facet name="header">
-						<h:outputText value="#{messages['item.label.able']}" />
-					</f:facet>
-					<h:commandLink action="#{itemListMB.getNextView}" actionListener="#{itemListMB.clear}">
-						<h:outputText value="#{bean.able}" />
-						<f:param name="id" value="#{bean.id}" />
-					</h:commandLink>
-				</p:column>
-					
 			</p:dataTable>
 			
 			<br />
 			
-		    <h:commandLink>
+		    <h:commandLink rendered="#{securityContext.loggedIn and securityContext.hasPermission('report', 'list')}">
 		        <img src="images/excel.png" border="0"/>
 		        <p:dataExporter type="xls" target="item_tb" fileName="items" />
 		    </h:commandLink>
 		 
-		    <h:commandLink>
+		    <h:commandLink rendered="#{securityContext.loggedIn and securityContext.hasPermission('report', 'list')}">
 		        <img src="images/pdf.png" border="0"/>
 		        <p:dataExporter type="pdf" target="item_tb" fileName="items" />
 		    </h:commandLink>

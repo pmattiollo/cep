@@ -3,15 +3,12 @@ package br.com.furb.pmattiollo.tcc.view;
 
 import java.util.List;
 
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
 
 import br.com.furb.pmattiollo.tcc.business.CollectBC;
 import br.com.furb.pmattiollo.tcc.business.ItemBC;
 import br.com.furb.pmattiollo.tcc.domain.CollectEntity;
 import br.com.furb.pmattiollo.tcc.domain.ItemEntity;
-import br.com.furb.pmattiollo.tcc.domain.SampleEntity;
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractEditPageBean;
@@ -29,18 +26,9 @@ public class CollectEditMB extends AbstractEditPageBean<CollectEntity, Long> {
 	@Inject
 	private ItemBC itemEntityBC;
 	
-	private DataModel<SampleEntity> sampleEntityList;
-	
 	public List<ItemEntity> getItemEntityList(){
 		return itemEntityBC.findAll();
 	}
-	
-	public DataModel<SampleEntity> getSampleEntityList() {
-	   if (sampleEntityList == null) {
-		   sampleEntityList = new ListDataModel<SampleEntity>(this.getBean().getSamples());
-	   }
-	   return sampleEntityList;
-	} 
 	
 	@Override
 	@Transactional
@@ -59,12 +47,6 @@ public class CollectEditMB extends AbstractEditPageBean<CollectEntity, Long> {
 	@Override
 	@Transactional
 	public String update() {
-		this.collectBC.update(this.getBean());
-		return getPreviousView();
-	}
-	
-	public String toFinalize() {
-		this.getBean().setFinished(true);
 		this.collectBC.update(this.getBean());
 		return getPreviousView();
 	}

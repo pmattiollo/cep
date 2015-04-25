@@ -5,7 +5,6 @@ import java.util.List;
 
 import br.com.furb.pmattiollo.tcc.constant.CalculationEnum;
 import br.com.furb.pmattiollo.tcc.domain.CollectEntity;
-import br.com.furb.pmattiollo.tcc.domain.SampleEntity;
 
 public class CalculationDefects implements Calculation {
 	
@@ -27,15 +26,13 @@ public class CalculationDefects implements Calculation {
 	}
 
 	@Override
-	public BigDecimal getLscResult() {		
+	public BigDecimal getUclResult() {		
 		int collectNumber = collectList.size();
 		BigDecimal sumDefects = new BigDecimal(0.0);
 		BigDecimal average = new BigDecimal(0.0);
 		
 		for(CollectEntity collect : collectList) {
-			for(SampleEntity sample : collect.getSamples()) {
-				sumDefects = sumDefects.add(sample.getValue());
-			}
+			sumDefects = sumDefects.add(collect.getValue());
 		}
 		
 		average = sumDefects.divide(new BigDecimal(collectNumber * SIZE), SCALE, ROUND);
@@ -44,29 +41,25 @@ public class CalculationDefects implements Calculation {
 	}
 
 	@Override
-	public BigDecimal getLcResult() {		
+	public BigDecimal getClResult() {		
 		int collectNumber = collectList.size();
 		BigDecimal sumDefects = new BigDecimal(0.0);
 		
 		for(CollectEntity collect : collectList) {
-			for(SampleEntity sample : collect.getSamples()) {
-				sumDefects = sumDefects.add(sample.getValue());
-			}
+			sumDefects = sumDefects.add(collect.getValue());
 		}
 		
 		return sumDefects.divide(new BigDecimal(collectNumber * SIZE), SCALE, ROUND);	
 	}
 
 	@Override
-	public BigDecimal getLicResult() {		
+	public BigDecimal getLclResult() {		
 		int collectNumber = collectList.size();
 		BigDecimal sumDefects = new BigDecimal(0.0);
 		BigDecimal average = new BigDecimal(0.0);
 		
 		for(CollectEntity collect : collectList) {
-			for(SampleEntity sample : collect.getSamples()) {
-				sumDefects = sumDefects.add(sample.getValue());
-			}
+			sumDefects = sumDefects.add(collect.getValue());
 		}
 		
 		average = sumDefects.divide(new BigDecimal(collectNumber * SIZE), SCALE, ROUND);

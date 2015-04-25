@@ -1,7 +1,7 @@
 package br.com.furb.pmattiollo.tcc.domain;
 
 import java.io.Serializable;
-import java.math.BigInteger;
+import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,10 +30,10 @@ public abstract class Item implements Serializable {
 	private String process;
 	
 	@Column(name = "usl", nullable = false)
-	private BigInteger usl;
+	private BigDecimal usl;
 	
 	@Column(name = "lsl", nullable = false)
-	private BigInteger lsl;
+	private BigDecimal lsl;
 	
 	@Type(type="true_false")
 	@Column(name = "stable", nullable = false)
@@ -47,7 +47,7 @@ public abstract class Item implements Serializable {
 		super();
 	}
 
-	public Item(String description, String process, BigInteger usl, BigInteger lsl, boolean stable, boolean able) {
+	public Item(String description, String process, BigDecimal usl, BigDecimal lsl, boolean stable, boolean able) {
 		this.description = description;
 		this.process = process;
 		this.usl = usl;
@@ -80,19 +80,19 @@ public abstract class Item implements Serializable {
 		this.process = process;
 	}
 	
-	public BigInteger getUsl() {
+	public BigDecimal getUsl() {
 		return usl;
 	}
 	
-	public void setUsl(BigInteger usl) {
+	public void setUsl(BigDecimal usl) {
 		this.usl = usl;
 	}
 	
-	public BigInteger getLsl() {
+	public BigDecimal getLsl() {
 		return lsl;
 	}
 	
-	public void setLsl(BigInteger lsl) {
+	public void setLsl(BigDecimal lsl) {
 		this.lsl = lsl;
 	}
 
