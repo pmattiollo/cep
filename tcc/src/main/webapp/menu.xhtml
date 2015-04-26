@@ -8,9 +8,9 @@
 				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/user_list.jsf" rendered="#{securityContext.loggedIn and securityContext.hasPermission('user', 'list')}"></p:menuitem>
 			</p:submenu>
 			
-			<p:submenu label="#{messages['menu.unit']}" rendered="#{securityContext.hasRole('unit')}">
-				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/unit_edit.jsf" rendered="#{securityContext.loggedIn and securityContext.hasPermission('unit', 'update')}"></p:menuitem>
-				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/unit_list.jsf" rendered="#{securityContext.loggedIn and securityContext.hasPermission('unit', 'list')}"></p:menuitem>
+			<p:submenu label="#{messages['menu.process']}" rendered="#{securityContext.hasRole('user')}">
+				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/process_edit.jsf" rendered="#{securityContext.loggedIn and securityContext.hasPermission('process', 'update')}"></p:menuitem>
+				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/process_list.jsf" rendered="#{securityContext.loggedIn and securityContext.hasPermission('process', 'list')}"></p:menuitem>
 			</p:submenu>
 			
 			<p:submenu label="#{messages['menu.collect']}" rendered="#{securityContext.hasRole('collect')}">

@@ -7,13 +7,13 @@ import javax.faces.convert.FacesConverter;
 import org.primefaces.component.picklist.PickList;
 import org.primefaces.model.DualListModel;
 import br.gov.frameworkdemoiselle.util.Beans;
-import br.com.furb.pmattiollo.tcc.persistence.UnitDAO;
-import br.com.furb.pmattiollo.tcc.domain.Unit;
+import br.com.furb.pmattiollo.tcc.persistence.ProcessDAO;
+import br.com.furb.pmattiollo.tcc.domain.Process;
 
-@FacesConverter(value= "ConversorUnit")
-public class UnitConverter implements Converter {
+@FacesConverter(value= "ConversorProcess")
+public class ProcessConverter implements Converter {
 
-	private UnitDAO unitDAO = Beans.getReference(UnitDAO.class);
+	private ProcessDAO processDAO = Beans.getReference(ProcessDAO.class);
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component,
@@ -24,7 +24,7 @@ public class UnitConverter implements Converter {
 				Object dualList = ((PickList) component).getValue();
 				DualListModel<?> dl = (DualListModel<?>) dualList;
 				for (Object o : dl.getSource()) {
-					String id = String.valueOf(((Unit) o).getId());
+					String id = String.valueOf(((Process) o).getId());
 					if (value.equals(id)) {
 						ret = o;
 						break;
@@ -32,7 +32,7 @@ public class UnitConverter implements Converter {
 				}
 				if (ret == null)
 					for (Object o : dl.getTarget()) {
-						String id = String.valueOf(((Unit) o).getId());
+						String id = String.valueOf(((Process) o).getId());
 						if (value.equals(id)) {
 							ret = o;
 							break;
@@ -43,7 +43,7 @@ public class UnitConverter implements Converter {
 					ret = null;
 				} else {
 					Long varId = Long.valueOf(value);
-					ret =  unitDAO.load(varId);
+					ret =  processDAO.load(varId);
 				}
 			}
 			return ret;
@@ -61,7 +61,7 @@ public class UnitConverter implements Converter {
 			if (value == null || value.equals("")) {
 				return "";
 			} else {			        
-				return String.valueOf(((Unit) value).getId());
+				return String.valueOf(((Process) value).getId());
 			}
 		}catch (Exception e) {
 			e.printStackTrace();

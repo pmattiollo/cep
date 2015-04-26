@@ -3,45 +3,47 @@ package br.com.furb.pmattiollo.tcc.view;
 
 import javax.inject.Inject;
 
-import br.com.furb.pmattiollo.tcc.business.UnitBC;
-import br.com.furb.pmattiollo.tcc.domain.UnitEntity;
+import br.com.furb.pmattiollo.tcc.business.ProcessBC;
+import br.com.furb.pmattiollo.tcc.domain.ProcessEntity;
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractEditPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
 
 @ViewController
-@PreviousView("./unit_list.jsf")
-public class UnitEditMB extends AbstractEditPageBean<UnitEntity, Long> {
+@PreviousView("./process_list.jsf")
+public class ProcessEditMB extends AbstractEditPageBean<ProcessEntity, Long> {
 
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private UnitBC unitBC;
+	private ProcessBC processBC;
+	
+
 	
 	@Override
 	@Transactional
 	public String delete() {
-		this.unitBC.delete(getId());
+		this.processBC.delete(getId());
 		return getPreviousView();
 	}
 	
 	@Override
 	@Transactional
 	public String insert() {
-		this.unitBC.insert(this.getBean());
+		this.processBC.insert(this.getBean());
 		return getPreviousView();
 	}
 	
 	@Override
 	@Transactional
 	public String update() {
-		this.unitBC.update(this.getBean());
+		this.processBC.update(this.getBean());
 		return getPreviousView();
 	}
 	
 	@Override
-	protected UnitEntity handleLoad(Long id) {
-		return this.unitBC.load(id);
+	protected ProcessEntity handleLoad(Long id) {
+		return this.processBC.load(id);
 	}	
 }

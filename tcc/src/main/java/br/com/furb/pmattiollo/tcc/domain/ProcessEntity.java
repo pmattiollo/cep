@@ -6,11 +6,11 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "unit")
+@Table(name = "process")
 @NamedQueries({
-    @NamedQuery(name="UnitEntity.findById", query="SELECT obj FROM UnitEntity obj WHERE obj.id = :id"),				
+    @NamedQuery(name="ProcessEntity.findById", query="SELECT obj FROM ProcessEntity obj WHERE obj.id = :id"),				
 })
-public class UnitEntity extends Unit {
+public class ProcessEntity extends Process {
 
 	private static final long serialVersionUID = 1L;
 	

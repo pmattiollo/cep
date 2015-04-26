@@ -9,23 +9,23 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class Unit implements Serializable {
+public abstract class Process implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "unit_id")
+	@Column(name = "process_id")
 	private Long id;
 	
 	@Column(name = "description", nullable = false, length = 100)
 	private String description;
 	
-	public Unit() {
+	public Process() {
 		super();
 	}
 	
-	public Unit(String description) {
+	public Process(String description) {
 		this.description = description;
 	}
 

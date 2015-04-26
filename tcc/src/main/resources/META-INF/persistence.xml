@@ -10,14 +10,14 @@
 		<class>br.com.furb.pmattiollo.tcc.domain.CollectEntity</class>
 		<class>br.com.furb.pmattiollo.tcc.domain.ItemEntity</class>
 		<class>br.com.furb.pmattiollo.tcc.domain.SoftwareEntity</class>
-		<class>br.com.furb.pmattiollo.tcc.domain.UnitEntity</class>	
+		<class>br.com.furb.pmattiollo.tcc.domain.ProcessEntity</class>	
 		<class>br.com.furb.pmattiollo.tcc.domain.UserEntity</class>
 		
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />	        
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="false" />
-			<property name="hibernate.hbm2ddl.auto" value="create_drop" />	
+			<property name="hibernate.hbm2ddl.auto" value="create-drop" />	
 		</properties>
 	</persistence-unit>
 	

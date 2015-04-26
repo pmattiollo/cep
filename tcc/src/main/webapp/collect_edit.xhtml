@@ -35,7 +35,7 @@
 					<h:outputLabel value="#{messages['item.label']}: " for="item" styleClass="text-input" />
 				    <p:selectOneMenu id="item" value="#{collectEditMB.bean.item}"  effect="fade" converter="ConversorItem">
 						<f:selectItem itemLabel="Selecione" itemValue="" />
-						<f:selectItems value="#{collectEditMB.itemEntityList}" var="varItemEntity" itemLabel="#{varItemEntity.id}"  itemValue="#{varItemEntity}" />						
+						<f:selectItems value="#{collectEditMB.itemEntityList}" var="varItemEntity" itemLabel="#{varItemEntity.description}"  itemValue="#{varItemEntity}" />						
 					</p:selectOneMenu>
 					<p:message for="item" />								  
 								 

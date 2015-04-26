@@ -2,7 +2,7 @@ package br.com.furb.pmattiollo.tcc.constant;
 
 public enum MeansEnum {
 
-	UNIT("unit"),
+	PROCESS("process"),
 	ITEM("item"),
 	SOFTWARE("software"),
 	COLLECT("collect"),
@@ -21,8 +21,8 @@ public enum MeansEnum {
 	}
 	
 	public static MeansEnum getMeanByDescription(String description) {
-		if(description.equals("unit")) {
-			return UNIT;
+		if(description.equals("process")) {
+			return PROCESS;
 		} else if(description.equals("item")) {			
 			return ITEM;
 		} else if(description.equals("software")) {

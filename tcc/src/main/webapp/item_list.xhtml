@@ -11,7 +11,7 @@
 					<p:commandButton title="#{messages['button.delete']}" icon="ui-icon-trash" action="#{itemListMB.deleteSelection}" actionListener="#{itemListMB.clear}" ajax="false" />
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:dataTable id="item_tb" var="bean" value="#{itemListMB.resultList}">
+			<p:dataTable id="item_tb" var="bean" value="#{itemListMB.resultList}" paginatorPosition="top" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" paginator="true">
 				<f:facet name="header">#{messages['item.list.table.title']}</f:facet>
 				<p:column style="width:2%;" exportable="false">
 					<h:selectBooleanCheckbox value="#{itemListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
@@ -30,16 +30,6 @@
 					</f:facet>
 					<h:commandLink action="#{itemListMB.getNextView}" actionListener="#{itemListMB.clear}">
 						<h:outputText value="#{bean.description}" />
-						<f:param name="id" value="#{bean.id}" />
-					</h:commandLink>
-				</p:column>
-					
-				<p:column sortBy="#{bean.process}">
-					<f:facet name="header">
-						<h:outputText value="#{messages['item.label.process']}" />
-					</f:facet>
-					<h:commandLink action="#{itemListMB.getNextView}" actionListener="#{itemListMB.clear}">
-						<h:outputText value="#{bean.process}" />
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>

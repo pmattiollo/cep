@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import br.com.furb.pmattiollo.tcc.business.UnitBC;
-import br.com.furb.pmattiollo.tcc.domain.UnitEntity;
+import br.com.furb.pmattiollo.tcc.business.ProcessBC;
+import br.com.furb.pmattiollo.tcc.domain.ProcessEntity;
 import br.gov.frameworkdemoiselle.annotation.NextView;
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
@@ -14,18 +14,18 @@ import br.gov.frameworkdemoiselle.template.AbstractListPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
 
 @ViewController
-@NextView("./unit_edit.jsf")
-@PreviousView("./unit_list.jsf")
-public class UnitListMB extends AbstractListPageBean<UnitEntity, Long> {
+@NextView("./process_edit.jsf")
+@PreviousView("./process_list.jsf")
+public class ProcessListMB extends AbstractListPageBean<ProcessEntity, Long> {
 
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private UnitBC unitBC;
+	private ProcessBC processBC;
 	
 	@Override
-	protected List<UnitEntity> handleResultList() {
-		return this.unitBC.findAll();
+	protected List<ProcessEntity> handleResultList() {
+		return this.processBC.findAll();
 	}
 	
 	@Transactional
@@ -35,7 +35,7 @@ public class UnitListMB extends AbstractListPageBean<UnitEntity, Long> {
 			Long id = iter.next();
 			delete = getSelection().get(id);
 			if (delete) {
-				unitBC.delete(id);
+				processBC.delete(id);
 				iter.remove();
 			}
 		}

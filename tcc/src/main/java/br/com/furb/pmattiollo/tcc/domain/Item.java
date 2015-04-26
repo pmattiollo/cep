@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
 import org.hibernate.annotations.Type;
@@ -26,9 +28,6 @@ public abstract class Item implements Serializable {
 	@Column(name = "description", nullable = false, length = 100)
 	private String description;
 	
-	@Column(name = "process", nullable = false, length = 100)
-	private String process;
-	
 	@Column(name = "usl", nullable = false)
 	private BigDecimal usl;
 	
@@ -43,17 +42,21 @@ public abstract class Item implements Serializable {
 	@Column(name = "able", nullable = false)
 	private boolean able;
 	
+	@ManyToOne
+	@JoinColumn(name = "process", nullable = false)
+	private ProcessEntity process;
+	
 	public Item() {
 		super();
 	}
 
-	public Item(String description, String process, BigDecimal usl, BigDecimal lsl, boolean stable, boolean able) {
+	public Item(String description, BigDecimal usl, BigDecimal lsl, boolean stable, boolean able, ProcessEntity process) {
 		this.description = description;
-		this.process = process;
 		this.usl = usl;
 		this.lsl = lsl;
 		this.stable = stable;
 		this.able = able;
+		this.process = process;
 	}
 	
 	public Long getId() {
@@ -70,14 +73,6 @@ public abstract class Item implements Serializable {
 	
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public String getProcess() {
-		return process;
-	}
-
-	public void setProcess(String process) {
-		this.process = process;
 	}
 	
 	public BigDecimal getUsl() {
@@ -110,6 +105,14 @@ public abstract class Item implements Serializable {
 
 	public void setAble(boolean able) {
 		this.able = able;
+	}
+	
+	public ProcessEntity getProcess() {
+		return process;
+	}
+	
+	public void setProcess(ProcessEntity process) {
+		this.process = process;
 	}
 
 }

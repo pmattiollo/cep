@@ -5,7 +5,7 @@
 
 	<ui:define name="body">
 		<h:form>
-			<p:dataTable id="item_tb" var="bean" value="#{itemListMB.resultList}">
+			<p:dataTable id="item_tb" var="bean" value="#{itemListMB.resultList}" paginatorPosition="top" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" paginator="true">
 				<f:facet name="header">
 					<h:outputText value="#{messages['item.list.classification.table.title']}" />
 				</f:facet>
@@ -22,13 +22,6 @@
 						<h:outputText value="#{messages['item.label.description']}" />
 					</f:facet>
 					<h:outputText value="#{bean.description}" />
-				</p:column>
-					
-				<p:column sortBy="#{bean.process}">
-					<f:facet name="header">
-						<h:outputText value="#{messages['item.label.process']}" />
-					</f:facet>
-					<h:outputText value="#{bean.process}" />
 				</p:column>
 					
 				<p:column sortBy="#{bean.stable}">

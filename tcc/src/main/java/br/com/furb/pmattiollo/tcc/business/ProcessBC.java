@@ -1,13 +1,13 @@
 
 package br.com.furb.pmattiollo.tcc.business;
 
-import br.com.furb.pmattiollo.tcc.domain.UnitEntity;
-import br.com.furb.pmattiollo.tcc.persistence.UnitDAO;
+import br.com.furb.pmattiollo.tcc.domain.ProcessEntity;
+import br.com.furb.pmattiollo.tcc.persistence.ProcessDAO;
 import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 
 @BusinessController
-public class UnitBC extends DelegateCrud<UnitEntity, Long, UnitDAO> {
+public class ProcessBC extends DelegateCrud<ProcessEntity, Long, ProcessDAO> {
 	private static final long serialVersionUID = 1L;
 	
 	
