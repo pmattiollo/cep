@@ -47,27 +47,27 @@ public class SonarIntegration implements SonarIntegrationAPI {
 	
 	@Override
 	public List<ItemEntity> getItemsByProjectId(Integer projectId) {
-		return null;
-	}
+		loadConnection();
+		List<ItemEntity> itemList = new ArrayList<ItemEntity>();
 
-//	@Override
-//	public List<UnitEntity> getAllUnits() {
-//		loadConnection();
-//		List<UnitEntity> unitList = new ArrayList<UnitEntity>();
-//
-//		PreparedStatement stmt;
-//		ResultSet rs;
-//		try {
-//			stmt = conn.prepareStatement("select * from metrics");
-//			rs = stmt.executeQuery();
-//			while (rs.next()) {
-//				UnitEntity unit = new UnitEntity();
-//				unit.setDescription(rs.getString("name"));
-//				unitList.add(unit);	
-//			}
-//			
-//		} catch (SQLException e) { }
-//		return unitList;
-//	}
+		PreparedStatement stmt;
+		ResultSet rs;
+		
+		try {
+			stmt = conn.prepareStatement("select * from metrics");
+			rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+				ItemEntity item = new ItemEntity();
+				item.setDescription(rs.getString("name"));
+				itemList.add(item);	
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return itemList;
+	}
 
 }

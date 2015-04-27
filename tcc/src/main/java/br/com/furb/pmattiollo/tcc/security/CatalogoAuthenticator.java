@@ -71,14 +71,14 @@ public class CatalogoAuthenticator implements Authenticator {
 		case OPERATOR:
 			for (MeansEnum mean : MeansEnum.values()) {
 				switch (mean) {
+				case PROCESS:
+					mapMeansOperations.put(mean, Arrays.asList(OperationsEnum.LIST));
+					break;
 				case COLLECT:
 					mapMeansOperations.put(mean, Arrays.asList(OperationsEnum.values()));
 					break;
 				case ITEM:					
-					mapMeansOperations.put(mean, Arrays.asList(OperationsEnum.LIST));
-					break;
-				case GRAPH:
-					mapMeansOperations.put(mean, Arrays.asList(OperationsEnum.values()));
+					mapMeansOperations.put(mean, Arrays.asList(OperationsEnum.LIST, OperationsEnum.CLASSIFICATION));
 					break;
 				case SOFTWARE:
 					mapMeansOperations.put(mean, Arrays.asList(OperationsEnum.LIST));

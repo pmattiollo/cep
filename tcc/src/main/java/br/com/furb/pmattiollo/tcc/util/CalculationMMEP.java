@@ -9,7 +9,7 @@ import br.com.furb.pmattiollo.tcc.domain.ItemEntity;
 
 public class CalculationMMEP implements Calculation {
 	
-	private static final double Y = 0.1;
+	private static final double Y = 0.8;
 	private List<CollectEntity> collectList;
 	private ItemEntity item;
 	

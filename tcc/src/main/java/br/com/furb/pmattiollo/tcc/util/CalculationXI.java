@@ -41,9 +41,11 @@ public class CalculationXI implements Calculation {
 			if(count == 0) {
 				previousAverage = collect.getValue();
 			} else {
-				sumMobileAverage = sumMobileAverage.add(currentAverage.subtract(previousAverage));				
+				sumMobileAverage = sumMobileAverage.add(currentAverage.subtract(previousAverage).abs());				
 				previousAverage = currentAverage;
 			}
+			
+			count ++;
 		}
 		
 		sumAverage = sumAverage.divide(new BigDecimal(collectList.size()), SCALE, ROUND);
@@ -79,9 +81,11 @@ public class CalculationXI implements Calculation {
 			if(count == 0) {
 				previousAverage = collect.getValue();
 			} else {
-				sumMobileAverage = sumMobileAverage.add(currentAverage.subtract(previousAverage));				
+				sumMobileAverage = sumMobileAverage.add(currentAverage.subtract(previousAverage).abs());				
 				previousAverage = currentAverage;
 			}
+			
+			count ++;
 		}
 		
 		sumAverage = sumAverage.divide(new BigDecimal(collectList.size()), SCALE, ROUND);

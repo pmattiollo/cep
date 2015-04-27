@@ -8,7 +8,7 @@
 				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/user_list.jsf" rendered="#{securityContext.loggedIn and securityContext.hasPermission('user', 'list')}"></p:menuitem>
 			</p:submenu>
 			
-			<p:submenu label="#{messages['menu.process']}" rendered="#{securityContext.hasRole('user')}">
+			<p:submenu label="#{messages['menu.process']}" rendered="#{securityContext.hasRole('process')}">
 				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/process_edit.jsf" rendered="#{securityContext.loggedIn and securityContext.hasPermission('process', 'update')}"></p:menuitem>
 				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/process_list.jsf" rendered="#{securityContext.loggedIn and securityContext.hasPermission('process', 'list')}"></p:menuitem>
 			</p:submenu>

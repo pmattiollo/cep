@@ -13,7 +13,7 @@ public class ConnectorFactory {
 
 	private String url;
 	private String user = "root";
-	private String passwd = "root";
+	private String passwd = "admin";
 	private String host = "localhost";
 	private String port = "3306";
 	private String base = "sonar";

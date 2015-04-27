@@ -11,5 +11,4 @@ public interface SonarIntegrationAPI {
 	
 	public List<ItemEntity> getItemsByProjectId(Integer projectId);
 	
-//	public List<UnitEntity> getAllUnits();
 }

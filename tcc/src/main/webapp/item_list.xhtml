@@ -58,12 +58,12 @@
 			
 			<br />
 			
-		    <h:commandLink rendered="#{securityContext.loggedIn and securityContext.hasPermission('report', 'list')}">
+		    <h:commandLink rendered="#{securityContext.hasRole('report')}">
 		        <img src="images/excel.png" border="0"/>
 		        <p:dataExporter type="xls" target="item_tb" fileName="items" postProcessor="#{itemListMB.postProcessXLS}"/>
 		    </h:commandLink>
 		 
-		    <h:commandLink rendered="#{securityContext.loggedIn and securityContext.hasPermission('report', 'list')}">
+		    <h:commandLink rendered="#{securityContext.hasRole('report')}">
 		        <img src="images/pdf.png" border="0"/>
 		        <p:dataExporter type="pdf" target="item_tb" fileName="items" preProcessor="#{itemListMB.preProcessPDFList}"/>
 		    </h:commandLink>
