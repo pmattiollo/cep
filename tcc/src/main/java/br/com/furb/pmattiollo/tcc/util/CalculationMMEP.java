@@ -5,19 +5,21 @@ import java.util.List;
 
 import br.com.furb.pmattiollo.tcc.constant.CalculationEnum;
 import br.com.furb.pmattiollo.tcc.domain.CollectEntity;
+import br.com.furb.pmattiollo.tcc.domain.ItemEntity;
 
 public class CalculationMMEP implements Calculation {
 	
-	private static final double L = 2.7;
 	private static final double Y = 0.1;
 	private List<CollectEntity> collectList;
+	private ItemEntity item;
 	
 	@SuppressWarnings("unused")
 	private CalculationMMEP() {
 	}
 	
-	public CalculationMMEP(List<CollectEntity> collectList) {
+	public CalculationMMEP(List<CollectEntity> collectList, ItemEntity item) {
 		this.collectList = collectList;
+		this.item = item;
 	}
 	
 	@Override
@@ -27,23 +29,30 @@ public class CalculationMMEP implements Calculation {
 
 	@Override
 	public BigDecimal getUclResult() {		 
-		BigDecimal u0 = getSum(collectList).divide(new BigDecimal(collectList.size()), SCALE, ROUND);
+		BigDecimal u0 = getU0();
 		BigDecimal staDev = new BigDecimal(getStandardDeviation(collectList));
 		
-		return u0.add(new BigDecimal(L).multiply(staDev.multiply(new BigDecimal(Math.sqrt(Y / (2 / Y))))));
+		return u0.add(new BigDecimal(SIGMA).multiply(staDev.multiply(new BigDecimal(Math.sqrt(Y / (2 / Y))))));
 	}
 
 	@Override
 	public BigDecimal getClResult() {		
-		return getSum(collectList).divide(new BigDecimal(collectList.size()), SCALE, ROUND);
+		return getU0();
 	}
 
 	@Override
 	public BigDecimal getLclResult() {		 
-		BigDecimal u0 = getSum(collectList).divide(new BigDecimal(collectList.size()), SCALE, ROUND);
+		BigDecimal u0 = getU0();
 		BigDecimal staDev = new BigDecimal(getStandardDeviation(collectList));
 		
-		return u0.subtract(new BigDecimal(L).multiply(staDev.multiply(new BigDecimal(Math.sqrt(Y / (2 / Y))))));
+		return u0.subtract(new BigDecimal(SIGMA).multiply(staDev.multiply(new BigDecimal(Math.sqrt(Y / (2 / Y))))));
+	}
+	
+	private BigDecimal getU0() {
+		BigDecimal average = item.getUsl().subtract(item.getLsl());
+		average = average.divide(new BigDecimal(2), SCALE, ROUND);
+		
+		return item.getLsl().add(average);
 	}
 	
 	private double getStandardDeviation(List<CollectEntity> collects) {

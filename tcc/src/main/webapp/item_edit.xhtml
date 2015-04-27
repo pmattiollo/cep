@@ -35,7 +35,14 @@
 						
 					<h:outputLabel value="#{messages['item.label.lsl']}: " for="lsl" styleClass="text-input" />		
 					<h:inputText id="lsl" value="#{itemEditMB.bean.lsl}" title="#{messages['item.alt.lsl']}" />					
-					<p:message for="lsl" />						
+					<p:message for="lsl" />
+					
+					<h:outputLabel value="#{messages['process.label']}: " for="process" styleClass="text-input" />
+				    <p:selectOneMenu id="process" value="#{itemEditMB.bean.process}"  effect="fade" converter="ConversorProcess">
+						<f:selectItem itemLabel="Selecione" itemValue="" />
+						<f:selectItems value="#{itemEditMB.processEntityList}" var="varProcessEntity" itemLabel="#{varProcessEntity.id} - #{varProcessEntity.description}"  itemValue="#{varProcessEntity}" />						
+					</p:selectOneMenu>
+					<p:message for="process" />						
 				</h:panelGrid>
 			</p:fieldset>
 			

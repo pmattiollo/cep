@@ -11,7 +11,7 @@
 					<p:commandButton title="#{messages['button.delete']}" icon="ui-icon-trash"  action="#{processListMB.deleteSelection}" actionListener="#{processListMB.clear}" ajax="false" />
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:dataTable id="list" var="bean" value="#{processListMB.resultList}">
+			<p:dataTable id="list" var="bean" value="#{processListMB.resultList}" rows="10" paginatorPosition="top" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" paginator="true">
 				<f:facet name="header">#{messages['process.list.table.title']}</f:facet>
 				<p:column style="width:2%;">
 					<h:selectBooleanCheckbox value="#{processListMB.selection[bean.id]}"></h:selectBooleanCheckbox>

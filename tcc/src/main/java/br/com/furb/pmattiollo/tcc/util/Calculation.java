@@ -11,6 +11,8 @@ public interface Calculation {
 	
 	public static final RoundingMode ROUND = RoundingMode.HALF_UP;
 	
+	public static final int SIGMA = 3;
+	
 	public CalculationEnum getType();
 	
 	public BigDecimal getUclResult();

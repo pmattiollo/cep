@@ -8,7 +8,7 @@ import br.com.furb.pmattiollo.tcc.domain.CollectEntity;
 
 public class CalculationDefects implements Calculation {
 	
-	private static final int SIZE = 5;
+	private static final int SAMPLE_SIZE = 1;
 	
 	private List<CollectEntity> collectList;
 	
@@ -27,7 +27,6 @@ public class CalculationDefects implements Calculation {
 
 	@Override
 	public BigDecimal getUclResult() {		
-		int collectNumber = collectList.size();
 		BigDecimal sumDefects = new BigDecimal(0.0);
 		BigDecimal average = new BigDecimal(0.0);
 		
@@ -35,26 +34,25 @@ public class CalculationDefects implements Calculation {
 			sumDefects = sumDefects.add(collect.getValue());
 		}
 		
-		average = sumDefects.divide(new BigDecimal(collectNumber * SIZE), SCALE, ROUND);
+		average = sumDefects.divide(new BigDecimal(collectList.size() * SAMPLE_SIZE), SCALE, ROUND);		
+		BigDecimal sqrtValue = new BigDecimal(Math.sqrt(average.divide(new BigDecimal(collectList.size()), SCALE, ROUND).doubleValue()));		
 		
-		return average.add(new BigDecimal(3 * Math.sqrt(average.divide(new BigDecimal(SIZE), SCALE, ROUND).doubleValue())));
+		return average.add(new BigDecimal(SIGMA).multiply(sqrtValue));
 	}
 
 	@Override
-	public BigDecimal getClResult() {		
-		int collectNumber = collectList.size();
+	public BigDecimal getClResult() {
 		BigDecimal sumDefects = new BigDecimal(0.0);
 		
 		for(CollectEntity collect : collectList) {
 			sumDefects = sumDefects.add(collect.getValue());
 		}
 		
-		return sumDefects.divide(new BigDecimal(collectNumber * SIZE), SCALE, ROUND);	
+		return sumDefects.divide(new BigDecimal(collectList.size() * SAMPLE_SIZE), SCALE, ROUND);	
 	}
 
 	@Override
 	public BigDecimal getLclResult() {		
-		int collectNumber = collectList.size();
 		BigDecimal sumDefects = new BigDecimal(0.0);
 		BigDecimal average = new BigDecimal(0.0);
 		
@@ -62,9 +60,10 @@ public class CalculationDefects implements Calculation {
 			sumDefects = sumDefects.add(collect.getValue());
 		}
 		
-		average = sumDefects.divide(new BigDecimal(collectNumber * SIZE), SCALE, ROUND);
+		average = sumDefects.divide(new BigDecimal(collectList.size() * SAMPLE_SIZE), SCALE, ROUND);		
+		BigDecimal sqrtValue = new BigDecimal(Math.sqrt(average.divide(new BigDecimal(collectList.size()), SCALE, ROUND).doubleValue()));		
 		
-		return average.subtract(new BigDecimal(3 * Math.sqrt(average.divide(new BigDecimal(SIZE), SCALE, ROUND).doubleValue())));
+		return average.subtract(new BigDecimal(SIGMA).multiply(sqrtValue));
 	}
 
 }

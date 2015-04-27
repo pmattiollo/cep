@@ -5,7 +5,7 @@
 
 	<ui:define name="body">
 		<h:form>
-			<p:dataTable id="item_tb" var="bean" value="#{itemListMB.resultList}" paginatorPosition="top" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" paginator="true">
+			<p:dataTable id="item_tb" var="bean" value="#{itemListMB.resultList}" rows="10" paginatorPosition="top" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" paginator="true">
 				<f:facet name="header">
 					<h:outputText value="#{messages['item.list.classification.table.title']}" />
 				</f:facet>
@@ -21,21 +21,30 @@
 					<f:facet name="header">
 						<h:outputText value="#{messages['item.label.description']}" />
 					</f:facet>
-					<h:outputText value="#{bean.description}" />
+					<h:commandLink action="#{itemListMB.getNextView}" actionListener="#{itemListMB.clear}">
+						<h:outputText value="#{bean.description}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
 				</p:column>
 					
 				<p:column sortBy="#{bean.stable}">
 					<f:facet name="header">
 						<h:outputText value="#{messages['item.label.stable']}" />
 					</f:facet>
-					<h:outputText value="#{bean.stable}" />
+					<h:commandLink action="#{itemListMB.getNextView}" actionListener="#{itemListMB.clear}">
+						<h:outputText value="#{bean.stable}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>					
 				</p:column>
 					
 				<p:column sortBy="#{bean.able}">
 					<f:facet name="header">
 						<h:outputText value="#{messages['item.label.able']}" />
 					</f:facet>
-					<h:outputText value="#{bean.able}" />
+					<h:commandLink action="#{itemListMB.getNextView}" actionListener="#{itemListMB.clear}">
+						<h:outputText value="#{bean.able}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
 				</p:column>
 								
 			</p:dataTable>
@@ -44,12 +53,12 @@
 			
 		    <h:commandLink rendered="#{securityContext.loggedIn and securityContext.hasPermission('report', 'list')}">
 		        <img src="images/excel.png" border="0"/>
-		        <p:dataExporter type="xls" target="item_tb" fileName="classification" />
+		        <p:dataExporter type="xls" target="item_tb" fileName="classification" postProcessor="#{itemListMB.postProcessXLS}"/>
 		    </h:commandLink>
 		 
 		    <h:commandLink rendered="#{securityContext.loggedIn and securityContext.hasPermission('report', 'list')}">
 		        <img src="images/pdf.png" border="0"/>
-		        <p:dataExporter type="pdf" target="item_tb" fileName="classification" />
+		        <p:dataExporter type="pdf" target="item_tb" fileName="classification" preProcessor="#{itemListMB.preProcessPDFClassification}"/>
 		    </h:commandLink>
 		    
 		</h:form>

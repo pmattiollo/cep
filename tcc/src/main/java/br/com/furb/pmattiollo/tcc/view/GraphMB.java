@@ -63,7 +63,7 @@ public class GraphMB {
         lineModelXI.getAxes().put(AxisType.X, new CategoryAxis("Samples for Collections"));
         lineModelXI.setMouseoverHighlight(true);
         Axis yAxisXI = lineModelXI.getAxis(AxisType.Y);
-        yAxisXI.setLabel("Values");
+        yAxisXI.setLabel(item.getDescription());
         yAxisXI.setMin(getYAxisMin(collectList, calcXI));
         yAxisXI.setMax(getYAxisMax(collectList, calcXI));
         
@@ -75,7 +75,7 @@ public class GraphMB {
         lineModelMMEP.setShowPointLabels(true);
         lineModelMMEP.getAxes().put(AxisType.X, new CategoryAxis("Samples for Collections"));
         Axis yAxisMMEP = lineModelMMEP.getAxis(AxisType.Y);
-        yAxisMMEP.setLabel("Values");
+        yAxisMMEP.setLabel(item.getDescription());
         yAxisMMEP.setMin(getYAxisMin(collectList, calcMMEP));
         yAxisMMEP.setMax(getYAxisMax(collectList, calcMMEP));
         
@@ -87,7 +87,7 @@ public class GraphMB {
         lineModelDefects.setShowPointLabels(true);
         lineModelDefects.getAxes().put(AxisType.X, new CategoryAxis("Samples for Collections"));
         Axis yAxisDef = lineModelDefects.getAxis(AxisType.Y);
-        yAxisDef.setLabel("Values");
+        yAxisDef.setLabel(item.getDescription());
         yAxisDef.setMin(getYAxisMin(collectList, calcDef));
         yAxisDef.setMax(getYAxisMax(collectList, calcDef));
 

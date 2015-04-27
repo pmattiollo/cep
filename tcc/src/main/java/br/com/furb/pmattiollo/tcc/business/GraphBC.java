@@ -28,13 +28,13 @@ public class GraphBC {
 		CollectDAO collectDao = new CollectDAO();
 		List<CollectEntity> collectList = collectDao.findAllByItem(item);
 		
-		Calculation calcXI = CalculationFactory.getCalculation(CalculationEnum.XI, collectList);
+		Calculation calcXI = CalculationFactory.getCalculation(CalculationEnum.XI, collectList, item);
 		insertCalculationEntity(calcXI, item);
 		
-		Calculation calcMMEP = CalculationFactory.getCalculation(CalculationEnum.MMEP, collectList);
+		Calculation calcMMEP = CalculationFactory.getCalculation(CalculationEnum.MMEP, collectList, item);
 		insertCalculationEntity(calcMMEP, item);
 		
-		Calculation calcDEF = CalculationFactory.getCalculation(CalculationEnum.DEF, collectList);
+		Calculation calcDEF = CalculationFactory.getCalculation(CalculationEnum.DEF, collectList, item);
 		insertCalculationEntity(calcDEF, item);
 		
 		Classification classification = new Classification(item, collectList, calcXI, calcMMEP, calcDEF);

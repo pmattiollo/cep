@@ -11,7 +11,7 @@
 					<p:commandButton title="#{messages['button.delete']}" icon="ui-icon-trash" action="#{softwareListMB.deleteSelection}" actionListener="#{softwareListMB.clear}" ajax="false" />
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:dataTable id="softare_tb" var="bean" value="#{softwareListMB.resultList}" paginatorPosition="top" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" paginator="true">				
+			<p:dataTable id="softare_tb" var="bean" value="#{softwareListMB.resultList}" rows="10" paginatorPosition="top" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" paginator="true">				
 				<f:facet name="header">#{messages['software.list.table.title']}</f:facet>
 				<p:column style="width:2%;" exportable="false">
 					<h:selectBooleanCheckbox value="#{softwareListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
@@ -27,9 +27,9 @@
 				<p:column sortBy="#{bean.description}">
 					<f:facet name="header">
 						<h:outputText value="#{messages['software.label.description']}" />
-					</f:facet>
-					<h:outputText value="#{bean.description}" />
+					</f:facet>					
 					<h:commandLink action="#{softwareListMB.getNextView}" actionListener="#{softwareListMB.clear}">
+						<h:outputText value="#{bean.description}" />
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
@@ -40,12 +40,12 @@
 			
 		    <h:commandLink rendered="#{securityContext.loggedIn and securityContext.hasPermission('report', 'list')}">
 		        <img src="images/excel.png" border="0"/>
-		        <p:dataExporter type="xls" target="softare_tb" fileName="softwares" preProcessor="#{softwareListMB.preProcessXLS()}" postProcessor="#{softwareListMB.postProcessXLS()}" />
+		        <p:dataExporter type="xls" target="softare_tb" fileName="softwares" postProcessor="#{softwareListMB.postProcessXLS}" />
 		    </h:commandLink>
 		 
 		    <h:commandLink rendered="#{securityContext.loggedIn and securityContext.hasPermission('report', 'list')}">
 		        <img src="images/pdf.png" border="0"/>
-		        <p:dataExporter type="pdf" target="softare_tb" fileName="softwares" preProcessor="#{softwareListMB.preProcessPDF()}" />
+		        <p:dataExporter type="pdf" target="softare_tb" fileName="softwares" preProcessor="#{softwareListMB.preProcessPDF}" />
 		    </h:commandLink>
 	    </h:form>
 

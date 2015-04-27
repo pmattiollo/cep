@@ -36,7 +36,7 @@
 			<p:fieldset legend="#{messages['item.label']}" toggleable="true">
 				<p:pickList id="pickListItemEntity" value="#{softwareEditMB.itemEntityList}"
 					var="varItemEntity" effect="bounce" itemValue="#{varItemEntity}"
-					itemLabel="#{varItemEntity.description}" converter="ConversorItem"
+					itemLabel="#{varItemEntity.id} - #{varItemEntity.description}" converter="ConversorItem"
 					showSourceControls="true" showTargetControls="true" showCheckbox="true"
 					showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" immediate="true">
 					<f:facet name="sourceCaption">"#{messages['item.label']}"</f:facet>
