@@ -1,6 +1,7 @@
 package br.com.furb.pmattiollo.tcc.view;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -121,6 +122,8 @@ public class GraphMB {
         ChartSeries cl = new ChartSeries();        
         ChartSeries lcl = new ChartSeries();
         
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+        
         collectsItem.setLabel("Collects for item \"" + item.getDescription() + "\"");
         ucl.setLabel("UCL (Upper Control Limit)");
         cl.setLabel("CL (Control Limit)");
@@ -129,7 +132,7 @@ public class GraphMB {
         int collectCount = 1;
         
         for(CollectEntity collect : collectList) {			
-        	String desc = "C" + collectCount;
+        	String desc = "C" + collectCount + sdf.format(collect.getStart_date());
         	
         	collectsItem.set(desc, collect.getValue());
 			ucl.set(desc, calc.getUcl());
