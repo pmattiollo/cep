@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.inject.Inject;
 
@@ -16,46 +15,63 @@ import org.primefaces.model.chart.LegendPlacement;
 import org.primefaces.model.chart.LineChartModel;
 
 import br.com.furb.pmattiollo.tcc.business.GraphBC;
+import br.com.furb.pmattiollo.tcc.business.ItemBC;
+import br.com.furb.pmattiollo.tcc.business.SoftwareBC;
 import br.com.furb.pmattiollo.tcc.constant.CalculationEnum;
 import br.com.furb.pmattiollo.tcc.domain.CalculationEntity;
 import br.com.furb.pmattiollo.tcc.domain.CollectEntity;
 import br.com.furb.pmattiollo.tcc.domain.ItemEntity;
+import br.com.furb.pmattiollo.tcc.domain.SoftwareEntity;
 import br.com.furb.pmattiollo.tcc.persistence.CalculationDAO;
 import br.com.furb.pmattiollo.tcc.persistence.CollectDAO;
-import br.com.furb.pmattiollo.tcc.persistence.ItemDAO;
 
 @ManagedBean
-public class GraphMB {	
+public class GraphMB {
     
     @Inject
 	private GraphBC reportBC;
+    
+    @Inject
+	private SoftwareBC softwareEntityBC;
+    
+    @Inject
+	private ItemBC itemBC;
+    
+    private SoftwareEntity software;
 	
 	private ItemEntity item;
 	private List<ItemEntity> items;
 	
 	private LineChartModel lineModelXI;
 	private LineChartModel lineModelMMEP;
-	private LineChartModel lineModelDefects;
+	private LineChartModel lineModelDefects;	
 	
-	@PostConstruct
-	public void init() {
-		ItemDAO dao = new ItemDAO();
-		items = dao.findAll();
+	public List<SoftwareEntity> getSoftwareEntityList(){
+		return softwareEntityBC.findAll();
+	}
+	
+	public List<ItemEntity> getItemEntityList(){
+		if(software!= null) {			
+			return software.getItems();
+		}
+		
+		return itemBC.findAll();
 	}
     
     public void submit() {
-    	if(item != null) {
-			reportBC.generateCalcs(item);			
+    	if(software != null && item != null) {
+			reportBC.generateCalcs(software, item);
+			reportBC.classificate(item);
 			generateGraphs();
 		}
     }
     
     private void generateGraphs() {		
 		CollectDAO collectDao = new CollectDAO();
-		List<CollectEntity> collectList = collectDao.findAllByItem(item);
+		List<CollectEntity> collectList = collectDao.findAllBySoftwareAndItem(software, item);
 		
 		CalculationDAO calculationDao = new CalculationDAO();
-		CalculationEntity calcXI = calculationDao.findLastByItemAndType(item, CalculationEnum.XI);		
+		CalculationEntity calcXI = calculationDao.findLastBySoftwareAndItemAndType(software, item, CalculationEnum.XI);
 		lineModelXI = initCategoryModel(collectList, calcXI);
         lineModelXI.setTitle("X-Bar Individial Graph");
         lineModelXI.setLegendPosition("s");
@@ -68,7 +84,7 @@ public class GraphMB {
         yAxisXI.setMin(getYAxisMin(collectList, calcXI));
         yAxisXI.setMax(getYAxisMax(collectList, calcXI));
         
-        CalculationEntity calcMMEP = calculationDao.findLastByItemAndType(item, CalculationEnum.MMEP);		
+        CalculationEntity calcMMEP = calculationDao.findLastBySoftwareAndItemAndType(software, item, CalculationEnum.MMEP);		
         lineModelMMEP = initCategoryModel(collectList, calcMMEP);
         lineModelMMEP.setTitle("Exponentially Weighted Moving Average Graph");
         lineModelMMEP.setLegendPosition("s");
@@ -80,7 +96,7 @@ public class GraphMB {
         yAxisMMEP.setMin(getYAxisMin(collectList, calcMMEP));
         yAxisMMEP.setMax(getYAxisMax(collectList, calcMMEP));
         
-        CalculationEntity calcDef = calculationDao.findLastByItemAndType(item, CalculationEnum.DEF);		
+        CalculationEntity calcDef = calculationDao.findLastBySoftwareAndItemAndType(software, item, CalculationEnum.DEF);		
         lineModelDefects = initCategoryModel(collectList, calcDef);
         lineModelDefects.setTitle("Nonconformities Graph");
         lineModelDefects.setLegendPosition("s");
@@ -149,6 +165,14 @@ public class GraphMB {
          
         return model;
     }
+    
+    public SoftwareEntity getSoftware() {
+		return software;
+	}
+    
+    public void setSoftware(SoftwareEntity software) {
+		this.software = software;
+	}
     
     public ItemEntity getItem() {
 		return item;

@@ -29,6 +29,10 @@ public abstract class Collect implements Serializable {
 	private Date start_date;
 	
 	@ManyToOne
+	@JoinColumn(name = "software", nullable = false)
+	private SoftwareEntity software;
+	
+	@ManyToOne
 	@JoinColumn(name = "item", nullable = false)
 	private ItemEntity item;
 	
@@ -39,9 +43,10 @@ public abstract class Collect implements Serializable {
 		super();
 	}
 
-	public Collect(Date start_date, Integer amount, ItemEntity item, BigDecimal value) {
+	public Collect(Date start_date, Integer amount, ItemEntity item, SoftwareEntity software, BigDecimal value) {
 		this.start_date = start_date;
 		this.item = item;
+		this.software = software;
 		this.value = value;
 	}
 
@@ -68,6 +73,14 @@ public abstract class Collect implements Serializable {
 	public void setItem(ItemEntity item) {
 		this.item = item;
 	}
+	
+	public SoftwareEntity getSoftware() {
+		return software;
+	}
+	
+	public void setSoftware(SoftwareEntity software) {
+		this.software = software;
+	}
 
 	public BigDecimal getValue() {
 		return value;
@@ -75,6 +88,32 @@ public abstract class Collect implements Serializable {
 	
 	public void setValue(BigDecimal value) {
 		this.value = value;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		
+		if (obj == null) {
+			return false;
+		}
+		
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		
+		Collect other = (Collect) obj;
+		if (id == null) {
+			if (other.id != null) {
+				return false;
+			}
+		} else if (!id.equals(other.id)) {
+			return false;
+		}
+		
+		return true;
 	}
 
 }

@@ -6,15 +6,23 @@
 	<ui:define name="body">
 		<h:form prependId="false">			
 			<p:fieldset legend="#{messages['item.label']}" toggleable="true" toggleSpeed="500">
-				<h:panelGrid id="fieldsuser" columns="3" >					
-					<h:outputLabel value="#{messages['item.label']}: " for="item_report" styleClass="text-input" />					
-					<p:selectOneMenu id="item_report" effect="fade" value="#{graphMB.item}" converter="ConversorItem" required="true" requiredMessage="Item is required">
+				<h:panelGrid id="fieldsuser" columns="3" >		
+					<h:outputLabel value="#{messages['software.label']}: " for="software" styleClass="text-input" />
+				    <p:selectOneMenu id="software" value="#{graphMB.software}" effect="fade" converter="ConversorSoftware" required="true" requiredMessage="Software is required">
+						<f:ajax render="item"/>
 						<f:selectItem itemLabel="Select One" itemValue="" />
-	            		<f:selectItems value="#{graphMB.items}" var="item" itemLabel="#{item.id} - #{item.description}" itemValue="#{item}" />
-					</p:selectOneMenu>								
-					<p:message for="item_report" />
-												
-					<p:commandButton value="#{messages['report.graph.submit']}" actionListener="#{graphMB.submit()}" ajax="false" update="graph_xi,graph_mmep,graph_def" />
+						<f:selectItems value="#{graphMB.softwareEntityList}" var="varSoftwareEntity" itemLabel="#{varSoftwareEntity.id} - #{varSoftwareEntity.description}" itemValue="#{varSoftwareEntity}" />						
+					</p:selectOneMenu>
+					<p:message for="software" />								  
+								 
+					<h:outputLabel value="#{messages['item.label']}: " for="item" styleClass="text-input" />
+				    <p:selectOneMenu id="item" value="#{graphMB.item}" effect="fade" converter="ConversorItem" required="true" requiredMessage="Item is required">
+						<f:selectItem itemLabel="Select One" itemValue="" />
+						<f:selectItems value="#{graphMB.itemEntityList}" var="varItemEntity" itemLabel="#{varItemEntity.id} - #{varItemEntity.description}" itemValue="#{varItemEntity}" />						
+					</p:selectOneMenu>
+					<p:message for="item" />	
+								
+					<p:commandButton value="#{messages['report.graph.submit']}" actionListener="#{graphMB.submit()}" ajax="false" update="graph_xi,graph_mmep,graph_def" />												
 				</h:panelGrid>
 			</p:fieldset>
 			

@@ -39,6 +39,10 @@ public abstract class Calculation implements Serializable {
 	private CalculationEnum type;
 	
 	@ManyToOne
+	@JoinColumn(name = "software", nullable = false)
+	private SoftwareEntity software;
+	
+	@ManyToOne
 	@JoinColumn(name = "item", nullable = false)
 	private ItemEntity item;
 	
@@ -46,11 +50,12 @@ public abstract class Calculation implements Serializable {
 		super();
 	}
 
-	public Calculation(BigDecimal ucl, BigDecimal cl, BigDecimal lcl, CalculationEnum type, ItemEntity item) {
+	public Calculation(BigDecimal ucl, BigDecimal cl, BigDecimal lcl, CalculationEnum type, SoftwareEntity software, ItemEntity item) {
 		this.ucl = ucl;
 		this.cl = cl;
 		this.lcl = lcl;
 		this.type = type;
+		this.software = software;
 		this.item = item;
 	}
 
@@ -93,6 +98,14 @@ public abstract class Calculation implements Serializable {
 	public void setType(CalculationEnum type) {
 		this.type = type;
 	}
+	
+	public SoftwareEntity getSoftware() {
+		return software;
+	}
+	
+	public void setSoftware(SoftwareEntity software) {
+		this.software = software;
+	}
 
 	public ItemEntity getItem() {
 		return item;
@@ -100,6 +113,32 @@ public abstract class Calculation implements Serializable {
 	
 	public void setItem(ItemEntity item) {
 		this.item = item;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		
+		if (obj == null) {
+			return false;
+		}
+		
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		
+		Calculation other = (Calculation) obj;
+		if (id == null) {
+			if (other.id != null) {
+				return false;
+			}
+		} else if (!id.equals(other.id)) {
+			return false;
+		}
+		
+		return true;
 	}
 
 }

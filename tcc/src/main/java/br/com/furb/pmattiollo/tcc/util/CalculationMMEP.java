@@ -7,7 +7,7 @@ import br.com.furb.pmattiollo.tcc.constant.CalculationEnum;
 import br.com.furb.pmattiollo.tcc.domain.CollectEntity;
 import br.com.furb.pmattiollo.tcc.domain.ItemEntity;
 
-public class CalculationMMEP implements Calculation {
+public class CalculationMMEP extends CalculationAbstract {
 	
 	private static final double Y = 0.8;
 	private List<CollectEntity> collectList;
@@ -28,24 +28,36 @@ public class CalculationMMEP implements Calculation {
 	}
 
 	@Override
-	public BigDecimal getUclResult() {		 
-		BigDecimal u0 = getU0();
-		BigDecimal staDev = new BigDecimal(getStandardDeviation(collectList));
+	public BigDecimal getUclResult() {
+		if(ucl == null) {			
+			BigDecimal u0 = getU0();
+			BigDecimal staDev = new BigDecimal(getStandardDeviation(collectList));
+			
+			ucl = u0.add(new BigDecimal(SIGMA).multiply(staDev.multiply(new BigDecimal(Math.sqrt(Y / (2 / Y))))));
+		}
 		
-		return u0.add(new BigDecimal(SIGMA).multiply(staDev.multiply(new BigDecimal(Math.sqrt(Y / (2 / Y))))));
+		return ucl;
 	}
 
 	@Override
-	public BigDecimal getClResult() {		
-		return getU0();
+	public BigDecimal getClResult() {
+		if(cl == null) {
+			cl = getU0();
+		}
+		
+		return cl;
 	}
 
 	@Override
-	public BigDecimal getLclResult() {		 
-		BigDecimal u0 = getU0();
-		BigDecimal staDev = new BigDecimal(getStandardDeviation(collectList));
+	public BigDecimal getLclResult() {
+		if(lcl == null) {			
+			BigDecimal u0 = getU0();
+			BigDecimal staDev = new BigDecimal(getStandardDeviation(collectList));
+			
+			lcl = u0.subtract(new BigDecimal(SIGMA).multiply(staDev.multiply(new BigDecimal(Math.sqrt(Y / (2 / Y))))));
+		}
 		
-		return u0.subtract(new BigDecimal(SIGMA).multiply(staDev.multiply(new BigDecimal(Math.sqrt(Y / (2 / Y))))));
+		return lcl;
 	}
 	
 	private BigDecimal getU0() {

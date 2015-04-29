@@ -39,7 +39,7 @@
 					
 					<h:outputLabel value="#{messages['item.label.process']}: " for="process" styleClass="text-input" />
 				    <p:selectOneMenu id="process" value="#{itemEditMB.bean.process}" effect="fade" converter="ConversorProcess">
-						<f:selectItem itemLabel="Selecione" itemValue="" />
+						<f:selectItem itemLabel="Select One" itemValue="" />
 						<f:selectItems value="#{itemEditMB.processEntityList}" var="varProcessEntity" itemLabel="#{varProcessEntity.id} - #{varProcessEntity.description}"  itemValue="#{varProcessEntity}" />						
 					</p:selectOneMenu>
 					<p:message for="process" />						

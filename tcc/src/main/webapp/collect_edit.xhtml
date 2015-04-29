@@ -32,12 +32,20 @@
 					   locale="#{locales.currentLocale}" title="#{messages['collect.alt.start_date']}" />							 
 					<p:message for="start_date" />
 						
-					<h:outputLabel value="#{messages['item.label']}: " for="item" styleClass="text-input" />
-				    <p:selectOneMenu id="item" value="#{collectEditMB.bean.item}"  effect="fade" converter="ConversorItem">
-						<f:selectItem itemLabel="Selecione" itemValue="" />
-						<f:selectItems value="#{collectEditMB.itemEntityList}" var="varItemEntity" itemLabel="#{varItemEntity.id} - #{varItemEntity.description}"  itemValue="#{varItemEntity}" />						
+					<h:outputLabel value="#{messages['collect.label.software']}: " for="software" styleClass="text-input" />
+				    <p:selectOneMenu id="software" value="#{collectEditMB.bean.software}" effect="fade" converter="ConversorSoftware">
+						<f:ajax event="change" render="item" />
+						<f:selectItem itemLabel="Select One" itemValue="" />
+						<f:selectItems value="#{collectEditMB.softwareEntityList}" var="varSoftwareEntity" itemLabel="#{varSoftwareEntity.id} - #{varSoftwareEntity.description}" itemValue="#{varSoftwareEntity}" />						
 					</p:selectOneMenu>
-					<p:message for="item" />								  
+					<p:message for="software" />								  
+								 
+					<h:outputLabel id="item_out" value="#{messages['collect.label.item']}: " for="item" styleClass="text-input" />
+				    <p:selectOneMenu id="item" value="#{collectEditMB.bean.item}" effect="fade" converter="ConversorItem">
+						<f:selectItem itemLabel="Select One" itemValue="" />
+						<f:selectItems value="#{collectEditMB.itemEntityList}" var="varItemEntity" itemLabel="#{varItemEntity.id} - #{varItemEntity.description}" itemValue="#{varItemEntity}" />						
+					</p:selectOneMenu>
+					<p:message id="item_msg" for="item" />								  
 								 
 					<h:outputLabel value="#{messages['collect.label.value']}: " for="value" styleClass="text-input" />					
 					<h:inputText id="value" value="#{collectEditMB.bean.value}" title="#{messages['collect.alt.value']}" />					

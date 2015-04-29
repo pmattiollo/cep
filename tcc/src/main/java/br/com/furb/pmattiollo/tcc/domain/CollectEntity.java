@@ -9,6 +9,7 @@ import javax.persistence.Table;
 @Table(name = "collect")
 @NamedQueries({
     @NamedQuery(name="CollectEntity.findById", query="SELECT obj FROM CollectEntity obj WHERE obj.id = :id"),
+    @NamedQuery(name="CollectEntity.findAllBySoftwareAndItem", query="SELECT obj FROM CollectEntity obj WHERE obj.software = :software AND obj.item = :item ORDER BY obj.id ASC"),
     @NamedQuery(name="CollectEntity.findAllByItem", query="SELECT obj FROM CollectEntity obj WHERE obj.item = :item ORDER BY obj.id ASC"),
     @NamedQuery(name="CollectEntity.findAll", query="SELECT obj FROM CollectEntity obj ORDER BY obj.id"),
 })
