@@ -29,11 +29,12 @@
 					<h:outputLabel value="#{messages['collect.label.start_date']}: " for="start_date" styleClass="text-input" />					
 					<p:calendar id="start_date" value="#{collectEditMB.bean.start_date}"
 					   pattern="#{messages['label.date.pattern']}" navigator="true" showButtonPanel="true"
-					   locale="#{locales.currentLocale}" title="#{messages['collect.alt.start_date']}" />							 
+					   locale="#{locales.currentLocale}" title="#{messages['collect.alt.start_date']}" 
+					   required="true" requiredMessage="#{messages['collect.mandatory.start_date']}" />							 
 					<p:message for="start_date" />
 						
 					<h:outputLabel value="#{messages['collect.label.software']}: " for="software" styleClass="text-input" />
-				    <p:selectOneMenu id="software" value="#{collectEditMB.bean.software}" effect="fade" converter="ConversorSoftware">
+				    <p:selectOneMenu id="software" value="#{collectEditMB.bean.software}" effect="fade" converter="ConversorSoftware" required="true" requiredMessage="#{messages['collect.mandatory.software']}">
 						<f:ajax event="change" render="item" />
 						<f:selectItem itemLabel="Select One" itemValue="" />
 						<f:selectItems value="#{collectEditMB.softwareEntityList}" var="varSoftwareEntity" itemLabel="#{varSoftwareEntity.id} - #{varSoftwareEntity.description}" itemValue="#{varSoftwareEntity}" />						
@@ -41,14 +42,14 @@
 					<p:message for="software" />								  
 								 
 					<h:outputLabel id="item_out" value="#{messages['collect.label.item']}: " for="item" styleClass="text-input" />
-				    <p:selectOneMenu id="item" value="#{collectEditMB.bean.item}" effect="fade" converter="ConversorItem">
+				    <p:selectOneMenu id="item" value="#{collectEditMB.bean.item}" effect="fade" converter="ConversorItem" required="true" requiredMessage="#{messages['collect.mandatory.item']}">
 						<f:selectItem itemLabel="Select One" itemValue="" />
 						<f:selectItems value="#{collectEditMB.itemEntityList}" var="varItemEntity" itemLabel="#{varItemEntity.id} - #{varItemEntity.description}" itemValue="#{varItemEntity}" />						
 					</p:selectOneMenu>
 					<p:message id="item_msg" for="item" />								  
 								 
 					<h:outputLabel value="#{messages['collect.label.value']}: " for="value" styleClass="text-input" />					
-					<h:inputText id="value" value="#{collectEditMB.bean.value}" title="#{messages['collect.alt.value']}" />					
+					<h:inputText id="value" value="#{collectEditMB.bean.value}" title="#{messages['collect.alt.value']}" required="true" requiredMessage="#{messages['collect.mandatory.value']}" />					
 					<p:message for="value" />
 						
 				</h:panelGrid>

@@ -4,11 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- * 
- * @author Marcelo Avancini
- *
- */
 public class ConnectorFactory {
 
 	private String url;
@@ -29,45 +24,35 @@ public class ConnectorFactory {
 		return INSTANCE;
 	}
 	
-	/**
-	 * 
-	 * @return
-	 */
-	public synchronized Connection getConexao() throws SQLException {
-		
+	public synchronized Connection getConnection() throws SQLException {		
 		try {
 	        Class.forName("com.mysql.jdbc.Driver");
 	    } catch (ClassNotFoundException e) {
 	        e.printStackTrace();
-	    } 
+	    }
+		
 		loadParameters();
+		
 		return DriverManager.getConnection(url, user, passwd);
 	}
 	
-	/**
-	 * Retorna conexao de acordo com parametros enviados
-	 * 
-	 * @return
-	 */
-	public synchronized Connection getConexao(String url, String user, String passwd) throws SQLException {
-		
+	public synchronized Connection getConnection(String url, String user, String passwd) throws SQLException {		
 		try {
 	        Class.forName("com.mysql.jdbc.Driver");
 	    } catch (ClassNotFoundException e) {
 	        e.printStackTrace();
-	    } 
+	    }
+		
 		loadParameters();
+		
 		return DriverManager.getConnection(url, user, passwd);
 	}
 	
-	/**
-	 * Carrega os parametros necessários para a conexão
-	 */
 	private void loadParameters() {
-		url =  gerarUrl(host, port, base); 
+		url =  getUrl(host, port, base); 
 	}
 	
-	private String gerarUrl(String host, String port, String base) {
+	private String getUrl(String host, String port, String base) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("jdbc:mysql://");
 		sb.append(host).append(":");

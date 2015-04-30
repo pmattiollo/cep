@@ -18,7 +18,7 @@ public abstract class Process implements Serializable {
 	@Column(name = "process_id")
 	private Long id;
 	
-	@Column(name = "description", nullable = false, length = 100)
+	@Column(name = "description", nullable = false, length = 100, unique = true)
 	private String description;
 	
 	public Process() {

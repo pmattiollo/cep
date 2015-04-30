@@ -24,7 +24,7 @@ public abstract class Software implements Serializable {
 	@Column(name = "software_id")
 	private Long id;
 	
-	@Column(name = "description", nullable = false, length = 100)
+	@Column(name = "description", nullable = false, length = 100, unique = true)
 	private String description;
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)

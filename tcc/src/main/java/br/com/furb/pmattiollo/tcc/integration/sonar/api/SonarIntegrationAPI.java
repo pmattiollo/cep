@@ -1,14 +1,34 @@
 package br.com.furb.pmattiollo.tcc.integration.sonar.api;
 
-import java.util.List;
-
-import br.com.furb.pmattiollo.tcc.domain.ItemEntity;
-import br.com.furb.pmattiollo.tcc.domain.SoftwareEntity;
 
 public interface SonarIntegrationAPI {
 	
-	public List<SoftwareEntity> getAllSoftwares();
+	public static final String QUALIFIER = "TRK";
 	
-	public List<ItemEntity> getItemsByProjectId(Integer projectId);
+	public static final String DOMAIN_TEST = "Tests";
+	
+	public static final String DOMAIN_SIZE = "Size";
+	
+	public static final String DOMAIN_DOCUMENTATION = "Documentation";
+	
+	public static final String PROCESS_TEST = "Tests";
+	
+	public static final String PROCESS_DEVELOPMENT = "Development";
+	
+	public static final String PROCESS_DOCUMENTATION = "Documentation";
+	
+	public void execute();
+	
+	public void insertProcessPhases();
+	
+	public void insertSoftwares();
+	
+	public void insertItems();
+	
+	public void insertCollects();
+	
+	public void loadSoftwares();
+	
+	public void loadItemsBySoftware(Integer projectId);
 	
 }

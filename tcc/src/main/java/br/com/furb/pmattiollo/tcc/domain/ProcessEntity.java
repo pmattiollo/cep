@@ -8,7 +8,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "process")
 @NamedQueries({
-    @NamedQuery(name="ProcessEntity.findById", query="SELECT obj FROM ProcessEntity obj WHERE obj.id = :id"),				
+    @NamedQuery(name="ProcessEntity.findById", query="SELECT obj FROM ProcessEntity obj WHERE obj.id = :id"),
+    @NamedQuery(name="ProcessEntity.findByDescription", query="SELECT obj FROM ProcessEntity obj WHERE obj.description = :description"),
 })
 public class ProcessEntity extends Process {
 

@@ -27,7 +27,7 @@
 					<p:message for="id" />
 						
 					<h:outputLabel value="#{messages['software.label.description']}: " for="description" styleClass="text-input" />					
-					<h:inputText id="description" value="#{softwareEditMB.bean.description}" title="#{messages['software.alt.description']}" />					
+					<h:inputText id="description" value="#{softwareEditMB.bean.description}" title="#{messages['software.alt.description']}" required="true" requiredMessage="#{messages['software.mandatory.description']}" />					
 					<p:message for="description" />
 						
 				</h:panelGrid>
@@ -38,7 +38,8 @@
 					var="varItemEntity" effect="bounce" itemValue="#{varItemEntity}"
 					itemLabel="#{varItemEntity.id} - #{varItemEntity.description}" converter="ConversorItem"
 					showSourceControls="true" showTargetControls="true" showCheckbox="true"
-					showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" immediate="true">
+					showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" immediate="true"
+					required="true" requiredMessage="#{messages['software.mandatory.items']}">
 					<f:facet name="sourceCaption">"#{messages['item.label']}"</f:facet>
 					<f:facet name="targetCaption"> #{messages['item.label']} "of" #{messages['software.label']} </f:facet>
 					<p:ajax  event="transfer" listener="#{softwareEditMB.onTransfer}" update="pickListItemEntity" />

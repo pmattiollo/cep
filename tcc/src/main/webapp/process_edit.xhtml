@@ -27,7 +27,7 @@
 					<p:message for="id" />
 						
 					<h:outputLabel value="#{messages['process.label.description']}: " for="description" styleClass="text-input" />					
-					<h:inputText id="description" value="#{processEditMB.bean.description}" title="#{messages['process.alt.description']}" />
+					<h:inputText id="description" value="#{processEditMB.bean.description}" title="#{messages['process.alt.description']}" required="true" requiredMessage="#{messages['process.mandatory.description']}" />
 					<p:message for="description" />
 						
 				</h:panelGrid>
