@@ -27,6 +27,8 @@ public interface SonarIntegrationAPI {
 	
 	public void insertCollects();
 	
+	public void loadCollects(Integer projectId);
+	
 	public void loadSoftwares();
 	
 	public void loadItemsBySoftware(Integer projectId);

@@ -9,6 +9,7 @@ import javax.persistence.Table;
 @Table(name = "item")
 @NamedQueries({
     @NamedQuery(name="ItemEntity.findById", query="SELECT obj FROM ItemEntity obj WHERE obj.id = :id"),
+    @NamedQuery(name="ItemEntity.findByDescription", query="SELECT obj FROM ItemEntity obj WHERE obj.description = :description"),
 })
 public class ItemEntity extends Item {
 

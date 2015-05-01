@@ -4,6 +4,7 @@ public class SonarItem {
 	
 	private int id;
 	private String name;
+	private String domain;
 	
 	public int getId() {
 		return id;
@@ -21,4 +22,11 @@ public class SonarItem {
 		this.name = name;
 	}
 
+	public String getDomain() {
+		return domain;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
+	}
 }
