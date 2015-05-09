@@ -9,6 +9,7 @@
 				<p:toolbarGroup align="left">
 					<p:commandButton title="#{messages['button.new']}" icon="ui-icon-document" action="#{itemListMB.getNextView}" actionListener="#{itemListMB.clear}" ajax="false" />
 					<p:commandButton title="#{messages['button.delete']}" icon="ui-icon-trash" action="#{itemListMB.deleteSelection}" actionListener="#{itemListMB.clear}" ajax="false" />
+					<p:commandButton value="#{messages['integration.label.action']}" icon="ui-icon-document" actionListener="#{itemListMB.integrate()}" ajax="false" />
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:dataTable id="item_tb" var="bean" value="#{itemListMB.resultList}" rows="10" paginatorPosition="top" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" paginator="true">
@@ -69,6 +70,7 @@
 		    </h:commandLink>
 		    
 		</h:form>
+		
 
 	</ui:define>
 </ui:composition>

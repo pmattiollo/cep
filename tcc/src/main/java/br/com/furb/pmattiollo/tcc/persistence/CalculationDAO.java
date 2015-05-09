@@ -15,7 +15,18 @@ public class CalculationDAO extends JPACrud<CalculationEntity, Long>{
 	private static final long serialVersionUID = 1L;
 	
 	public CalculationEntity findById(Long id) throws Exception{
-		return (CalculationEntity) getEntityManager().createNamedQuery("CalculationEntity.findById").setParameter("id", id).getSingleResult();
+		Query query = getEntityManager().createNamedQuery("CalculationEntity.findById");
+		query.setParameter("id", id);
+		
+		CalculationEntity calculation = null;
+		
+		try {
+			calculation = (CalculationEntity) query.getSingleResult();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return calculation;
 	}
 	
 	public CalculationEntity findLastBySoftwareAndItemAndType(SoftwareEntity software, ItemEntity item, CalculationEnum type) {
@@ -25,7 +36,15 @@ public class CalculationDAO extends JPACrud<CalculationEntity, Long>{
 		query.setParameter("type", type);
 		query.setMaxResults(1);
 		
-		return (CalculationEntity) query.getSingleResult();
+		CalculationEntity calculation = null;
+		
+		try {
+			calculation = (CalculationEntity) query.getSingleResult();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return calculation;
 	}
 
 }

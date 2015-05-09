@@ -26,6 +26,7 @@ import com.lowagie.text.Paragraph;
 
 import br.com.furb.pmattiollo.tcc.business.ItemBC;
 import br.com.furb.pmattiollo.tcc.domain.ItemEntity;
+import br.com.furb.pmattiollo.tcc.integration.sonar.SonarIntegration;
 import br.gov.frameworkdemoiselle.annotation.NextView;
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
@@ -103,6 +104,11 @@ public class ItemListMB extends AbstractListPageBean<ItemEntity, Long> {
 		pdf.add(i);
 		pdf.add(p1);
 		pdf.add(p2);
+	}
+	
+	public void integrate() {
+		SonarIntegration integration = new SonarIntegration();
+		integration.execute();
 	}
 
 }

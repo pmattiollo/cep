@@ -19,7 +19,15 @@ public class ProcessDAO extends JPACrud<ProcessEntity, Long> {
 		Query query = getEntityManager().createNamedQuery("ProcessEntity.findByDescription");
 		query.setParameter("description", description);
 		
-		return (ProcessEntity) query.getSingleResult();
+		ProcessEntity process = null;
+		
+		try {
+			process = (ProcessEntity) query.getSingleResult();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return process;
 	}
 
 }

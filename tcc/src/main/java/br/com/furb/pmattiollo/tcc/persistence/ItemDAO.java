@@ -15,6 +15,14 @@ public class ItemDAO extends JPACrud<ItemEntity, Long> {
 		Query query = getEntityManager().createNamedQuery("ItemEntity.findByDescription");
 		query.setParameter("description", description);
 		
-		return (ItemEntity) query.getSingleResult();
+		ItemEntity item = null;
+		
+		try {
+			item = (ItemEntity) query.getSingleResult();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return item;
 	}
 }

@@ -15,6 +15,14 @@ public class SoftwareDAO extends JPACrud<SoftwareEntity, Long> {
 		Query query = getEntityManager().createNamedQuery("SoftwareEntity.findByDescription");
 		query.setParameter("description", description);
 		
-		return (SoftwareEntity) query.getSingleResult();
+		SoftwareEntity software = null;
+		
+		try {
+			software = (SoftwareEntity) query.getSingleResult();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return software;
 	}
 }
