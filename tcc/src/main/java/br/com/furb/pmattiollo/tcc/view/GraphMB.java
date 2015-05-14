@@ -29,7 +29,7 @@ import br.com.furb.pmattiollo.tcc.persistence.CollectDAO;
 public class GraphMB {
     
     @Inject
-	private GraphBC reportBC;
+	private GraphBC graphBC;
     
     @Inject
 	private SoftwareBC softwareEntityBC;
@@ -60,8 +60,8 @@ public class GraphMB {
     
     public void submit() {
     	if(software != null && item != null) {
-			reportBC.generateCalcs(software, item);
-			reportBC.classificate(item);
+			graphBC.generateCalcs(software, item);
+			graphBC.classificate(item);
 			generateGraphs();
 		}
     }

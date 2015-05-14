@@ -25,8 +25,8 @@ import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 
 import br.com.furb.pmattiollo.tcc.business.ItemBC;
+import br.com.furb.pmattiollo.tcc.business.SonarIntegrationBC;
 import br.com.furb.pmattiollo.tcc.domain.ItemEntity;
-import br.com.furb.pmattiollo.tcc.integration.sonar.SonarIntegration;
 import br.gov.frameworkdemoiselle.annotation.NextView;
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
@@ -42,6 +42,9 @@ public class ItemListMB extends AbstractListPageBean<ItemEntity, Long> {
 
 	@Inject
 	private ItemBC itemBC;
+	
+	@Inject
+	private SonarIntegrationBC sonarIntegration;
 	
 	@Override
 	protected List<ItemEntity> handleResultList() {
@@ -107,8 +110,7 @@ public class ItemListMB extends AbstractListPageBean<ItemEntity, Long> {
 	}
 	
 	public void integrate() {
-		SonarIntegration integration = new SonarIntegration();
-		integration.execute();
+		sonarIntegration.execute();
 	}
 
 }

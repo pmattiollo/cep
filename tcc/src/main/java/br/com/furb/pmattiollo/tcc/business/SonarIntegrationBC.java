@@ -1,4 +1,4 @@
-package br.com.furb.pmattiollo.tcc.integration.sonar;
+package br.com.furb.pmattiollo.tcc.business;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,10 +9,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import br.com.furb.pmattiollo.tcc.business.CollectBC;
-import br.com.furb.pmattiollo.tcc.business.ItemBC;
-import br.com.furb.pmattiollo.tcc.business.ProcessBC;
-import br.com.furb.pmattiollo.tcc.business.SoftwareBC;
 import br.com.furb.pmattiollo.tcc.domain.CollectEntity;
 import br.com.furb.pmattiollo.tcc.domain.ItemEntity;
 import br.com.furb.pmattiollo.tcc.domain.ProcessEntity;
@@ -25,8 +21,10 @@ import br.com.furb.pmattiollo.tcc.integration.sonar.beans.SonarSoftware;
 import br.com.furb.pmattiollo.tcc.persistence.ItemDAO;
 import br.com.furb.pmattiollo.tcc.persistence.ProcessDAO;
 import br.com.furb.pmattiollo.tcc.persistence.SoftwareDAO;
+import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 
-public class SonarIntegration implements SonarIntegrationAPI {
+@BusinessController
+public class SonarIntegrationBC implements SonarIntegrationAPI {
 	
 	@Inject
 	private ProcessBC processBc;

@@ -83,8 +83,6 @@ public class CatalogoAuthenticator implements Authenticator {
 				case SOFTWARE:
 					mapMeansOperations.put(mean, Arrays.asList(OperationsEnum.LIST));
 					break;
-				case USER:
-					break;
 				default:
 					break;
 				}				
