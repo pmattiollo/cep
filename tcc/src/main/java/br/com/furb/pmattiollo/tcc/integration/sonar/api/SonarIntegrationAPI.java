@@ -1,7 +1,9 @@
 package br.com.furb.pmattiollo.tcc.integration.sonar.api;
 
+import java.io.Serializable;
 
-public interface SonarIntegrationAPI {
+
+public interface SonarIntegrationAPI extends Serializable {
 	
 	public static final String QUALIFIER = "TRK";
 	

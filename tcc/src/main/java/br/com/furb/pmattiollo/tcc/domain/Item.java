@@ -26,10 +26,10 @@ public abstract class Item implements Serializable {
 	@Column(name = "description", nullable = false, length = 100)
 	private String description;
 	
-	@Column(name = "usl", nullable = false)
+	@Column(name = "usl", nullable = true)
 	private BigDecimal usl;
 	
-	@Column(name = "lsl", nullable = false)
+	@Column(name = "lsl", nullable = true)
 	private BigDecimal lsl;
 	
 	@Type(type="true_false")

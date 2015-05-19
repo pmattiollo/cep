@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,8 @@ import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 @BusinessController
 public class SonarIntegrationBC implements SonarIntegrationAPI {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Inject
 	private ProcessBC processBc;
 	
@@ -48,10 +51,19 @@ public class SonarIntegrationBC implements SonarIntegrationAPI {
 	
 	@Override
 	public void execute() {
+		init();
+		
 		insertProcessPhases();
 		insertSoftwares();
 		
 		insertCollects();
+	}
+	
+	private void init() {
+		sonarSoftwares = new ArrayList<SonarSoftware>();
+		sonarItems = new ArrayList<SonarItem>();
+		sonarCollects = new ArrayList<SonarCollect>();
+		itemsInserted = new ArrayList<ItemEntity>();
 	}
 	
 	@Override
@@ -110,15 +122,19 @@ public class SonarIntegrationBC implements SonarIntegrationAPI {
 		ProcessDAO processDao = new ProcessDAO();
 		for (SonarItem sonarItem : sonarItems) {
 			ItemEntity item = itemDao.findByDescription(sonarItem.getName());
-			if (item == null) {
-				item = new ItemEntity();
-				item.setDescription(sonarItem.getName());
-				item.setProcess(processDao.findByDescription(sonarItem.getName()));
-				itemBc.insert(item);
+			ProcessEntity process = processDao.findByDescription(sonarItem.getDomain());
+			if (process != null) {
+				if (item == null) {
+					item = new ItemEntity();
+					item.setDescription(sonarItem.getName());
+					item.setProcess(process);
+					item.setStable(true);
+					item.setAble(true);
+					itemBc.insert(item);
+				}
+				itemsInserted.add(item);
 			}
-			itemsInserted.add(item);
 		}
-		
 	}
 	
 	@Override
@@ -128,16 +144,20 @@ public class SonarIntegrationBC implements SonarIntegrationAPI {
 		
 		for (SonarCollect sonarCollect : sonarCollects) {
 			CollectEntity collect = new CollectEntity();
-			
-			collect.setSoftware(softwareDao.findByDescription(sonarCollect.getSoftwareDesc()));
-			collect.setItem(itemDao.findByDescription(sonarCollect.getItemDesc()));
-			collect.setValue(sonarCollect.getValue());
-			if (sonarCollect.getStartDate() != null) {
-				collect.setStart_date(sonarCollect.getStartDate());
-			} else {
-				collect.setStart_date(new Date());
+			SoftwareEntity software = softwareDao.findByDescription(sonarCollect.getSoftwareDesc());
+			ItemEntity item = itemDao.findByDescription(sonarCollect.getItemDesc()); 
+
+			if (software != null && item != null) {
+				collect.setSoftware(software);
+				collect.setItem(item);
+				collect.setValue(sonarCollect.getValue());
+				if (sonarCollect.getStartDate() != null) {
+					collect.setStart_date(sonarCollect.getStartDate());
+				} else {
+					collect.setStart_date(new Date());
+				}
+				collectBc.insert(collect);
 			}
-			collectBc.insert(collect);
 		}
 	}
 	
@@ -148,7 +168,7 @@ public class SonarIntegrationBC implements SonarIntegrationAPI {
 		PreparedStatement stmt;
 		ResultSet rs;
 		try {
-			stmt = conn.prepareStatement("SELECT id, name FROM projects WHERE root_id IS NULL AND qualifier = ?'");
+			stmt = conn.prepareStatement("SELECT id, name FROM projects WHERE root_id IS NULL AND qualifier = ?");
 			stmt.setString(1, QUALIFIER);
 			
 			rs = stmt.executeQuery();
