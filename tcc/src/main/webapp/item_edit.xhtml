@@ -9,11 +9,7 @@
 				<p:toolbarGroup align="left">
 					<p:commandButton value="#{messages['button.save']}" action="#{itemEditMB.insert}" rendered="#{!itemEditMB.updateMode}" ajax="false" />
 					<p:commandButton value="#{messages['button.save']}" action="#{itemEditMB.update}" rendered="#{itemEditMB.updateMode}" ajax="false" />
-					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()" rendered="#{itemEditMB.updateMode}" immediate="true" ajax="false" />
-					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode" header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
-						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{itemEditMB.delete}" immediate="true" ajax="false" />
-						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
-					</p:confirmDialog>
+					<p:commandButton value="#{messages['button.delete']}" action="#{itemEditMB.delete}" rendered="#{itemEditMB.updateMode}" ajax="false" />
 				</p:toolbarGroup>
 			</p:toolbar>
 
