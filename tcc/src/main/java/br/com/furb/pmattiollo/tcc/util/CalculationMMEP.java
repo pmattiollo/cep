@@ -67,10 +67,22 @@ public class CalculationMMEP extends CalculationAbstract {
 		return item.getLsl().add(average);
 	}
 	
+	/**
+	 * Obtém o desvio padrão amostral dos valores das coletas
+	 * 
+	 * @param collects
+	 * @return
+	 */
 	private double getStandardDeviation(List<CollectEntity> collects) {
 		return Math.sqrt(getVariancy(collects).doubleValue());
 	}
 	
+	/**
+	 * Obtém a variância amostral dos valores das coletas
+	 * 
+	 * @param collects
+	 * @return
+	 */
 	public BigDecimal getVariancy(List<CollectEntity> collects) {		
 		BigDecimal p1 = new BigDecimal(1 / Double.valueOf(collects.size() - 1));		
 		BigDecimal p2 = getSumOfSquared(collects).subtract(getSum(collects).pow(2).divide(new BigDecimal(collects.size()), SCALE, ROUND));

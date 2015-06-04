@@ -8,8 +8,6 @@ import br.com.furb.pmattiollo.tcc.domain.CollectEntity;
 
 public class CalculationDefects extends CalculationAbstract {
 	
-	private static final int SAMPLE_SIZE = 1;
-	
 	private List<CollectEntity> collectList;
 	
 	public CalculationDefects(List<CollectEntity> collectList) {
@@ -35,8 +33,8 @@ public class CalculationDefects extends CalculationAbstract {
 				sumDefects = sumDefects.add(collect.getValue());
 			}
 			
-			average = sumDefects.divide(new BigDecimal(collectList.size() * SAMPLE_SIZE), SCALE, ROUND);		
-			BigDecimal sqrtValue = new BigDecimal(Math.sqrt(average.divide(new BigDecimal(collectList.size()), SCALE, ROUND).doubleValue()));		
+			average = sumDefects.divide(new BigDecimal(collectList.size()), SCALE, ROUND);		
+			BigDecimal sqrtValue = new BigDecimal(Math.sqrt(average.doubleValue()));		
 			
 			ucl = average.add(new BigDecimal(SIGMA).multiply(sqrtValue));
 		}
@@ -53,7 +51,7 @@ public class CalculationDefects extends CalculationAbstract {
 				sumDefects = sumDefects.add(collect.getValue());
 			}
 			
-			return sumDefects.divide(new BigDecimal(collectList.size() * SAMPLE_SIZE), SCALE, ROUND);
+			return sumDefects.divide(new BigDecimal(collectList.size()), SCALE, ROUND);
 		}
 		
 		return cl;
@@ -69,8 +67,8 @@ public class CalculationDefects extends CalculationAbstract {
 				sumDefects = sumDefects.add(collect.getValue());
 			}
 			
-			average = sumDefects.divide(new BigDecimal(collectList.size() * SAMPLE_SIZE), SCALE, ROUND);		
-			BigDecimal sqrtValue = new BigDecimal(Math.sqrt(average.divide(new BigDecimal(collectList.size()), SCALE, ROUND).doubleValue()));		
+			average = sumDefects.divide(new BigDecimal(collectList.size()), SCALE, ROUND);		
+			BigDecimal sqrtValue = new BigDecimal(Math.sqrt(average.doubleValue()));		
 			
 			lcl = average.subtract(new BigDecimal(SIGMA).multiply(sqrtValue));
 		}

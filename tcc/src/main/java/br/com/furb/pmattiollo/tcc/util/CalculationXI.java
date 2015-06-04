@@ -32,6 +32,7 @@ public class CalculationXI extends CalculationAbstract {
 			BigDecimal previousAverage = new BigDecimal(0.0);
 			BigDecimal currentAverage = new BigDecimal(0.0);
 			BigDecimal sumMobileAverage = new BigDecimal(0.0);
+			BigDecimal divisor = new BigDecimal(0.0);
 			
 			int count = 0;
 			
@@ -49,8 +50,15 @@ public class CalculationXI extends CalculationAbstract {
 				count ++;
 			}
 			
+			if(collectList.size() > 1) {
+				divisor = new BigDecimal(collectList.size() - 1);
+			} else {
+				divisor = new BigDecimal(collectList.size());
+			}
+			
+			
 			sumAverage = sumAverage.divide(new BigDecimal(collectList.size()), SCALE, ROUND);
-			sumMobileAverage = sumMobileAverage.divide(new BigDecimal(collectList.size()), SCALE, ROUND);
+			sumMobileAverage = sumMobileAverage.divide(divisor, SCALE, ROUND);
 			
 			ucl = sumAverage.add(new BigDecimal(SIGMA).multiply(sumMobileAverage.divide(new BigDecimal(D2), SCALE, ROUND)));
 		}
@@ -80,6 +88,7 @@ public class CalculationXI extends CalculationAbstract {
 			BigDecimal previousAverage = new BigDecimal(0.0);
 			BigDecimal currentAverage = new BigDecimal(0.0);
 			BigDecimal sumMobileAverage = new BigDecimal(0.0);
+			BigDecimal divisor = new BigDecimal(0.0);
 			
 			int count = 0;
 			
@@ -97,8 +106,14 @@ public class CalculationXI extends CalculationAbstract {
 				count ++;
 			}
 			
+			if(collectList.size() > 1) {
+				divisor = new BigDecimal(collectList.size() - 1);
+			} else {
+				divisor = new BigDecimal(collectList.size());
+			}
+			
 			sumAverage = sumAverage.divide(new BigDecimal(collectList.size()), SCALE, ROUND);
-			sumMobileAverage = sumMobileAverage.divide(new BigDecimal(collectList.size()), SCALE, ROUND);
+			sumMobileAverage = sumMobileAverage.divide(divisor, SCALE, ROUND);
 			
 			lcl = sumAverage.subtract(new BigDecimal(SIGMA).multiply(sumMobileAverage.divide(new BigDecimal(D2), SCALE, ROUND)));			
 		}
