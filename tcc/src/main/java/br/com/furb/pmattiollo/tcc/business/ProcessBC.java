@@ -10,5 +10,10 @@ import br.gov.frameworkdemoiselle.template.DelegateCrud;
 public class ProcessBC extends DelegateCrud<ProcessEntity, Long, ProcessDAO> {
 	private static final long serialVersionUID = 1L;
 	
+	@Override
+	public void delete(Long id) {
+		ProcessDAO dao = new ProcessDAO();
+		dao.delete(id);
+	}	
 	
 }

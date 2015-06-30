@@ -3,7 +3,6 @@ package br.com.furb.pmattiollo.tcc.domain;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @MappedSuperclass
 public abstract class Software implements Serializable {
@@ -27,7 +29,8 @@ public abstract class Software implements Serializable {
 	@Column(name = "description", nullable = false, length = 100, unique = true)
 	private String description;
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@ManyToMany(fetch = FetchType.EAGER)
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
 	@JoinTable(name = "software_item", 
 			   joinColumns = {@JoinColumn(name = "software_id", nullable = false, updatable = false)}, 
 			   inverseJoinColumns = {@JoinColumn(name = "item_id", nullable = false, updatable = false)})

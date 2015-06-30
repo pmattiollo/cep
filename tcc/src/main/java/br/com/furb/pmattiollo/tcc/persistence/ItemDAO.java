@@ -25,4 +25,24 @@ public class ItemDAO extends JPACrud<ItemEntity, Long> {
 		
 		return item;
 	}
+	
+	@Override
+	public void delete(Long id) {
+		Query query = getEntityManager().createNamedQuery("CalculationEntity.deleteByItem");
+		query.setParameter("item", id);
+		query.executeUpdate();
+		
+		query = getEntityManager().createNamedQuery("CollectEntity.deleteByItem");
+		query.setParameter("item", id);
+		query.executeUpdate();
+		
+		query = getEntityManager().createNamedQuery("ItemEntity.deleteSoftwareItemByItem");
+		query.setParameter("item", id);
+		query.executeUpdate();
+		
+		query = getEntityManager().createNamedQuery("ItemEntity.deleteById");
+		query.setParameter("id", id);
+		query.executeUpdate();
+	}
+	
 }

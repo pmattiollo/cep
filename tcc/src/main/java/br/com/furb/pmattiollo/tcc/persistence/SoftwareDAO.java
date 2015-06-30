@@ -25,4 +25,24 @@ public class SoftwareDAO extends JPACrud<SoftwareEntity, Long> {
 		
 		return software;
 	}
+	
+	@Override
+	public void delete(Long id) {
+		Query query = getEntityManager().createNamedQuery("CalculationEntity.deleteBySoftware");
+		query.setParameter("software", id);
+		query.executeUpdate();
+		
+		query = getEntityManager().createNamedQuery("CollectEntity.deleteBySoftware");
+		query.setParameter("software", id);
+		query.executeUpdate();
+		
+		query = getEntityManager().createNamedQuery("SoftwareEntity.deleteSoftwareItemBySoftware");
+		query.setParameter("software", id);
+		query.executeUpdate();
+		
+		query = getEntityManager().createNamedQuery("SoftwareEntity.deleteById");
+		query.setParameter("id", id);
+		query.executeUpdate();
+	}
+	
 }

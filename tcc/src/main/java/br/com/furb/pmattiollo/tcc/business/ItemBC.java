@@ -10,5 +10,10 @@ import br.gov.frameworkdemoiselle.template.DelegateCrud;
 public class ItemBC extends DelegateCrud<ItemEntity, Long, ItemDAO> {
 	private static final long serialVersionUID = 1L;
 	
+	@Override
+	public void delete(Long id) {
+		ItemDAO dao = new ItemDAO();
+		dao.delete(id);
+	}
 	
 }
