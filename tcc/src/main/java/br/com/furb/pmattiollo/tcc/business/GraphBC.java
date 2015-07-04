@@ -25,7 +25,7 @@ public class GraphBC {
 	@Inject
 	private ItemBC itemBC;
 	
-	public void generateCalcs(SoftwareEntity software, ItemEntity item) {
+	public void generateCalcsAndCalssificate(SoftwareEntity software, ItemEntity item) {
 		CollectDAO collectDao = new CollectDAO();
 		List<CollectEntity> collectList = collectDao.findAllBySoftwareAndItem(software, item);
 		
@@ -37,20 +37,10 @@ public class GraphBC {
 		
 		Calculation calcDEF = CalculationFactory.getCalculation(CalculationEnum.DEF, collectList, item);
 		insertCalculationEntity(calcDEF, software, item);
-	}
-	
-	public void classificate(ItemEntity item) {
-		CollectDAO collectDao = new CollectDAO();
-		List<CollectEntity> collectList = collectDao.findAllByItem(item);
-		
-		Calculation calcXI = CalculationFactory.getCalculation(CalculationEnum.XI, collectList, item);		
-		Calculation calcMMEP = CalculationFactory.getCalculation(CalculationEnum.MMEP, collectList, item);		
-		Calculation calcDEF = CalculationFactory.getCalculation(CalculationEnum.DEF, collectList, item);
 		
 		Classification classification = new Classification(item, collectList, calcXI, calcMMEP, calcDEF);
 		item.setStable(classification.isStable());
-		item.setAble(classification.isAble());
-		
+		item.setAble(classification.isAble(item.isStable()));		
 		itemBC.update(item);
 	}
 	

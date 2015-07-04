@@ -60,8 +60,7 @@ public class GraphMB {
     
     public void submit() {
     	if(software != null && item != null) {
-			graphBC.generateCalcs(software, item);
-			graphBC.classificate(item);
+			graphBC.generateCalcsAndCalssificate(software, item);
 			generateGraphs();
 		}
     }

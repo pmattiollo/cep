@@ -26,8 +26,8 @@ public class Classification {
 		return stableTest1() && stableTest2() && stableTest3() && stableTest4();
 	}
 	
-	public boolean isAble() {
-		return ableTestByCalc(calcXI) && ableTestByCalc(calcMMEP) && ableTestByCalc(calcDEF);
+	public boolean isAble(boolean isStable) {
+		return isStable && ableTestByCalc(calcXI) && ableTestByCalc(calcMMEP) && ableTestByCalc(calcDEF);
 	}
 	
 	private boolean stableTest1() {
@@ -168,7 +168,7 @@ public class Classification {
 		BigDecimal usl = item.getUsl();
 		BigDecimal lsl = item.getLsl();
 		BigDecimal ucl = calc.getUclResult();
-		BigDecimal lcl = calc.getLclResult();
+		BigDecimal lcl = calc.getLclResult().max(new BigDecimal(0));
 		
 		BigDecimal capacityUser = usl.subtract(lsl);
 		BigDecimal capacityProcess = ucl.subtract(lcl);

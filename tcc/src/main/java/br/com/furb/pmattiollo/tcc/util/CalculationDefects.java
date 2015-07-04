@@ -51,7 +51,7 @@ public class CalculationDefects extends CalculationAbstract {
 				sumDefects = sumDefects.add(collect.getValue());
 			}
 			
-			return sumDefects.divide(new BigDecimal(collectList.size()), SCALE, ROUND);
+			cl = sumDefects.divide(new BigDecimal(collectList.size()), SCALE, ROUND);
 		}
 		
 		return cl;
