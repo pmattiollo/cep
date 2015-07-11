@@ -147,7 +147,7 @@ public class GraphMB {
         int collectCount = 1;
         
         for(CollectEntity collect : collectList) {			
-        	String desc = "C" + collectCount + sdf.format(collect.getStart_date());
+        	String desc = "C" + collectCount + "-" + sdf.format(collect.getStart_date());
         	
         	collectsItem.set(desc, collect.getValue());
 			ucl.set(desc, calc.getUcl());
